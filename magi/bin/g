@@ -1,0 +1,17 @@
+#!/bin/sh
+
+T=$1
+shift
+
+if [ "$T" = "s" -o "$T" = "st" ] ; then
+  echo "======================= BRANCHES ======================="
+  git branch -av
+  git remote -v
+  echo "======================= STASH ======================="
+  git stash show
+  echo "======================= STATUS ======================="
+  git status -s
+  git diff --color --stat
+else
+  git $T "$@"
+fi

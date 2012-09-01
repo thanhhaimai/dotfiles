@@ -1,0 +1,3 @@
+sudo rm /etc/X11/xorg.conf
+sudo ln -s /etc/X11/xorg.conf.single /etc/X11/xorg.conf
+
