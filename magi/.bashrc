@@ -33,7 +33,7 @@ shopt -s histappend       # append to (not overwrite) the history file
 
 # if exists, add ~/bin to PATH
 if [ -d ~/bin ] ; then
-   export PATH=~/bin:$PATH
+    export PATH=~/bin:$PATH
 fi
 # Set Android SDK path
 export PATH=$PATH:/home/mai/android-sdks/platform-tools:/home/mai/android-sdks/tools
@@ -53,7 +53,7 @@ function pwdPath {
         local newPWD=${PWD}
     fi
     local GITBRANCH=$(git branch 2>/dev/null | sed -n 's/^\*\ //p')
-    local GITREPO=$(echo $newPWD | sed -n 's/.*git\([0-9]\).*/\1/p')
+    local GITREPO=$(git remote -v 2>/dev/null | grep '\(push\)' | sed 's/.*\/\(.*\).git.*/\1/')
     echo "[$GITREPO $GITBRANCH] $newPWD"
 }
 
@@ -89,7 +89,7 @@ alias reload='source ~/.bashrc'
 alias cp='cp -i'
 alias mv='mv -i'
 alias hist='history | grep "$1"'
-alias f='find | grep'
+alias o='mate-open'
 
 # Some navigation functions
 function c() {
@@ -99,37 +99,37 @@ function c() {
 # calc - simple calculator
 # usage: calc <equation>
 function calc() {
-  echo "$*" | bc -l;
+    echo "$*" | bc -l;
 }
 # define - fetch word defnition from google
 # usage: define <word>
 define ()
 {
-  echo "TODO(thanhhaimai): need a better way to search google with js enabled instead of lynx";
-  return 1;
-  # "https://www.google.com/#hl=en&q=${1}&tbs=dfn:1&fp=1"
+    echo "TODO(thanhhaimai): need a better way to search google with js enabled instead of lynx";
+    return 1;
+    # "https://www.google.com/#hl=en&q=${1}&tbs=dfn:1&fp=1"
 }
 # extract - smart file extract
 # usage: extract <file name>
 extract () {
- if [ -f $1 ] ; then
-   case $1 in
-     *.tar.bz2)   tar xjf $1   ;;
-     *.tar.gz)    tar xzf $1   ;;
-     *.bz2)       bunzip2 $1   ;;
-     *.rar)       rar x $1     ;;
-     *.gz)        gunzip $1    ;;
-     *.tar)       tar xf $1    ;;
-     *.tbz2)      tar xjf $1   ;;
-     *.tgz)       tar xzf $1   ;;
-     *.zip)       unzip $1     ;;
-     *.Z)         uncompress $1;;
-     *.7z)        7z x $1      ;;
-     *)           echo "'$1' cannot be extracted via extract()" ;;
-   esac
- else
-   echo "'$1' is not a valid file"
- fi
+    if [ -f $1 ] ; then
+        case $1 in
+        *.tar.bz2)   tar xjf $1   ;;
+        *.tar.gz)    tar xzf $1   ;;
+        *.bz2)       bunzip2 $1   ;;
+        *.rar)       rar x $1     ;;
+        *.gz)        gunzip $1    ;;
+        *.tar)       tar xf $1    ;;
+        *.tbz2)      tar xjf $1   ;;
+        *.tgz)       tar xzf $1   ;;
+        *.zip)       unzip $1     ;;
+        *.Z)         uncompress $1;;
+        *.7z)        7z x $1      ;;
+        *)           echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
 }
 # remindme - remind me what is important after a given amount of time
 # usage: remindme <time> <message>
@@ -146,11 +146,30 @@ fi
 
 # Make man command more useful by having it fall back on the help command
 man () {
-  /usr/bin/man $@ || (help $@ 2> /dev/null && help $@ | less)
+    /usr/bin/man $@ || (help $@ 2> /dev/null && help $@ | less)
 }
 
-# Set up autojump
-.  /usr/share/autojump/autojump.sh
+# Set up fasd
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+    fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
+# Set up fasd aliases and autocomplete
+alias v='f -e vim' # quick opening files with vim
+_fasd_bash_hook_cmd_complete v
+
+function j() {
+    fasd_cd -d "$@"
+    ls
+}
+
+function jj() {
+    fasd_cd -d -i "$@"
+    ls
+}
 
 # Start in home folder
 c
