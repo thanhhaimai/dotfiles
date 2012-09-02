@@ -33,9 +33,9 @@ endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
-"if has("autocmd")
-"  filetype plugin indent on
-"endif
+if has("autocmd")
+  filetype plugin indent on
+endif
 
 set expandtab
 set shiftwidth=2
@@ -60,10 +60,11 @@ set smartcase		" Do smart case matching
 set autowrite		" Automatically save before commands like :next and :make
 "set hidden             " Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
+set autoindent
 
 autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
-autocmd! FileType py setlocal shiftwidth=4 tabstop=4
+
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
