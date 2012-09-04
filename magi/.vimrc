@@ -73,30 +73,44 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
-set expandtab
+" Set tab options
 set shiftwidth=2
 set softtabstop=2
+set tabstop=2
+set expandtab
 
 " Disable X server
 set cb="exclude:.*"
 
-" Vim for Curmudgeons
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
+" Set UI
 set ruler
-set showmode
-set showcmd		" Show (partial) command in status line.
-set showmatch		" Show matching brackets.
-set incsearch		" Incremental search
-set hlsearch
-set visualbell
 set number
-"set ignorecase		" Do case insensitive matching
-set smartcase		" Do smart case matching
-set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
+set list " Show special characters (I specified below)
+set listchars=tab:→\ ,trail:·
+"set visualbell
+set showbreak=↪\  " Show at the start of line of a wrapped line
+set showmode
+set showcmd " Show (partial) command in status line.
+set showmatch " Show matching brackets.
+
+" Set search options
+set incsearch " Incremental search
+set hlsearch
+set smartcase " Do smart case matching
+
+" Set behaviors
+set autowrite " Automatically save before commands like :next and :make
+"set hidden " Hide buffers when they are abandoned
+"set mouse=a " Enable mouse usage (all modes)
 set autoindent
+set splitbelow " put the new window below of the current one
+set splitright " put the new window right of the current one
+
+" Set tab completion
+set wildmode=list:longest,list:full  " Tab completion
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.class,.svn,*.gem
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore+=*.swp,*~,._*
 
 autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
@@ -137,6 +151,13 @@ nmap <silent> <A-Left> :wincmd <<CR>
 nmap <silent> <A-Right> :wincmd ><CR>
 " Nerdtree toogle
 nmap <F2> :NERDTreeToggle<CR>
+
+" CtrlP settings
+let g:ctrlp_working_path_mode = 'rc'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store'
+  \ }
 
 "Write changes to protected read-only files.
 cmap w!! %!sudo tee > /dev/null %
