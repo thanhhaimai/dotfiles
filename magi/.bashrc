@@ -3,9 +3,9 @@
 # for examples
 
 # Set up class related env
-MYREPOS=https://isvn.eecs.berkeley.edu/cs164/cs164-az
-STAFFREPOS=https://isvn.eecs.berkeley.edu/cs164/staff
-TEAMREPOS=https://isvn.eecs.berkeley.edu/cs164/
+MYREPOS=svn+ssh://cs164-repo/cs164-az
+STAFFREPOS=svn+ssh://cs164-repo/staff
+TEAMREPOS=svn+ssh://cs164-repo/A-0
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return

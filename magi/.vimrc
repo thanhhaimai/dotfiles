@@ -38,6 +38,8 @@ Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
 Bundle 'garbas/vim-snipmate'
 Bundle 'kien/ctrlp.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'tomtom/tcomment_vim'
 
 filetype plugin indent on     " required!
 "
@@ -63,9 +65,9 @@ endif
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
+" if has("autocmd")
+"   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
@@ -92,6 +94,14 @@ set showbreak=↪\  " Show at the start of line of a wrapped line
 set showmode
 set showcmd " Show (partial) command in status line.
 set showmatch " Show matching brackets.
+set scrolloff=10
+
+" Set cursor to ibeam in insert mode and block in normal mode
+if has("autocmd")
+  au InsertEnter * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape ibeam"
+  au InsertLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
+  au VimLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
+endif
 
 " Set search options
 set incsearch " Incremental search
@@ -149,20 +159,37 @@ nmap <silent> <A-Up> :wincmd -<CR>
 nmap <silent> <A-Down> :wincmd +<CR>
 nmap <silent> <A-Left> :wincmd <<CR>
 nmap <silent> <A-Right> :wincmd ><CR>
+
 " Nerdtree toogle
 nmap <F2> :NERDTreeToggle<CR>
+
+" TagBar toggle
+nmap <F8> :TagbarToggle<CR>
 
 " CtrlP settings
 let g:ctrlp_working_path_mode = 'rc'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store'
-  \ }
+      \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+      \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store'
+      \ }
+
+" Syntastic settings
+let g:syntastic_check_on_open=1 " check on first load
+let g:syntastic_error_symbol='✗'
+let g:syntastic_stl_format = ' %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} '
+let g:syntastic_warning_symbol='⚠'
+
+" EasyMotion settings
+let g:EasyMotion_keys = 'jkl;asdfiowerutyqpzxcvm,./bn238901'
+let g:EasyMotion_leader_key = '<Leader>'
+"hi link EasyMotionTarget User1
+
+" TComment keys
 
 "Write changes to protected read-only files.
 cmap w!! %!sudo tee > /dev/null %
 
-" Define 4 custom highlight groups
+" Define 4 custom highlight groups for statusline
 " flags
 hi User1 ctermbg=red ctermfg=white
 " path
@@ -177,8 +204,9 @@ set laststatus=2                             " always show the status line
 set statusline=                              " reset statusline
 set statusline+=%<\                          " cut at start
 set statusline+=[%n%1*%H%M%R%W%*]\           " flags and buf no
-set statusline+=%2*\ %-.40f\ %*\              " path
-set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
+set statusline+=%2*\ %-.50f\ %*              " path
+set statusline+=%1*%{SyntasticStatuslineFlag()}%*
+set statusline+=\ [%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
 set statusline+=%{&fileformat}]\             " file format
 set statusline+=%4*\ %((%l,%c)%)\            " line and column
