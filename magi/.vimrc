@@ -59,6 +59,10 @@ if has("syntax")
   syntax on
 endif
 
+" Set colors
+set t_Co=256
+colorscheme Tomorrow-Night-Bright
+
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 "set background=dark
@@ -75,6 +79,10 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
+" Make VIM faster!
+"set synmaxcol=128
+set ttyfast
+
 " Set tab options
 set shiftwidth=2
 set softtabstop=2
@@ -86,7 +94,7 @@ set cb="exclude:.*"
 
 " Set UI
 set ruler
-set number
+set rnu " Set relative number
 set list " Show special characters (I specified below)
 set listchars=tab:→\ ,trail:·
 "set visualbell
@@ -95,24 +103,20 @@ set showmode
 set showcmd " Show (partial) command in status line.
 set showmatch " Show matching brackets.
 set scrolloff=10
-
-" Set cursor to ibeam in insert mode and block in normal mode
-if has("autocmd")
-  au InsertEnter * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape ibeam"
-  au InsertLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
-  au VimLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
-endif
+set cursorline
 
 " Set search options
 set incsearch " Incremental search
 set hlsearch
 set smartcase " Do smart case matching
+"set gdefault " Subtitute all matches in a line by default
 
 " Set behaviors
 set autowrite " Automatically save before commands like :next and :make
 "set hidden " Hide buffers when they are abandoned
 "set mouse=a " Enable mouse usage (all modes)
 set autoindent
+set autoread " Update open files when changed externally
 set splitbelow " put the new window below of the current one
 set splitright " put the new window right of the current one
 
@@ -122,16 +126,72 @@ set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.class,.svn,*.gem
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*.swp,*~,._*
 
+" Automatically reload vimrc when it's saved
+augroup AutoReloadVimRC
+  au!
+  au BufWritePost .vimrc so ~/.vimrc
+augroup END
+
+" Set cursor to ibeam in insert mode and block in normal mode
+if has("autocmd")
+  au InsertEnter * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape ibeam"
+  au InsertLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
+  au VimLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
+endif
+
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+      \   exe "normal g'\"" |
+      \ endif
+
 autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
+" Start Tagbar when open vim
+autocmd vimenter * TagbarOpen
 " Start NERDTree when open vim without arg
 autocmd vimenter * if !argc() | NERDTree | endif
 " Close vim when NERDTree is the only window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+" Set relative number in normal mode, and line number in insert mode
+autocmd InsertEnter * :set nu
+autocmd InsertLeave * :set rnu
+
+" Only have cursorline in current window
+autocmd WinLeave * set nocursorline
+autocmd WinEnter * set cursorline
+
+"Write changes to protected read-only files.
+cmap w!! %!sudo tee > /dev/null %
+
+"======================================================================="
+" Key maps
+"======================================================================="
+
+" Set Alt mapping for all keys
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+set timeout ttimeoutlen=50
+
+" Remap leader to comma
+let mapleader = ","
+
+" Make Y copy from cursor to EOL
+map Y y$
+
+" Movement maps
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
+
+" Reselect visual block after indentation
+vnoremap < <gv
+vnoremap > >gv
+vnoremap = =gv
 
 " Manage tabs
 map tt :tabedit<Space>
@@ -145,9 +205,27 @@ map tk :tablast<CR>
 map tc :tabclose<CR>
 map <C-h> :tabprev<CR>
 map <C-l> :tabnext<CR>
+" Map t<i> to tab ith
+for i in range(1,9)
+  exec 'map t'.i.' '.i.'gt'
+endfor
+
+" Better command line editing
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" Keep search term at the center of the screen
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
+
 " Manage buffers
-map <C-j> :bn<CR>
-map <C-k> :bp<CR>
+nnoremap <C-j> :bn<CR>
+nnoremap <C-k> :bp<CR>
+
 " Manage windows
 map <C-\> :vs<CR>
 map <C-/> :sp<CR>
@@ -159,6 +237,31 @@ nmap <silent> <A-Up> :wincmd -<CR>
 nmap <silent> <A-Down> :wincmd +<CR>
 nmap <silent> <A-Left> :wincmd <<CR>
 nmap <silent> <A-Right> :wincmd ><CR>
+
+" Drag current lines
+noremap <A-j> :m+<CR>
+noremap <A-k> :m-2<CR>
+inoremap <A-j> <Esc>:m+<CR>
+inoremap <A-k> <Esc>:m-2<CR>
+vnoremap <A-j> :m'>+<CR>gv
+vnoremap <A-k> :m-2<CR>gv
+
+"======================================================================="
+" Other settings
+"======================================================================="
+
+" Mark the 81 columns
+" if exists('+colorcolumn')
+"   set colorcolumn=81
+" else
+"   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+" endif
+
+" Enable persistent undo
+if exists("+undofile")
+  set udf
+  set undodir=~/.vimundo
+endif
 
 " Nerdtree toogle
 nmap <F2> :NERDTreeToggle<CR>
@@ -175,9 +278,11 @@ let g:ctrlp_custom_ignore = {
 
 " Syntastic settings
 let g:syntastic_check_on_open=1 " check on first load
-let g:syntastic_error_symbol='✗'
+"let g:syntastic_error_symbol='✗'
+let g:syntastic_error_symbol='»'
 let g:syntastic_stl_format = ' %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} '
-let g:syntastic_warning_symbol='⚠'
+"let g:syntastic_warning_symbol='⚠'
+let g:syntastic_warning_symbol='»'
 
 " EasyMotion settings
 let g:EasyMotion_keys = 'jkl;asdfiowerutyqpzxcvm,./bn238901'
@@ -185,9 +290,7 @@ let g:EasyMotion_leader_key = '<Leader>'
 "hi link EasyMotionTarget User1
 
 " TComment keys
-
-"Write changes to protected read-only files.
-cmap w!! %!sudo tee > /dev/null %
+" none for now
 
 " Define 4 custom highlight groups for statusline
 " flags
