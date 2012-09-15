@@ -144,6 +144,8 @@ autocmd BufReadPost *
       \   exe "normal g'\"" |
       \ endif
 
+autocmd BufReadPost COMMIT_EDITMSG gg
+
 autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 " Start Tagbar when open vim
