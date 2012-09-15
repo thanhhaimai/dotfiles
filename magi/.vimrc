@@ -147,11 +147,11 @@ autocmd BufReadPost *
 autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 " Start Tagbar when open vim
-autocmd vimenter * TagbarOpen
+autocmd VimEnter * TagbarOpen
 " Start NERDTree when open vim without arg
-autocmd vimenter * if !argc() | NERDTree | endif
+autocmd VimEnter * if !argc() | NERDTree | endif
 " Close vim when NERDTree is the only window left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Set relative number in normal mode, and line number in insert mode
 autocmd InsertEnter * :set nu
@@ -292,15 +292,18 @@ let g:EasyMotion_leader_key = '<Leader>'
 " TComment keys
 " none for now
 
+" Highlight Selection
+hi Visual cterm=bold
+
 " Define 4 custom highlight groups for statusline
 " flags
-hi User1 ctermbg=red ctermfg=white
+hi User1 ctermbg=red ctermfg=white cterm=bold
 " path
 hi User2 ctermbg=blue ctermfg=white
 " type
-hi User3 ctermbg=green ctermfg=white
+hi User3 ctermbg=blue ctermfg=white
 " line and column
-hi User4 ctermbg=cyan ctermfg=white
+hi User4 ctermbg=darkblue ctermfg=white cterm=bold
 
 " Set statusline
 set laststatus=2                             " always show the status line
