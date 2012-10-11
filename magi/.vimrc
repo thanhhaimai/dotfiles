@@ -23,13 +23,12 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-rails'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-easymotion'
@@ -40,16 +39,12 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'tomtom/tcomment_vim'
-
+Bundle 'ervandew/supertab'
+Bundle 'sjl/gundo.vim'
+" install pydoc
+"
 filetype plugin indent on     " required!
-"
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
+
 " NOTE: comments after Bundle command are not allowed..
 "======================================================================="
 
@@ -97,13 +92,15 @@ set ruler
 set rnu " Set relative number
 set list " Show special characters (I specified below)
 set listchars=tab:→\ ,trail:·
-"set visualbell
+" set visualbell
 set showbreak=↪\  " Show at the start of line of a wrapped line
 set showmode
 set showcmd " Show (partial) command in status line.
 set showmatch " Show matching brackets.
-set scrolloff=10
+set scrolloff=7
 set cursorline
+
+" Set wordwrap
 
 " Set search options
 set incsearch " Incremental search
@@ -144,12 +141,13 @@ autocmd BufReadPost *
       \   exe "normal g'\"" |
       \ endif
 
-autocmd BufReadPost COMMIT_EDITMSG gg
+" autocmd BufReadPost COMMIT_EDITMSG gg
 
 autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
+autocmd! BufNewFile,BufRead *.hn setlocal ft=c
 " Start Tagbar when open vim
-autocmd VimEnter * TagbarOpen
+" autocmd VimEnter * TagbarOpen
 " Start NERDTree when open vim without arg
 autocmd VimEnter * if !argc() | NERDTree | endif
 " Close vim when NERDTree is the only window left
@@ -163,12 +161,16 @@ autocmd InsertLeave * :set rnu
 autocmd WinLeave * set nocursorline
 autocmd WinEnter * set cursorline
 
-"Write changes to protected read-only files.
-cmap w!! %!sudo tee > /dev/null %
+autocmd BufWritePre *.{cpp,hpp,h,c,cc,hn,java,py} :call StripTrailingWhitespace()
 
 "======================================================================="
 " Key maps
 "======================================================================="
+
+set timeout
+set timeoutlen=400
+set ttimeout
+set ttimeoutlen=10
 
 " Set Alt mapping for all keys
 let c='a'
@@ -177,18 +179,22 @@ while c <= 'z'
   exec "imap \e".c." <A-".c.">"
   let c = nr2char(1+char2nr(c))
 endw
-set timeout ttimeoutlen=50
-
 " Remap leader to comma
 let mapleader = ","
+
+"Write changes to protected read-only files.
+cmap w!! %!sudo tee > /dev/null %
 
 " Make Y copy from cursor to EOL
 map Y y$
 
 " Movement maps
-nnoremap ; :
+" nnoremap ; :
+" nnoremap : ;
 nnoremap j gj
 nnoremap k gk
+nnoremap $ g$
+nnoremap ^ g^
 
 " Reselect visual block after indentation
 vnoremap < <gv
@@ -248,29 +254,58 @@ inoremap <A-k> <Esc>:m-2<CR>
 vnoremap <A-j> :m'>+<CR>gv
 vnoremap <A-k> :m-2<CR>gv
 
+" Nerdtree toogle
+nmap <F2> :NERDTreeToggle<CR>
+
+" Gundo toggle
+nmap <F3> :GundoToggle<CR>
+
+" TagBar toggle
+nmap <F4> :TagbarToggle<CR>
+
+" Run current line
+nmap <F5> :.!sh<CR>
+
+" Make 0 move back and forth between BOL and first word in line
+function! SmartHome()
+  let first_nonblank = match(getline('.'), '\S') + 1
+  if first_nonblank == 0
+    return col('.') + 1 >= col('$') ? '0' : '^'
+  endif
+  if col('.') == first_nonblank
+    return '0'  " if at first nonblank, go to start line
+  endif
+  return &wrap && wincol() > 1 ? 'g^' : '^'
+endfunction
+noremap <expr> <silent> <Char-48> SmartHome()
+
+" Make F7 remove trailing white space
+function! StripTrailingWhitespace()
+  normal mZ
+  %s/\s\+$//e
+  if line("'Z") != line(".")
+    echo "Stripped whitespace\n"
+  endif
+  normal `Z
+endfunction
+nmap <F7> :call StripTrailingWhitespace()<CR>
+
 "======================================================================="
 " Other settings
 "======================================================================="
 
 " Mark the 81 columns
-" if exists('+colorcolumn')
-"   set colorcolumn=81
-" else
-"   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-" endif
+if exists('+colorcolumn')
+  set colorcolumn=81
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
 
 " Enable persistent undo
 if exists("+undofile")
   set udf
   set undodir=~/.vimundo
 endif
-
-" Nerdtree toogle
-nmap <F2> :NERDTreeToggle<CR>
-
-" TagBar toggle
-nmap <F8> :TagbarToggle<CR>
-
 " CtrlP settings
 let g:ctrlp_working_path_mode = 'rc'
 let g:ctrlp_custom_ignore = {
