@@ -193,8 +193,8 @@ map Y y$
 " nnoremap : ;
 nnoremap j gj
 nnoremap k gk
-nnoremap $ g$
-nnoremap ^ g^
+" nnoremap $ g$
+" nnoremap ^ g^
 
 " Reselect visual block after indentation
 vnoremap < <gv
