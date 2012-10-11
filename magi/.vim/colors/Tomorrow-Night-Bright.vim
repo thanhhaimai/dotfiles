@@ -1,0 +1,1 @@
+/home/mai/workspace/softwares/tomorrow-theme/vim/colors/Tomorrow-Night-Bright.vim
