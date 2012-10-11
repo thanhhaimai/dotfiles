@@ -4,14 +4,27 @@ T=$1
 shift
 
 if [ "$T" = "s" -o "$T" = "st" ] ; then
-  echo "======================= BRANCHES ======================="
-  git branch -av
-  git remote -v
-  echo "======================= STASH ======================="
-  git stash show
-  echo "======================= STATUS ======================="
-  git status -s
-  git diff --color --stat
+    echo "======================= BRANCHES ======================="
+    git branch -av
+    git remote -v
+    echo "======================= TAGS ======================="
+    git tag -l | head -n 5
+    echo "======================= STASH ======================="
+    git stash show
+    echo "======================= STATUS ======================="
+    git status -s
+    git diff --color --stat
+elif [ "$T" = "res" -o "$T" = "restore" ] ; then
+    FILE=$(readlink -f "$@")
+    echo "GIT: Restoring file $FILE"
+    git co $FILE
+elif [ "$T" = "svnci" ] ; then
+    echo "GIT: Committing to svn"
+    git svn dcommit
+elif [ "$T" = "svnup" ] ; then
+    echo "GIT: Fetching and rebasing svn"
+    git svn fetch
+    git rebase git-svn master
 else
-  git $T "$@"
+    git $T "$@"
 fi
