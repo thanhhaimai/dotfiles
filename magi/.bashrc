@@ -2,6 +2,9 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# make xterm 256 color
+export TERM='xterm-256color'
+
 # Set up class related env
 MYREPOS=svn+ssh://cs164-repo/cs164-az
 STAFFREPOS=svn+ssh://cs164-repo/staff
@@ -88,7 +91,7 @@ fi
 alias reload='source ~/.bashrc'
 alias cp='cp -i'
 alias mv='mv -i'
-alias hist='history | grep "$1"'
+alias hist='history | grep'
 alias o='mate-open'
 
 # Some navigation functions
@@ -116,6 +119,7 @@ extract () {
         case $1 in
         *.tar.bz2)   tar xjf $1   ;;
         *.tar.gz)    tar xzf $1   ;;
+        *.tar.xz)    tar xJf $1   ;;
         *.bz2)       bunzip2 $1   ;;
         *.rar)       rar x $1     ;;
         *.gz)        gunzip $1    ;;
@@ -173,3 +177,12 @@ function jj() {
 
 # Start in home folder
 c
+
+# {{{
+# Node Completion - Auto-generated, do not touch.
+shopt -s progcomp
+for f in $(command ls ~/.node-completion); do
+  f="$HOME/.node-completion/$f"
+  test -f "$f" && . "$f"
+done
+# }}}
