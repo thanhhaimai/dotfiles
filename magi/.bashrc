@@ -83,11 +83,13 @@ if [ -x /usr/bin/dircolors ]; then
     alias la='ls -AF --color=auto'
     alias l='ls -CF --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto -P'
+    alias fgrep='fgrep --color=auto -P'
+    alias egrep='egrep --color=auto -P'
 fi
 
+alias bc='bc -lq'
+alias lynx='lynx -accept_all_cookies'
 alias reload='source ~/.bashrc'
 alias cp='cp -i'
 alias mv='mv -i'
