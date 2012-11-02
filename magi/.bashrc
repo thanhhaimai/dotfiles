@@ -104,7 +104,7 @@ function c() {
 # calc - simple calculator
 # usage: calc <equation>
 function calc() {
-    echo "$*" | bc -l;
+    echo "$*" | bc;
 }
 # define - fetch word defnition from google
 # usage: define <word>
