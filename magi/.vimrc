@@ -254,17 +254,21 @@ inoremap <A-k> <Esc>:m-2<CR>
 vnoremap <A-j> :m'>+<CR>gv
 vnoremap <A-k> :m-2<CR>gv
 
+nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+
 " Nerdtree toogle
 nmap <F2> :NERDTreeToggle<CR>
 
 " Gundo toggle
-nmap <F3> :GundoToggle<CR>
+map <F3> :execute "grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR><CR>
 
 " TagBar toggle
 nmap <F4> :TagbarToggle<CR>
 
 " Run current line
 nmap <F5> :.!sh<CR>
+
+nmap <F6> :GundoToggle<CR>
 
 " Make 0 move back and forth between BOL and first word in line
 function! SmartHome()
