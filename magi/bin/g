@@ -14,6 +14,8 @@ if [ "$T" = "s" -o "$T" = "st" ] ; then
     echo "======================= STATUS ======================="
     git status -s
     git diff --color --stat
+elif [ "$T" = "g" -o "$T" = "graph" ] ; then
+    qgit --all
 elif [ "$T" = "res" -o "$T" = "restore" ] ; then
     FILE=$(readlink -f "$@")
     echo "GIT: Restoring file $FILE"
