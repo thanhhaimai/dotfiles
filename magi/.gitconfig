@@ -12,10 +12,12 @@
   co = !git checkout
   c = !git commit -v
   ci = !git commit -v
-  l = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  ll = !git log --graph --color --stat --abbrev-commit --decorate --oneline
-  lll = !git log --graph --color --stat --all --decorate
+  l = !git log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  ll = !git log --all --graph --color --stat --abbrev-commit --decorate --oneline
+  lll = !git log --all --graph --color --stat --all --decorate
   d = !git diff -p --stat --unified=8 --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
   di = !git diff -p --stat --unified=8 --color
 [core]
   excludesfile = /home/mai/.gitignore_global
+[branch]
+	autosetuprebase = always
