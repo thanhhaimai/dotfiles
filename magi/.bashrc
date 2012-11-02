@@ -177,8 +177,13 @@ function jj() {
     ls
 }
 
+echo
+cal
 # Start in home folder
-c
+if [ "$(pwd)" = '/' ]; then
+    cd
+fi
+ls
 
 # {{{
 # Node Completion - Auto-generated, do not touch.
