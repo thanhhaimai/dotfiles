@@ -46,7 +46,7 @@ export PATH=$PATH:/home/mai/android-sdks/platform-tools:/home/mai/android-sdks/t
 
 function pwdPath {
     # How many characters of the $PWD should be kept
-    local pwdmaxlen=85
+    local pwdmaxlen=60
     # Indicator that there has been directory truncation:
     local trunc_symbol="..."
     if [ ${#PWD} -gt "$pwdmaxlen" ]; then
