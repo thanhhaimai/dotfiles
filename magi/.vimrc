@@ -88,14 +88,14 @@ set expandtab
 set cb="exclude:.*"
 
 " Set UI
-set ruler
 set rnu " Set relative number
+set ruler
 set list " Show special characters (I specified below)
 set listchars=tab:→\ ,trail:·
 " set visualbell
 set showbreak=↪\  " Show at the start of line of a wrapped line
-set showmode
 set showcmd " Show (partial) command in status line.
+set showmode
 set showmatch " Show matching brackets.
 set scrolloff=7
 set cursorline
@@ -149,7 +149,7 @@ autocmd! BufNewFile,BufRead *.hn setlocal ft=c
 " Start Tagbar when open vim
 " autocmd VimEnter * TagbarOpen
 " Start NERDTree when open vim without arg
-autocmd VimEnter * if !argc() | NERDTree | endif
+" autocmd VimEnter * if !argc() | NERDTree | endif
 " Close vim when NERDTree is the only window left
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
@@ -172,13 +172,17 @@ set timeoutlen=400
 set ttimeout
 set ttimeoutlen=10
 
-" Set Alt mapping for all keys
-let c='a'
-while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
+" Set Alt mapping for most keys
+let c='#'
+while c <= '~'
+  " these keys can't be mapped properly without side effects
+  if c != '>' && c != '|' && c != '['
+    exec "set <A-".c.">=\e".c
+    exec "imap \e".c." <A-".c.">"
+  endif
   let c = nr2char(1+char2nr(c))
 endw
+
 " Remap leader to comma
 let mapleader = ","
 
@@ -211,8 +215,6 @@ map tl :tabnext<CR>
 map tj :tabfirst<CR>
 map tk :tablast<CR>
 map tc :tabclose<CR>
-map <C-h> :tabprev<CR>
-map <C-l> :tabnext<CR>
 " Map t<i> to tab ith
 for i in range(1,9)
   exec 'map t'.i.' '.i.'gt'
@@ -230,17 +232,27 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
+" Toggle Highlight Search
+nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+nnoremap <silent> <C-e> :call ToggleList("Quickfix List", 'c')<CR>
+" nnoremap <silent> <C-S-L> :call ToggleList("Location List", 'l')<CR>
+
 " Manage buffers
 nnoremap <C-j> :bn<CR>
 nnoremap <C-k> :bp<CR>
 
+" Circle quick fix
+map <C-h> :cp<CR>
+map <C-l> :cn<CR>
+map <A-l> :tabnext<CR>
+map <A-h> :tabprev<CR>
+
 " Manage windows
 map <C-\> :vs<CR>
-map <C-/> :sp<CR>
-nmap <silent> <Up> :wincmd k<CR>
-nmap <silent> <Down> :wincmd j<CR>
-nmap <silent> <Left> :wincmd h<CR>
-nmap <silent> <Right> :wincmd l<CR>
+" nmap <silent> <Up> :wincmd k<CR>
+" nmap <silent> <Down> :wincmd j<CR>
+" nmap <silent> <Left> :wincmd h<CR>
+" nmap <silent> <Right> :wincmd l<CR>
 nmap <silent> <A-Up> :wincmd -<CR>
 nmap <silent> <A-Down> :wincmd +<CR>
 nmap <silent> <A-Left> :wincmd <<CR>
@@ -254,13 +266,27 @@ inoremap <A-k> <Esc>:m-2<CR>
 vnoremap <A-j> :m'>+<CR>gv
 vnoremap <A-k> :m-2<CR>gv
 
-nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+" Replace the current word with the most recent yank
+nmap <A-p> diw"0P
+
+" Easymotion shortcuts
+nmap <A-w> <leader><leader>w
+nmap <A-b> <leader><leader>b
+nmap <A-a> <leader><leader>f
+nmap <A-e> <leader><leader>e
+
+" TComment keys
+nmap <A-q> :TComment<CR>
+nmap <A-c> :TCommentBlock<CR>
+
+map <A-f> :call GlobalGrep(expand("<cword>"))<CR>
+map <A-F> :call GlobalGrepPrompt()<CR>
+
+" CTags
+map <A-]> :vs <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Nerdtree toogle
 nmap <F2> :NERDTreeToggle<CR>
-
-" Gundo toggle
-map <F3> :execute "grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR><CR>
 
 " TagBar toggle
 nmap <F4> :TagbarToggle<CR>
@@ -268,6 +294,7 @@ nmap <F4> :TagbarToggle<CR>
 " Run current line
 nmap <F5> :.!sh<CR>
 
+" Gundo toggle
 nmap <F6> :GundoToggle<CR>
 
 " Make 0 move back and forth between BOL and first word in line
@@ -294,6 +321,56 @@ function! StripTrailingWhitespace()
 endfunction
 nmap <F7> :call StripTrailingWhitespace()<CR>
 
+function! GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+function! GlobalGrepPrompt()
+  " prompt for string
+  echohl Question
+  call inputsave()
+  let inp = input('Enter string to grep:')
+  call inputrestore()
+  echohl None
+
+  call GlobalGrep(inp)
+endfunction
+
+function! GlobalGrep(inp)
+  " Check that we have an input
+  if empty(a:inp)
+    redraw!
+    return
+  endif
+
+  silent! execute "grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . a:inp . " " | cwindow
+  redraw!
+  echo a:inp
+endfunction
+
 "======================================================================="
 " Other settings
 "======================================================================="
@@ -305,20 +382,28 @@ else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
+" TagBar settings
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_indent = 1
+let g:tagbar_sort = 0
+let g:tagbar_iconchars = ['▷', '◢']
+let g:tagbar_autoshowtag = 1
+
 " Enable persistent undo
 if exists("+undofile")
   set udf
   set undodir=~/.vimundo
 endif
 " CtrlP settings
-let g:ctrlp_working_path_mode = 'rc'
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|\.hg$\|\.svn$',
       \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store'
       \ }
 
 " Syntastic settings
-let g:syntastic_check_on_open=1 " check on first load
+let g:syntastic_check_on_open=0 " check on first load
 "let g:syntastic_error_symbol='✗'
 let g:syntastic_error_symbol='»'
 let g:syntastic_stl_format = ' %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} '
@@ -327,11 +412,8 @@ let g:syntastic_warning_symbol='»'
 
 " EasyMotion settings
 let g:EasyMotion_keys = 'jkl;asdfiowerutyqpzxcvm,./bn238901'
-let g:EasyMotion_leader_key = '<Leader>'
+" let g:EasyMotion_leader_key = '<Leader>'
 "hi link EasyMotionTarget User1
-
-" TComment keys
-" none for now
 
 " Highlight Selection
 hi Visual cterm=bold
