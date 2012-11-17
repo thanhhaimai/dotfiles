@@ -91,8 +91,8 @@ fi
 alias bc='bc -lq'
 alias lynx='lynx -accept_all_cookies'
 alias reload='source ~/.bashrc'
-alias cp='cp -i'
-alias mv='mv -i'
+# alias cp='cp -i'
+# alias mv='mv -i'
 alias hist='history | grep'
 alias o='mate-open'
 
@@ -169,7 +169,7 @@ _fasd_bash_hook_cmd_complete v
 
 function j() {
     fasd_cd -d "$@"
-    ls
+    ll
 }
 
 function jj() {
