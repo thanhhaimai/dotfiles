@@ -19,5 +19,3 @@
   di = !git diff -p --stat --unified=8 --color
 [core]
   excludesfile = /home/mai/.gitignore_global
-[branch]
-	autosetuprebase = always
