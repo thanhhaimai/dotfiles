@@ -56,7 +56,7 @@ endif
 
 " Set colors
 set t_Co=256
-colorscheme Tomorrow-Night-Bright
+colorscheme Mai-Tomorrow-Night-Bright
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -109,9 +109,9 @@ set smartcase " Do smart case matching
 "set gdefault " Subtitute all matches in a line by default
 
 " Set behaviors
-set autowrite " Automatically save before commands like :next and :make
-"set hidden " Hide buffers when they are abandoned
-"set mouse=a " Enable mouse usage (all modes)
+" set autowrite " Automatically save before commands like :next and :make
+" set hidden " Hide buffers when they are abandoned
+" set mouse=a " Enable mouse usage (all modes)
 set autoindent
 set autoread " Update open files when changed externally
 set splitbelow " put the new window below of the current one
@@ -168,15 +168,15 @@ autocmd BufWritePre *.{cpp,hpp,h,c,cc,hn,java,py} :call StripTrailingWhitespace(
 "======================================================================="
 
 set timeout
-set timeoutlen=400
+set timeoutlen=300
 set ttimeout
 set ttimeoutlen=10
 
 " Set Alt mapping for most keys
-let c='#'
+let c='A'
 while c <= '~'
   " these keys can't be mapped properly without side effects
-  if c != '>' && c != '|' && c != '['
+  if c != '>' && c != '|' && c != '[' && c != 'O'
     exec "set <A-".c.">=\e".c
     exec "imap \e".c." <A-".c.">"
   endif
@@ -234,18 +234,21 @@ nnoremap <silent> g# g#zz
 
 " Toggle Highlight Search
 nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
-nnoremap <silent> <C-e> :call ToggleList("Quickfix List", 'c')<CR>
+nnoremap <silent> <C-e> :call ToggleList("Quickfix List", 'copen', 'cclose')<CR>
 " nnoremap <silent> <C-S-L> :call ToggleList("Location List", 'l')<CR>
+map <silent> <C-c> q:
 
 " Manage buffers
 nnoremap <C-j> :bn<CR>
 nnoremap <C-k> :bp<CR>
 
+" Manage Tabs
+map <C-l> :tabnext<CR>
+map <C-h> :tabprev<CR>
+
 " Circle quick fix
-map <C-h> :cp<CR>
-map <C-l> :cn<CR>
-map <A-l> :tabnext<CR>
-map <A-h> :tabprev<CR>
+map <A-h> :cp<CR>
+map <A-l> :cn<CR>
 
 " Manage windows
 map <C-\> :vs<CR>
@@ -258,6 +261,10 @@ nmap <silent> <A-Down> :wincmd +<CR>
 nmap <silent> <A-Left> :wincmd <<CR>
 nmap <silent> <A-Right> :wincmd ><CR>
 
+" Replace the current word with the most recent yank
+vnoremap <A-p> d"0P
+nnoremap <A-p> diw"0P
+
 " Drag current lines
 noremap <A-j> :m+<CR>
 noremap <A-k> :m-2<CR>
@@ -265,9 +272,6 @@ inoremap <A-j> <Esc>:m+<CR>
 inoremap <A-k> <Esc>:m-2<CR>
 vnoremap <A-j> :m'>+<CR>gv
 vnoremap <A-k> :m-2<CR>gv
-
-" Replace the current word with the most recent yank
-nmap <A-p> diw"0P
 
 " Easymotion shortcuts
 nmap <A-w> <leader><leader>w
@@ -279,8 +283,15 @@ nmap <A-e> <leader><leader>e
 nmap <A-q> :TComment<CR>
 nmap <A-c> :TCommentBlock<CR>
 
+nnoremap <silent> <A-o> o<Esc><Esc>
+
+" Grep
 map <A-f> :call GlobalGrep(expand("<cword>"))<CR>
 map <A-F> :call GlobalGrepPrompt()<CR>
+
+" Find the current word in the same file
+map <A-n> *
+map <A-N> #
 
 " CTags
 map <A-]> :vs <CR>:exec("tag ".expand("<cword>"))<CR>
@@ -328,21 +339,21 @@ function! GetBufferList()
   return buflist
 endfunction
 
-function! ToggleList(bufname, pfx)
+function! ToggleList(bufname, cmdopen, cmdclose)
   let buflist = GetBufferList()
   for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
     if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
+      exec(a:cmdclose)
       return
     endif
   endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
+  if a:cmdopen == 'lopen' && len(getloclist(0)) == 0
       echohl ErrorMsg
       echo "Location List is Empty."
       return
   endif
   let winnr = winnr()
-  exec(a:pfx.'open')
+  exec(a:cmdopen)
   if winnr() != winnr
     wincmd p
   endif
@@ -366,7 +377,7 @@ function! GlobalGrep(inp)
     return
   endif
 
-  silent! execute "grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . a:inp . " " | cwindow
+  silent! execute "grep -srnw --binary-files=without-match --exclude=*tags --exclude-dir=.git . -e " . a:inp . " " | cwindow
   redraw!
   echo a:inp
 endfunction
