@@ -7,5 +7,7 @@ Magi is just the name of my computer.
 
 Required software:
 --------
-TODO(thanhhaimai): include required softwares
 
+https://github.com/clvv/fasd
+
+sudo apt-get install trash-cli
