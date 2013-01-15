@@ -4,10 +4,11 @@
 " Hex colour conversion functions borrowed from the theme "Desert256""
 
 " Default GUI Colours
+let s:white = "ffffff"
 let s:foreground = "eaeaea"
 let s:background = "000000"
-let s:selection = "424242"
-let s:line = "2a2a2a"
+let s:selection = "505050"
+let s:line = "333333"
 let s:comment = "969896"
 let s:red = "d54e53"
 let s:orange = "e78c45"
@@ -18,9 +19,9 @@ let s:blue = "7aa6da"
 let s:purple = "c397d8"
 let s:window = "4d5057"
 
-set background=dark
-hi clear
-syntax reset
+" set background=dark
+" hi clear
+" syntax reset
 
 let g:colors_name = "Tomorrow-Night-Bright"
 
@@ -233,13 +234,13 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	endfun
 
 	" Vim Highlighting
-	call <SID>X("Normal", s:foreground, s:background, "")
+	call <SID>X("Normal", s:foreground, "", "")
 	call <SID>X("LineNr", s:selection, "", "")
 	call <SID>X("NonText", s:selection, "", "")
 	call <SID>X("SpecialKey", s:selection, "", "")
 	call <SID>X("Search", s:background, s:yellow, "")
 	call <SID>X("TabLine", s:foreground, s:background, "reverse")
-	call <SID>X("StatusLine", s:window, s:yellow, "reverse")
+	call <SID>X("StatusLine", s:window, s:white, "reverse")
 	call <SID>X("StatusLineNC", s:window, s:foreground, "reverse")
 	call <SID>X("VertSplit", s:window, s:window, "none")
 	call <SID>X("Visual", "", s:selection, "")
@@ -247,10 +248,12 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("ModeMsg", s:green, "", "")
 	call <SID>X("MoreMsg", s:green, "", "")
 	call <SID>X("Question", s:green, "", "")
-	call <SID>X("WarningMsg", s:red, "", "")
+	call <SID>X("WarningMsg", s:yellow, "", "")
 	call <SID>X("MatchParen", "", s:selection, "")
 	call <SID>X("Folded", s:comment, s:background, "")
 	call <SID>X("FoldColumn", "", s:background, "")
+	call <SID>X("SignColumn", "", s:background, "")
+	call <SID>X("SyntasticWarning", "", s:red, "")
 	if version >= 700
 		call <SID>X("CursorLine", "", s:line, "none")
 		call <SID>X("CursorColumn", "", s:line, "none")
@@ -263,7 +266,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
 	" Standard Highlighting
 	call <SID>X("Comment", s:comment, "", "")
-	call <SID>X("Todo", s:comment, s:background, "")
+	call <SID>X("Todo", s:white, s:orange, "")
 	call <SID>X("Title", s:comment, "", "")
 	call <SID>X("Identifier", s:red, "", "none")
 	call <SID>X("Statement", s:foreground, "", "")
