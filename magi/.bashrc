@@ -44,7 +44,7 @@ export PATH=$PATH:/home/mai/android-sdks/platform-tools:/home/mai/android-sdks/t
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-function pwdPath {
+pwdPath() {
     # How many characters of the $PWD should be kept
     local pwdmaxlen=60
     # Indicator that there has been directory truncation:
@@ -88,6 +88,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto -P'
 fi
 
+alias rm='trash-put'
 alias bc='bc -lq'
 alias lynx='lynx -accept_all_cookies'
 alias reload='source ~/.bashrc'
@@ -96,16 +97,28 @@ alias reload='source ~/.bashrc'
 alias hist='history | grep'
 alias o='mate-open'
 
+oo() {
+    mate-open "$@"
+}
+
 # Some navigation functions
-function c() {
+c() {
     cd $1
     la
 }
+
 # calc - simple calculator
 # usage: calc <equation>
-function calc() {
+calc() {
     echo "$*" | bc;
 }
+
+# title - change the title of the current termial
+# usage: title <new title>
+title() {
+    echo -en "\033]2;$1\007"
+}
+
 # define - fetch word defnition from google
 # usage: define <word>
 define ()
@@ -114,6 +127,7 @@ define ()
     return 1;
     # "https://www.google.com/#hl=en&q=${1}&tbs=dfn:1&fp=1"
 }
+
 # extract - smart file extract
 # usage: extract <file name>
 extract () {
@@ -139,10 +153,11 @@ extract () {
 }
 # remindme - remind me what is important after a given amount of time
 # usage: remindme <time> <message>
-function remindme()
+remindme()
 {
     sleep $1 && zenity --info --text "$2" &
 }
+
 # Enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -167,12 +182,12 @@ unset fasd_cache
 alias v='f -e vim' # quick opening files with vim
 _fasd_bash_hook_cmd_complete v
 
-function j() {
+j() {
     fasd_cd -d "$@"
     ll
 }
 
-function jj() {
+jj() {
     fasd_cd -d -i "$@"
     ls
 }
