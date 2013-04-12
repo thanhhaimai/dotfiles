@@ -6,9 +6,7 @@
 export TERM='xterm-256color'
 
 # Set up class related env
-MYREPOS=svn+ssh://cs164-repo/cs164-az
-STAFFREPOS=svn+ssh://cs164-repo/staff
-TEAMREPOS=svn+ssh://cs164-repo/A-0
+# -- none for Spr 13 --
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -17,12 +15,12 @@ TEAMREPOS=svn+ssh://cs164-repo/A-0
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:ignorespace:ignoreboth
 # Don't append ls, cd, bg, fg
-HISTIGNORE='\&:fg:bg:pwd:cd ..:cd ~:cd -:cd::c:j:jobs:set -x:ls:l:la:ll'
+HISTIGNORE='\&:fg:bg:pwd:cd ..:cd ~:cd -:cd::c:j:jobs:set -x:ls:l:la:ll:title'
 # For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=99999
 HISTFILESIZE=99999
 
-# Must press Ctrl+D twice to exit
+# Must press Ctrl+D twice to exit to avoid accidently exit.
 export IGNOREEOF=1
 export EDITOR=vim
 
@@ -38,8 +36,15 @@ shopt -s histappend       # append to (not overwrite) the history file
 if [ -d ~/bin ] ; then
     export PATH=~/bin:$PATH
 fi
+
 # Set Android SDK path
-export PATH=$PATH:/home/mai/android-sdks/platform-tools:/home/mai/android-sdks/tools
+# export PATH=$PATH:/home/mai/android-sdks/platform-tools:/home/mai/android-sdks/tools
+
+# Set Golang path
+export PATH=$PATH:/home/mai/go/bin
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
 
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -128,9 +133,9 @@ define ()
     # "https://www.google.com/#hl=en&q=${1}&tbs=dfn:1&fp=1"
 }
 
-# extract - smart file extract
-# usage: extract <file name>
-extract () {
+# e- smart file extract
+# usage: e <file name>
+e() {
     if [ -f $1 ] ; then
         case $1 in
         *.tar.bz2)   tar xjf $1   ;;
@@ -208,3 +213,7 @@ for f in $(command ls ~/.node-completion); do
   test -f "$f" && . "$f"
 done
 # }}}
+
+# Work around for touchpad paste bug
+synclient RTCornerButton=0 
+synclient RBCornerButton=0

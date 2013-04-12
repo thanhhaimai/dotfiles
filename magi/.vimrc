@@ -15,6 +15,8 @@ runtime! debian.vim
 " options, so any other options should be set AFTER setting 'compatible'.
 "set compatible
 
+" Go runtime support for vim
+set rtp+=$GOROOT/misc/vim 
 "======================================================================="
 " Vundle option:
 "======================================================================="
@@ -39,8 +41,14 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'tomtom/tcomment_vim'
-Bundle 'ervandew/supertab'
 Bundle 'sjl/gundo.vim'
+Bundle 'briancollins/vim-jst'
+Bundle 'wavded/vim-stylus'
+Bundle 'gregsexton/MatchTag'
+Bundle 'xuhdev/vim-latex-live-preview'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'kchmck/vim-coffee-script'
 " install pydoc
 "
 filetype plugin indent on     " required!
@@ -77,6 +85,9 @@ endif
 " Make VIM faster!
 "set synmaxcol=128
 set ttyfast
+
+" The default updatetime of 4 seconds is too slow
+set updatetime=1000
 
 " Set tab options
 set shiftwidth=2
@@ -116,6 +127,7 @@ set autoindent
 set autoread " Update open files when changed externally
 set splitbelow " put the new window below of the current one
 set splitright " put the new window right of the current one
+set backspace=2 " allow deleting charaters backward
 
 " Set tab completion
 set wildmode=list:longest,list:full  " Tab completion
@@ -146,6 +158,7 @@ autocmd BufReadPost *
 autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.hn setlocal ft=c
+autocmd! BufNewFile,BufRead *.vrapperrc setlocal ft=vim
 " Start Tagbar when open vim
 " autocmd VimEnter * TagbarOpen
 " Start NERDTree when open vim without arg
@@ -195,8 +208,8 @@ map Y y$
 " Movement maps
 " nnoremap ; :
 " nnoremap : ;
-nnoremap j gj
-nnoremap k gk
+noremap j gj
+noremap k gk
 " nnoremap $ g$
 " nnoremap ^ g^
 
@@ -206,19 +219,19 @@ vnoremap > >gv
 vnoremap = =gv
 
 " Manage tabs
-map tt :tabedit<Space>
-map tm :tabmove<Space>
-map tf :tabfind<Space>
-map tn :tabnew<CR>
-map th :tabprev<CR>
-map tl :tabnext<CR>
-map tj :tabfirst<CR>
-map tk :tablast<CR>
-map tc :tabclose<CR>
+" map tt :tabedit<Space>
+" map tm :tabmove<Space>
+" map tf :tabfind<Space>
+" map tn :tabnew<CR>
+" map th :tabprev<CR>
+" map tl :tabnext<CR>
+" map tj :tabfirst<CR>
+" map tk :tablast<CR>
+" map tc :tabclose<CR>
 " Map t<i> to tab ith
-for i in range(1,9)
-  exec 'map t'.i.' '.i.'gt'
-endfor
+" for i in range(1,9)
+"   exec 'map t'.i.' '.i.'gt'
+" endfor
 
 " Better command line editing
 cnoremap <C-a> <Home>
@@ -386,11 +399,11 @@ endfunction
 " Other settings
 "======================================================================="
 
-" Mark the 81 columns
+" Mark the 101 columns
 if exists('+colorcolumn')
-  set colorcolumn=81
+  set colorcolumn=101
 else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
 endif
 
 " TagBar settings
@@ -425,6 +438,10 @@ let g:syntastic_warning_symbol='»'
 let g:EasyMotion_keys = 'jkl;asdfiowerutyqpzxcvm,./bn238901'
 " let g:EasyMotion_leader_key = '<Leader>'
 "hi link EasyMotionTarget User1
+
+" YouCompleteMe settings
+let g:ycm_allow_changing_updatetime = 0
+let g:ycm_min_num_of_chars_for_completion = 1
 
 " Highlight Selection
 hi Visual cterm=bold
