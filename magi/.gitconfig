@@ -13,6 +13,7 @@
   c = commit -v
   ci = commit -v
   b = branch
+  cp = cherry-pick
   l = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   ll = log --all --graph --color --stat --abbrev-commit --decorate --oneline
   lll = log --all --graph --color --stat --all --decorate
@@ -30,4 +31,6 @@
 [core]
   excludesfile = /home/mai/.gitignore_global
 [diff]
-	algorithm = patience
+  algorithm = patience
+[branch "master"]
+  rebase = always
