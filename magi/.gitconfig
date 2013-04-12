@@ -17,15 +17,15 @@
   lll = log --all --graph --color --stat --all --decorate
   d = diff -p --stat --unified=8 --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
   di = diff -p --stat --unified=8 --color
-  ri = rebase -i
-  assume = update-index --assume-unchanged
-  unassume = update-index --no-assume-unchanged
+  d1 = !git d HEAD~1
+  d2 = !git d HEAD~2
+  d3 = !git d HEAD~3
   ds = stash show -p stash@{0}
   ds1 = stash show -p stash@{1}
   ds2 = stash show -p stash@{2}
-  d1 = d HEAD~1
-  d2 = d HEAD~2
-  d3 = d HEAD~3
+  ri = rebase -i
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
 [core]
   excludesfile = /home/mai/.gitignore_global
 [diff]
