@@ -9,13 +9,18 @@
   ui = auto
   diff = auto
 [alias]
-  co = !git checkout
-  c = !git commit -v
-  ci = !git commit -v
-  l = !git log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  ll = !git log --all --graph --color --stat --abbrev-commit --decorate --oneline
-  lll = !git log --all --graph --color --stat --all --decorate
-  d = !git diff -p --stat --unified=8 --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
-  di = !git diff -p --stat --unified=8 --color
+  co = checkout
+  c = commit -v
+  ci = commit -v
+  l = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  ll = log --all --graph --color --stat --abbrev-commit --decorate --oneline
+  lll = log --all --graph --color --stat --all --decorate
+  d = diff -p --stat --unified=8 --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
+  di = diff -p --stat --unified=8 --color
+  ri = rebase -i
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
 [core]
   excludesfile = /home/mai/.gitignore_global
+[diff]
+	algorithm = patience
