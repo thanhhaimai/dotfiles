@@ -20,6 +20,12 @@
   ri = rebase -i
   assume = update-index --assume-unchanged
   unassume = update-index --no-assume-unchanged
+  ds = stash show -p stash@{0}
+  ds1 = stash show -p stash@{1}
+  ds2 = stash show -p stash@{2}
+  d1 = d HEAD~1
+  d2 = d HEAD~2
+  d3 = d HEAD~3
 [core]
   excludesfile = /home/mai/.gitignore_global
 [diff]
