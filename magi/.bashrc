@@ -32,6 +32,9 @@ shopt -s expand_aliases   # expand aliases
 shopt -s extglob          # enable extended pattern-matching features
 shopt -s histappend       # append to (not overwrite) the history file
 
+# auto complete for g too
+complete -o default -o nospace -F _git g
+
 # if exists, add ~/bin to PATH
 if [ -d ~/bin ] ; then
     export PATH=~/bin:$PATH
@@ -90,7 +93,7 @@ if [ -x /usr/bin/dircolors ]; then
 
     alias grep='grep --color=auto -P'
     alias fgrep='fgrep --color=auto -P'
-    alias egrep='egrep --color=auto -P'
+    # alias egrep='egrep --color=auto -P'
 fi
 
 alias rm='trash-put'
