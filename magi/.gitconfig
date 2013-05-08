@@ -33,4 +33,4 @@
 [diff]
   algorithm = patience
 [branch "master"]
-  rebase = always
+  rebase = true
