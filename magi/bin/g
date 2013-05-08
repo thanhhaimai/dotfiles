@@ -1,7 +1,12 @@
 #!/bin/sh
 
 T=$1
-shift
+
+if [ -z "$T" -o "$T" = "" ] ; then
+    T="s"
+else
+    shift
+fi
 
 if [ "$T" = "s" -o "$T" = "st" ] ; then
     echo "======================= BRANCHES ======================="
