@@ -159,6 +159,7 @@ autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.hn setlocal ft=c
 autocmd! BufNewFile,BufRead *.vrapperrc setlocal ft=vim
+autocmd! BufRead,BufNewFile *.go set filetype=go
 " Start Tagbar when open vim
 " autocmd VimEnter * TagbarOpen
 " Start NERDTree when open vim without arg
