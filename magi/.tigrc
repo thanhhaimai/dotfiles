@@ -1,0 +1,4 @@
+set tab-size = 4
+set split-view-height = 75%
+set diff-context = 5
+
