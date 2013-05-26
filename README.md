@@ -1,9 +1,14 @@
 # Mai Dotfiles #
 
-These are my dotfiles, and instructions to set up my dev laptop. This is just a note for myself when I want to install a new distro.
-Magi is the name of my computer.
+These are my dotfiles, and instructions to set up my dev laptop.
+This is just a note for myself when I want to install a new distro.
+However, feel free to take a look at the dotfiles, especially `.vimrc` and `.bashrc`
+If you copy some part of my vimrc/bashrc and see an error, check if you have the required software below.
+I also include an installation guide for fresh install of Mint 15 RC.
 
-## Required software: ##
+note: magi is the name of my computer, nothing special.
+
+### Required software: ###
 
 These are software that my dotfiles depends on, which are not included by default in Mint 15 RC. If you only use my .bashrc and .vimrc, then you only need those.
 
@@ -14,7 +19,7 @@ These are software that my dotfiles depends on, which are not included by defaul
 * ack: `http://beyondgrep.com/install/`
 * tig: `sudo apt-get install tig`
 
-## Installation steps: ##
+# Installation steps #
 
 Well, my lazy self decides to create a more details guide so I can just copy, paste, and run when Mint 15 is released.
 All the following cmds assume that it's a fresh install.
@@ -28,8 +33,16 @@ All the following cmds assume that it's a fresh install.
 
     sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \
     libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
-    sudo apt-get install trash-cli ack-grep tig
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial \
+    trash-cli ack-grep tig build-essential cmake python-dev
+    
+### fasd: ###
+    mkdir ~/software
+    cd ~/software
+    wget https://github.com/clvv/fasd/tarball/1.0.1 -O fasd.tar.gz
+    tar xzf fasd.tar.gz
+    cd clvv-fasd*
+    sudo make install
     
 ### Install latest vim: ###
 
@@ -63,6 +76,8 @@ Remember, I'm assuming it's a fresh install. Merge your dotfiles if you want to 
     ln -s workspace/thanhhaimai/dotfiles/magi/.vim ~/.vim
     ln -s workspace/thanhhaimai/dotfiles/magi/bin ~/bin
     
+Close your terminal, and open it again so it loads the new settings.
+    
 ### Vundle: ###
     
 By this time, you should have my git script `g`, and `vim` latest version
@@ -70,11 +85,9 @@ By this time, you should have my git script `g`, and `vim` latest version
     g clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall
     
-### fasd: ###
-    mkdir ~/software
-    cd ~/software
-    wget https://github.com/clvv/fasd/tarball/1.0.1 -O fasd.tar.gz
-    e fasd.tar.gz
+### Vim: YouCompleteMe ###
+    cd ~/.vim/bundle/YouCompleteMe
+    ./install.sh --clang-completer
     
 ### Compiz: ###
     sudo apt-get install compizconfig-settings-manager fusion-icon compiz-plugins-extra libdecoration0-dev
