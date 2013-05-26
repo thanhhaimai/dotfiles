@@ -12,7 +12,7 @@ note: magi is the name of my computer, nothing special.
 
 These are software that my dotfiles depends on, which are not included by default in Mint 15 RC. If you only use my .bashrc and .vimrc, then you only need those.
 
-* vim lastest version: `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source`
+* vim latest version: `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source`
 * vundle: `https://github.com/gmarik/vundle`
 * fasd: `https://github.com/clvv/fasd`
 * trash-cli: `sudo apt-get install trash-cli`
@@ -22,7 +22,8 @@ These are software that my dotfiles depends on, which are not included by defaul
 # Installation steps #
 
 Well, my lazy self decides to create a more details guide so I can just copy, paste, and run when Mint 15 is released.
-All the following cmds assume that it's a fresh install.
+All the following cmds assume that it's a fresh install of Mint 15 RC.
+On Ubuntu, it should be similar, but I haven't tested it.
 
 ### Update && upgrade: ###
 
@@ -33,7 +34,7 @@ All the following cmds assume that it's a fresh install.
 
     sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \
     libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial \
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev ruby-dev mercurial \
     trash-cli ack-grep tig build-essential cmake python-dev
     
 ### fasd: ###
@@ -56,7 +57,8 @@ Steps from `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-sou
                 --enable-rubyinterp \
                 --enable-pythoninterp \
                 --enable-perlinterp \
-                --enable-gui=gtk2 --enable-cscope --prefix=/usr
+                --enable-gui=gtk2 --enable-cscope --prefix=/usr \
+                --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/
     make VIMRUNTIMEDIR=/usr/share/vim/vim73
     sudo make install
     
@@ -88,6 +90,10 @@ By this time, you should have my git script `g`, and `vim` latest version
 ### Vim: YouCompleteMe ###
     cd ~/.vim/bundle/YouCompleteMe
     ./install.sh --clang-completer
+    
+# Extra #
+
+These are mostly for myself.
     
 ### Compiz: ###
     sudo apt-get install compizconfig-settings-manager fusion-icon compiz-plugins-extra libdecoration0-dev
