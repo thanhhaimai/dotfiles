@@ -1,46 +1,36 @@
 # Mai Dotfiles #
 
-Just my dotfiles.
-
-Magi is just the name of my computer.
+These are my dotfiles, and instructions to set up my dev laptop. This is just a note for myself when I want to install a new distro.
+Magi is the name of my computer.
 
 ## Required software: ##
 
-These are software that my dotfiles depends on, which are not included by default in Mint 15 RC
+These are software that my dotfiles depends on, which are not included by default in Mint 15 RC. If you only use my .bashrc and .vimrc, then you only need those.
 
-* fasd: 
-
-    https://github.com/clvv/fasd
-
-* trash-cli: 
-
-    sudo apt-get install trash-cli
-
-* vim lastest version
-
-    https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
-
-* vundle
-
-    https://github.com/gmarik/vundle
-
-* ack
-
-    http://beyondgrep.com/install/
-
-* tig
-
-    sudo apt-get install tig
+* fasd: `https://github.com/clvv/fasd`
+* trash-cli: `sudo apt-get install trash-cli`
+* vim lastest version: `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source`
+* vundle: `https://github.com/gmarik/vundle`
+* ack: `http://beyondgrep.com/install/`
+* tig: `sudo apt-get install tig`
 
 ## Installation steps: ##
 
-These are just notes to myself for what to do after a fresh install
+These are some vague steps on how to set up my dev laptop.
 
 ### Update && upgrade ###
 
     sudo apt-get update
-
     sudo apt-get upgrade
+    
+### Compiz: ###
+    sudo apt-get install compizconfig-settings-manager fusion-icon compiz-plugins-extra libdecoration0-dev
+    compiz --replace
+    Add `compiz --replace` to Startup Applications
+    
+#### Compiz configuration for L702x ####
+* set desktop size
+* change screenshot cmd to mate-screenshot
 
 ### Config: ###
 
