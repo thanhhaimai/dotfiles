@@ -1,12 +1,40 @@
 # Mai Dotfiles #
 
-These are my dotfiles, and instructions to set up my dev laptop.
+These are my dotfiles and instructions to set up my dev laptop.
 This is just a note for myself when I want to install a new distro.
-However, feel free to take a look at the dotfiles, especially `.vimrc` and `.bashrc`
-If you copy some part of my vimrc/bashrc and see an error, check if you have the required software below.
-I also include an installation guide for fresh install of Mint 15 RC.
+However, feel free to take a look at the dotfiles, especially `.vimrc` and `.bashrc`.
+If you copy some part of my vimrc/bashrc and see an error, check if you have the [required software](#required-software) below.
+I also include an [installation guide](#installation-steps "Installation steps for Mint 15 RC") for fresh install of Mint 15 RC.
 
-note: magi is the name of my computer, nothing special.
+Note: `magi` is the name of my computer, nothing special.
+
+## Features ##
+
+### .bashrc ###
+* color: almost every essential commands has colored ouput by default.
+* history: ignore duplicate lines and basic commands
+* prompt with max len. If your `pwd` is longer than 60 chars, it will truncate and replace it with "..." at the start
+* promp has time and git repo/branch
+* extra commands: `o` (open), `e` (extract), `title` (change title), `remindme` (pop up reminder), `j` (jump to dir)
+* and more.. (I reccommend you to read [.bashrc](https://github.com/thanhhaimai/dotfiles/blob/master/magi/.bashrc))
+
+### .vimrc ###
+* relative line number in normal mode, and absolute line number in insert mode
+* show tabs, breaks, and trailing spaces
+* show 7 lines of context when scroll off page
+* auto reload `.vimrc` when changed
+* block cursor shape in normal mode, line cursor shape in insert mode
+* tab completion for commands
+* center the search term (for example, when press `n`)
+* `0` will alternate between beginning of line and first word in line
+* `Alt` + `<key>` is mappable
+* `Alt` + `j`, `Alt` + `k` to drag the current line up or down
+* `Alt` + `f` to grep the current word in the current directory, `Alt` + `F` to input the word to grep.
+* `Alt` + `p` to replace the current word with the most recent yank.
+* `Alt` + `h`, `Alt` + `l` to circle quick fix windows
+* `Ctrl` + `j`, `Ctrl` + `k` to circle buffers
+* `Ctrl` + `h`, `Ctrl` + `l` to circle tabs
+* and more.. (I reccommend you to read [.vimrc](https://github.com/thanhhaimai/dotfiles/blob/master/magi/.vimrc))
 
 ### Required software: ###
 
