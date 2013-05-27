@@ -105,6 +105,7 @@ alias reload='source ~/.bashrc'
 alias hist='history | grep'
 alias o='mate-open'
 alias ack='ack-grep'
+alias make='make -j'
 
 oo() {
     mate-open "$@"
