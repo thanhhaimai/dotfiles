@@ -142,12 +142,11 @@ augroup AutoReloadVimRC
 augroup END
 
 " Set cursor to ibeam in insert mode and block in normal mode
-if has("autocmd")
-  au InsertEnter * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape ibeam"
-  au InsertLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
-  au VimLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
-endif
-
+" if has("autocmd")
+"   au InsertEnter * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape ibeam"
+"   au InsertLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
+"   au VimLeave * silent execute "!mateconftool-2 --type string --set /apps/mate-terminal/profiles/Default/cursor_shape block"
+" endif
 autocmd BufReadPost *
       \ if line("'\"") > 0 && line ("'\"") <= line("$") |
       \   exe "normal g'\"" |
