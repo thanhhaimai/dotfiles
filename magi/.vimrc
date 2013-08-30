@@ -100,6 +100,7 @@ set cb="exclude:.*"
 
 " Set UI
 set rnu " Set relative number
+set nu
 set ruler
 set list " Show special characters (I specified below)
 set listchars=tab:→\ ,trail:·
@@ -167,7 +168,7 @@ autocmd! BufRead,BufNewFile *.go set filetype=go
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Set relative number in normal mode, and line number in insert mode
-autocmd InsertEnter * :set nu
+autocmd InsertEnter * :set nornu
 autocmd InsertLeave * :set rnu
 
 " Only have cursorline in current window

@@ -19,12 +19,12 @@ alias reload='source ~/.bashrc'
 # alias cp='cp -i'
 # alias mv='mv -i'
 alias hist='history | grep'
-alias o='mate-open'
+alias o='gnome-open'
 alias ack='ack-grep'
 alias make='make -j'
 
 oo() {
-    mate-open "$@"
+    gnome-open "$@"
 }
 
 # Some navigation functions
