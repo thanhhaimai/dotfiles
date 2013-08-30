@@ -4,7 +4,7 @@ These are my dotfiles and instructions to set up my dev laptop.
 This is just a note for myself when I want to install a new distro.
 However, feel free to take a look at the dotfiles, especially `.vimrc` and `.bashrc`.
 If you copy some part of my vimrc/bashrc and see an error, check if you have the [required software](#required-software) below.
-I also include an [installation guide](#installation-steps "Installation steps for Mint 15 RC") for fresh install of Mint 15 RC.
+I also include an [installation guide](#installation-steps "Installation steps for Mint 15 Mate Edition") for fresh install of Mint 15.
 
 Note: `magi` is the name of my computer, nothing special.
 
@@ -87,7 +87,7 @@ Steps from `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-sou
                 --enable-perlinterp \
                 --enable-gui=gtk2 --enable-cscope --prefix=/usr \
                 --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/
-    make VIMRUNTIMEDIR=/usr/share/vim/vim73
+    make VIMRUNTIMEDIR=/usr/share/vim/vim74
     sudo make install
     
 ### Set up dotfiles: ###
@@ -98,6 +98,7 @@ Remember, I'm assuming it's a fresh install. Merge your dotfiles if you want to 
     cd ~/workspace/thanhhaimai
     git clone git@github.com:thanhhaimai/dotfiles.git
     ln -s workspace/thanhhaimai/dotfiles/magi/.bashrc ~/.bashrc
+    ln -s workspace/thanhhaimai/dotfiles/magi/.bash_aliases ~/.bashrc_aliases
     ln -s workspace/thanhhaimai/dotfiles/magi/.gitconfig ~/.gitconfig
     ln -s workspace/thanhhaimai/dotfiles/magi/.gitignore_global ~/.gitignore_global
     ln -s workspace/thanhhaimai/dotfiles/magi/.tigrc ~/.tigrc
@@ -169,3 +170,9 @@ These are mostly for myself.
 * QtOctave
 * gummi
 
+### Themes: ###
+sudo add-apt-repository ppa:salience-team/salience-devel-ppa
+sudo add-apt-repository ppa:noobslab/themes
+sudo apt-get update
+sudo apt-get install salience-theme
+sudo apt-get install delorean-dark
