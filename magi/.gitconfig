@@ -34,3 +34,5 @@
   algorithm = patience
 [branch "master"]
   rebase = true
+[push]
+	default = simple
