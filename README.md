@@ -58,6 +58,8 @@ On Ubuntu, it should be similar, but I haven't tested it.
     sudo apt-get update
     sudo apt-get upgrade
     
+### Generate Keys ###
+    
 ### Install other software: ###
 
     sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \
