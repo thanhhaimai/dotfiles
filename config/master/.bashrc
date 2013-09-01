@@ -79,6 +79,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # auto complete for g too
+source /usr/share/bash-completion/completions/git
 complete -o default -o nospace -F _git g
 
 # Loads system specific settings and aliases
