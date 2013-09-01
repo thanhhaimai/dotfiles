@@ -4,9 +4,7 @@
 set -e
 
 sudo apt-get remove vim vim-runtime gvim vim-tiny vim-common
-if [ -d "~/software/vim" ]; then
-    rm -rf ~/software/vim
-fi
+\rm -rf ~/software/vim
 mkdir -p ~/software
 cd ~/software
 

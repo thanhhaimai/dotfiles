@@ -3,9 +3,7 @@
 # Stops when there is an error
 set -e
 
-if [ -d "~/software/fasd" ]; then
-    rm -rf ~/software/fasd
-fi
+\rm -rf ~/software/fasd
 mkdir -p ~/software
 cd ~/software
 
