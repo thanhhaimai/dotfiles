@@ -1,0 +1,37 @@
+[credential]
+  helper = cache
+[color]
+  status = auto
+  branch = auto
+  ui = auto
+  diff = auto
+[alias]
+  co = checkout
+  c = commit -v
+  ci = commit -v
+  b = branch
+  cp = cherry-pick
+  l = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  ll = log --all --graph --color --stat --abbrev-commit --decorate --oneline
+  lll = log --all --graph --color --stat --all --decorate
+  d = diff -p --stat --unified=8 --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
+  di = diff -p --stat --unified=8 --color
+  d1 = !git d HEAD~1
+  d2 = !git d HEAD~2
+  d3 = !git d HEAD~3
+  ds = stash show -p stash@{0}
+  ds1 = stash show -p stash@{1}
+  ds2 = stash show -p stash@{2}
+  ri = rebase -i
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+[core]
+  excludesfile = ~/.gitignore_global
+[include]
+  path = ~/.gitconfig.local
+[diff]
+  algorithm = patience
+[branch "master"]
+  rebase = true
+[push]
+	default = simple
