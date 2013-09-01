@@ -46,6 +46,7 @@ done
 echo "Done."
 
 echo "Installing softwares..."
+$baseDir/scripts/install_essential_packages.sh
 $baseDir/scripts/install_fasd.sh
 $baseDir/scripts/install_vim.sh
 $baseDir/scripts/install_vundle.sh

@@ -44,29 +44,33 @@ These are software that my dotfiles depends on, which are not included by defaul
 * vundle: `https://github.com/gmarik/vundle`
 * fasd: `https://github.com/clvv/fasd`
 * trash-cli: `sudo apt-get install trash-cli`
-* ack: `http://beyondgrep.com/install/`
+* ack: `sudo apt-get install ack-grep`
 * tig: `sudo apt-get install tig`
 
 # Installation steps #
 
-Well, my lazy self decides to create a more details guide so I can just copy, paste, and run when Mint 15 is released.
-All the following cmds assume that it's a fresh install of Mint 15 RC.
+Well, my lazy self decides to create a more details guide so I can just copy, paste, and run.
+All the following cmds assume that it's a fresh install of Mint 15.
 On Ubuntu, it should be similar, but I haven't tested it.
+
+P.S: I also provide a setup.sh script you can run and get everything you need. Make sure you generate your ssh key first.
+
+### Generate Keys ###
+
+generates your ssh key
 
 ### Update && upgrade: ###
 
     sudo apt-get update
     sudo apt-get upgrade
-    
-### Generate Keys ###
-    
+
 ### Install other software: ###
 
     sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \
     libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev ruby-dev mercurial \
     trash-cli ack-grep tig build-essential cmake python-dev
-    
+
 ### fasd: ###
     mkdir ~/software
     cd ~/software
@@ -74,7 +78,7 @@ On Ubuntu, it should be similar, but I haven't tested it.
     tar xzf fasd.tar.gz
     cd clvv-fasd*
     sudo make install
-    
+
 ### Install latest vim: ###
 
 Steps from `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source`
