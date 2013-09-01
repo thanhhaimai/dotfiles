@@ -1,11 +1,13 @@
 #!/bin/sh
 
-rm -rf ~/software/fasd
-mkdir ~/software
-cd ~/software
-
 # Stops when there is an error
 set -e
+
+if [ -d "~/software/fasd" ]; then
+    rm -rf ~/software/fasd
+fi
+mkdir -p ~/software
+cd ~/software
 
 # Clone the latest tag from fasd repo, and install it
 git clone https://github.com/clvv/fasd.git

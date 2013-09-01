@@ -1,12 +1,14 @@
 #!/bin/sh
 
-sudo apt-get remove vim vim-runtime gvim vim-tiny vim-common
-rm -rf ~/software/vim
-mkdir ~/software
-cd ~/software
-
 # Stops when there is an error
 set -e
+
+sudo apt-get remove vim vim-runtime gvim vim-tiny vim-common
+if [ -d "~/software/vim" ]; then
+    rm -rf ~/software/vim
+fi
+mkdir -p ~/software
+cd ~/software
 
 # Clone the latest vim from the repo and config it
 git clone https://github.com/b4winckler/vim.git

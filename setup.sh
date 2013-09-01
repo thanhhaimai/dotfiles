@@ -14,17 +14,17 @@ hostName=$(hostname)
 rm -rf ~/software/fasd
 rm -rf ~/software/vim
 
-# Stops when there is an error
 set -e
 
 # __symlink(configFile, symlinkName)
 __symlink() {
     rm -rf ~/$2
-    ln -s $baseDir/config/$1 ~/$2
+    ln -T -s $baseDir/config/$1 ~/$2
 }
 
 echo "Creating dotfiles symlinks..."
 for file in $OVERRIDABLE_SYMLINKS; do
+    echo $file
     if [ -f "$baseDir/config/$hostName/$file" ] \
         || [ -d "$baseDir/config/$hostName/$file" ]; then
         __symlink "$hostName/$file" $file
@@ -45,14 +45,13 @@ for file in $INCLUDABLE_SYMLINKS; do
 done
 echo "Done."
 
+echo "Installing softwares..."
+$baseDir/scripts/install_fasd.sh
+$baseDir/scripts/install_vim.sh
+$baseDir/scripts/install_vundle.sh
+$baseDir/scripts/install_ycm.sh
+echo "Done."
+
 echo "Reloading settings..."
 . ~/.bashrc
 echo "Done."
-
-echo "Installing softwares..."
-# scripts/install_fasd.sh
-# scripts/install_vim.sh
-scripts/install_vundle.sh
-scripts/install_ycm.sh
-echo "Done."
-
