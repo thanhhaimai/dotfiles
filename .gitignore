@@ -1,0 +1,10 @@
+vim-latex-live-preview
+config/master/.vim/autoload/go/
+config/master/.vim/bundle/
+config/master/.vim/ftdetect/
+config/master/.vim/ftplugin/go/
+config/master/.vim/indent/go.vim
+config/master/.vim/plugin/godoc.vim
+config/master/.vim/syntax/go.vim
+config/master/.vim/syntax/godoc.vim
+
