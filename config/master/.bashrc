@@ -21,6 +21,9 @@ HISTIGNORE='\&:fg:bg:pwd:cd ..:cd ~:cd -:cd::c:j:jobs:set -x:ls:l:la:ll:title'
 HISTSIZE=99999
 HISTFILESIZE=99999
 
+export GOROOT=$HOME/software/go
+PATH=$PATH:$GOROOT/bin
+
 # private include(file)
 __include () {
     [[ -f "$1" ]] && source "$1"
@@ -86,3 +89,5 @@ complete -o default -o nospace -F _git g
 __include ~/.bash.local
 __include ~/.bash_aliases
 __include ~/.bash_aliases.local
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

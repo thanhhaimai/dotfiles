@@ -15,14 +15,15 @@ runtime! debian.vim
 " options, so any other options should be set AFTER setting 'compatible'.
 "set compatible
 
-" Go runtime support for vim
-set rtp+=$GOROOT/misc/vim 
-
 "======================================================================="
 " Vundle option:
 "======================================================================="
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+filetype plugin indent off
+" Go runtime support for vim
+set rtp+=$GOROOT/misc/vim 
+set rtp+=$HOME/.vim/bundle/vundle/
+
 call vundle#rc()
 
 " let Vundle manage Vundle
@@ -50,7 +51,6 @@ Bundle 'xuhdev/vim-latex-live-preview'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'kchmck/vim-coffee-script'
-
 " install pydoc
 "
 filetype plugin indent on     " required!
@@ -127,6 +127,7 @@ set smartcase " Do smart case matching
 " set hidden " Hide buffers when they are abandoned
 " set mouse=a " Enable mouse usage (all modes)
 set autoindent
+set smartindent
 set autoread " Update open files when changed externally
 set splitbelow " put the new window below of the current one
 set splitright " put the new window right of the current one
@@ -155,7 +156,7 @@ autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 autocmd! BufNewFile,BufRead *.hn setlocal ft=c
 autocmd! BufNewFile,BufRead *.vrapperrc setlocal ft=vim
-autocmd! BufRead,BufNewFile *.go set filetype=go
+autocmd! BufNewFile,BufRead *.go setlocal ft=go
 " Start Tagbar when open vim
 " autocmd VimEnter * TagbarOpen
 " Start NERDTree when open vim without arg
