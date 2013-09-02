@@ -4,7 +4,7 @@
 # instead of the base one.
 OVERRIDABLE_SYMLINKS="bin .vim .gitignore_global .tmux.conf .tigrc"
 # Make symlinks for those files. The base one will have the same name, while the
-# system specific one will have "_$hostName" appended. The base one will attempt
+# system specific one will have ".local" appended. The base one will attempt
 # to include the system specific one if it exists.
 INCLUDABLE_SYMLINKS=".bashrc .bash_aliases .vimrc .gitconfig"
 
@@ -51,6 +51,8 @@ $baseDir/scripts/install_fasd.sh
 $baseDir/scripts/install_vim.sh
 $baseDir/scripts/install_vundle.sh
 $baseDir/scripts/install_ycm.sh
+$baseDir/scripts/install_go.sh
+$baseDir/scripts/install_vim_golang.sh
 echo "Done."
 
 echo "Reloading settings..."
