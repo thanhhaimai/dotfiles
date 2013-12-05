@@ -10,6 +10,8 @@ export PATH=$PATH:~/go/bin
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# Set java home for cs186
+export JAVA_HOME="/usr/lib/jvm/java-6-openjdk-amd64"
 
 # Shows the calendar and starts in home folder
 echo

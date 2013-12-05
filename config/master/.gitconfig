@@ -11,7 +11,7 @@
   ci = commit -v
   b = branch
   cp = cherry-pick
-  l = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  l = log --all --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   ll = log --all --graph --color --stat --abbrev-commit --decorate --oneline
   lll = log --all --graph --color --stat --all --decorate
   d = diff -p --stat --unified=8 --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'

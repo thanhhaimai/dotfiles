@@ -104,6 +104,7 @@ set cb="exclude:.*"
 set rnu " Set relative number
 set nu
 set ruler
+" set linebreak
 set list " Show special characters (I specified below)
 set listchars=tab:→\ ,trail:·
 " set visualbell

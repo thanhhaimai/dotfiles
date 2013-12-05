@@ -86,7 +86,7 @@ source /usr/share/bash-completion/completions/git
 complete -o default -o nospace -F _git g
 
 # Loads system specific settings and aliases
-__include ~/.bash.local
+__include ~/.bashrc.local
 __include ~/.bash_aliases
 __include ~/.bash_aliases.local
 

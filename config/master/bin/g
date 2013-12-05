@@ -13,7 +13,11 @@ if [ "$T" = "s" -o "$T" = "st" ] ; then
     git branch -av
     git remote -v
     echo "========================= TAGS ========================="
-    git tag -l | head -n 5
+    TAGS=$(git tag -l | head -n 10)
+    for t in $TAGS; do
+        echo -n "$t:\t"
+        git show $t --oneline --quiet | sed -n '3p'
+    done
     echo "======================== STASH ========================="
     git stash show
     echo "=================== ASSUMED UNCHANGE ==================="
