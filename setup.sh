@@ -2,7 +2,7 @@
 
 # Makes symlinks for those files, and pick the system specific file if it exists
 # instead of the base one.
-OVERRIDABLE_SYMLINKS="bin .vim .gitignore_global .tmux.conf .tigrc"
+OVERRIDABLE_SYMLINKS="bin .vim .gitignore_global .tmux.conf .tigrc .vrapperrc"
 # Make symlinks for those files. The base one will have the same name, while the
 # system specific one will have ".local" appended. The base one will attempt
 # to include the system specific one if it exists.
@@ -48,13 +48,18 @@ echo "Done."
 echo "Installing softwares..."
 $baseDir/scripts/install_essential_packages.sh
 $baseDir/scripts/install_fasd.sh
-$baseDir/scripts/install_vim.sh
+# $baseDir/scripts/install_vim.sh
 $baseDir/scripts/install_vundle.sh
 $baseDir/scripts/install_ycm.sh
 $baseDir/scripts/install_go.sh
 $baseDir/scripts/install_vim_golang.sh
+$baseDir/scripts/setup_cronjobs.sh
 echo "Done."
 
 echo "Reloading settings..."
 . ~/.bashrc
 echo "Done."
+
+#============== Manual Work =====================================
+echo "**WARNING: there are manual work you need to do if you're using an SSD."
+echo "1> [OPTIONAL] Edit /etc/fstab and add noatime,discard"

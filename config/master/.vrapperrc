@@ -1,0 +1,6 @@
+set autoindent
+set smartcase
+set incsearch
+set sanecw
+set saney
+set scrolloff=7
