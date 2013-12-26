@@ -23,6 +23,7 @@ HISTFILESIZE=99999
 
 export GOROOT=$HOME/software/go
 PATH=$PATH:$GOROOT/bin
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # private include(file)
 __include () {
@@ -89,5 +90,3 @@ complete -o default -o nospace -F _git g
 __include ~/.bashrc.local
 __include ~/.bash_aliases
 __include ~/.bash_aliases.local
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

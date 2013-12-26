@@ -20,3 +20,8 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+if [ -f "$HOME/.Xmodmap" ]; then
+    /usr/bin/xmodmap "$HOME/.Xmodmap"
+fi
+

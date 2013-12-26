@@ -2,7 +2,7 @@
 
 # Makes symlinks for those files, and pick the system specific file if it exists
 # instead of the base one.
-OVERRIDABLE_SYMLINKS="bin .vim .gitignore_global .tmux.conf .tigrc .vrapperrc"
+OVERRIDABLE_SYMLINKS="bin .vim .profile .gitignore_global .tmux.conf .tigrc .vrapperrc .xmonad .Xmodmap"
 # Make symlinks for those files. The base one will have the same name, while the
 # system specific one will have ".local" appended. The base one will attempt
 # to include the system specific one if it exists.
@@ -47,6 +47,7 @@ echo "Done."
 
 echo "Installing softwares..."
 $baseDir/scripts/install_essential_packages.sh
+$baseDir/scripts/install_xmonad.sh
 $baseDir/scripts/install_fasd.sh
 # $baseDir/scripts/install_vim.sh
 $baseDir/scripts/install_vundle.sh

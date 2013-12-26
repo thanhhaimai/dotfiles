@@ -1,1 +1,1 @@
-sudo cp ../cronjobs/trim /etc/cron.daily/trim
+sudo cp cronjobs/trim /etc/cron.daily/trim
