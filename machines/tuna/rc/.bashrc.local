@@ -1,0 +1,4 @@
+# Shows the calendar
+echo
+cal
+ls

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/xmodmap ~/.Xmodmap
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=xmodmap
+Name=xmodmap
+Comment[en_US]=
+Comment=

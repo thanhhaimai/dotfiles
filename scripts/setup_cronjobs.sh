@@ -1,3 +1,6 @@
 echo "Setting up cronjobs..."
 
-sudo cp cronjobs/trim /etc/cron.daily/trim
+baseDir=$(dirname $(readlink -f $0))\..
+
+sudo mkdir -p /etc/cron.daily/
+sudo cp $baseDir/cronjobs/* /etc/cron.daily/

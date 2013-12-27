@@ -2,6 +2,7 @@
 echo "Configuring Golang for Vim..."
 
 set -e 
+
 mkdir -p $HOME/.vim/ftplugin/go
 mkdir -p $HOME/.vim/ftdetect
 mkdir -p $HOME/.vim/plugin
