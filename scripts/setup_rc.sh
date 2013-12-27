@@ -24,17 +24,25 @@ bin \
 baseDir=$(dirname $(readlink -f $0))/..
 hostName=$(hostname)
 
-set -e
-
 # __symlink(configFile, symlinkName)
 __symlink() {
     rm -rf ~/$2
     ln -T -s $1 ~/$2
 }
 
+\rm -rf $baseDir/rcbackup
+mkdir -p $baseDir/rcbackup
+
+set -e
+
 echo "Creating dotfiles symlinks..."
 for file in $SYMLINKS; do
     echo $file
+    if [ -f "$HOME/$file" ] \
+        || [ -d "$HOME/$file" ]; then
+        cp -r ~/$file $baseDir/rcbackup
+    fi
+
     if [ -f "$baseDir/machines/$hostName/rc/$file" ] \
         || [ -d "$baseDir/machines/$hostName/rc/$file" ]; then
         __symlink "$baseDir/machines/$hostName/rc/$file" "$file"
