@@ -474,5 +474,5 @@ set statusline+=%b,0x%B\                   " current char
 set statusline+=%{fugitive#statusline()}\    " git status line
 
 if filereadable(glob("~/.vimrc.local"))
-  source .vimrc.local
+  source ~/.vimrc.local
 endif

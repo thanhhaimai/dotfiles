@@ -4,27 +4,25 @@
 # instead of the base one. The files with ".local" in their names will be
 # included by the main ones.
 SYMLINKS="\
-bin\
-.vim\
-.vimrc\
-.vimrc.local\
-.gitconfig\
+bin \
+.vim \
+.vimrc \
+.vimrc.local \
+.gitconfig \
 .gitconfig.local
-.gitignore_global\
-.bashrc\
-.bashrc.local\
+.gitignore_global \
+.bashrc \
+.bashrc.local \
 .bash_aliases
-.bash_aliases.local\
-.tmux.conf\
-.tigrc\
-.vrapperrc\
-.xmonad\
+.bash_aliases.local \
+.tmux.conf \
+.tigrc \
+.vrapperrc \
+.xmonad \
 .Xmodmap"
 
-baseDir=$(dirname $(readlink -f $0))\..
+baseDir=$(dirname $(readlink -f $0))/..
 hostName=$(hostname)
-
-echo $baseDir
 
 set -e
 

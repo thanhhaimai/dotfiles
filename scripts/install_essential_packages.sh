@@ -20,4 +20,4 @@ sudo apt-get install \
     tig \
     curl \
     xclip \
-    -- yes 
+    --yes

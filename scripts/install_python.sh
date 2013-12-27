@@ -9,5 +9,5 @@ sudo apt-get install \
     python-pandas \
     python-sympy \
     python-nose \
-    -- yes 
+    --yes 
 
