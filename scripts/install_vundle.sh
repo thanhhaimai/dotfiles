@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Installing Vundle for Vim..."
+
 # Stops when there is an error
 set -e
 

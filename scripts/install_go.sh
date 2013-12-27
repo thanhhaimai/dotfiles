@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Installing Golang..."
+
 # Stops when there is an error
 set -e
 

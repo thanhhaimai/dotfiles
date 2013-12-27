@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Installing Vim from source..."
+
 # Stops when there is an error
 set -e
 
