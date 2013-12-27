@@ -1,12 +1,20 @@
 # Mai Dotfiles #
 
-These are my dotfiles and instructions to set up my dev laptop.
-This is just a note for myself when I want to install a new distro.
-However, feel free to take a look at the dotfiles, especially `.vimrc` and `.bashrc`.
-If you copy some part of my vimrc/bashrc and see an error, check if you have the [required software](#required-software) below.
+Dotfiles are meant to be shared, so here you are.
+These are my dotfiles and instructions to set up my computers. It is tested with a fresh installation of Ubuntu 13.10. Feel free to take a look at the dotfiles, especially `.vimrc` and `.bashrc`. If you copy some part of my vimrc/bashrc and see an error, check if you have the [required software](#required-software) below.
 I also include an [installation guide](#installation-steps "Installation steps for Mint 15 Mate Edition") for fresh install of Mint 15.
 
-Note: `magi` is the name of my computer, nothing special.
+## Installation
+* Clone this
+* Back up your dotfiles (the scripts will replace them!)
+* Go inside `machines/` folder, and create a folder with your machine name inside it. Take a look at [`machines/blackchocolate/rc`](https://github.com/thanhhaimai/dotfiles/tree/master/machines/blackchocolate/rc) for example.
+* [Generate your ssh key](https://help.github.com/articles/generating-ssh-keys)
+* Run `./setup.sh`
+
+## Quick Installation
+It is dangerous to execute scripts from the internet like this. Only use this if you are as lazy as I am. Tested on Ubuntu 13.10.
+
+    wget -q -O - https://raw.github.com/thanhhaimai/dotfiles/master/bootstrap.sh | sh
 
 ## Features ##
 
@@ -16,7 +24,7 @@ Note: `magi` is the name of my computer, nothing special.
 * prompt with max len. If your `pwd` is longer than 60 chars, it will truncate and replace it with "..." at the start
 * promp has time and git repo/branch
 * extra commands: `o` (open), `e` (extract), `title` (change title), `remindme` (pop up reminder), `j` (jump to dir)
-* and more.. (I reccommend you to read [.bashrc](https://github.com/thanhhaimai/dotfiles/blob/master/magi/.bashrc))
+* and more.. (I reccommend you to read [.bashrc](https://github.com/thanhhaimai/dotfiles/blob/master/rc/.bashrc))
 
 ### .vimrc ###
 * relative line number in normal mode, and absolute line number in insert mode
@@ -34,107 +42,22 @@ Note: `magi` is the name of my computer, nothing special.
 * `Alt` + `h`, `Alt` + `l` to circle quick fix windows
 * `Ctrl` + `j`, `Ctrl` + `k` to circle buffers
 * `Ctrl` + `h`, `Ctrl` + `l` to circle tabs
-* and more.. (I reccommend you to read [.vimrc](https://github.com/thanhhaimai/dotfiles/blob/master/magi/.vimrc))
+* and more.. (I reccommend you to read [.vimrc](https://github.com/thanhhaimai/dotfiles/blob/master/rc/.vimrc))
 
 ### Required software: ###
 
-These are software that my dotfiles depends on, which are not included by default in Mint 15 RC. If you only use my .bashrc and .vimrc, then you only need those.
+These are software that my dotfiles depends on, which are not included by default in LinuxMint/Ubuntu. If you only use my .bashrc and .vimrc, then you only need those.
 
-* vim latest version: `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source`
 * vundle: `https://github.com/gmarik/vundle`
 * fasd: `https://github.com/clvv/fasd`
 * trash-cli: `sudo apt-get install trash-cli`
 * ack: `sudo apt-get install ack-grep`
 * tig: `sudo apt-get install tig`
 
-# Installation steps #
-
-Well, my lazy self decides to create a more details guide so I can just copy, paste, and run.
-All the following cmds assume that it's a fresh install of Mint 15.
-On Ubuntu, it should be similar, but I haven't tested it.
-
-P.S: I also provide a setup.sh script you can run and get everything you need. Make sure you generate your ssh key first.
-
-### Generate Keys ###
-
-generates your ssh key
-
-### Update && upgrade: ###
-
-    sudo apt-get update
-    sudo apt-get upgrade
-
-### Install other software: ###
-
-    sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \
-    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev ruby-dev mercurial \
-    trash-cli ack-grep tig build-essential cmake python-dev
-
-### fasd: ###
-    mkdir ~/software
-    cd ~/software
-    wget https://github.com/clvv/fasd/tarball/1.0.1 -O fasd.tar.gz
-    tar xzf fasd.tar.gz
-    cd clvv-fasd*
-    sudo make install
-
-### Install latest vim: ###
-
-Steps from `https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source`
-
-    sudo apt-get remove vim vim-runtime gvim vim-tiny vim-common
-    cd ~
-    hg clone https://code.google.com/p/vim/
-    cd vim
-    ./configure --with-features=huge \
-                --enable-rubyinterp \
-                --enable-pythoninterp \
-                --enable-perlinterp \
-                --enable-gui=gtk2 --enable-cscope --prefix=/usr \
-                --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/
-    make VIMRUNTIMEDIR=/usr/share/vim/vim74
-    sudo make install
-    
-### Set up dotfiles: ###
-
-Remember, I'm assuming it's a fresh install. Merge your dotfiles if you want to keep your old ones.
-    
-    mkdir -p ~/workspace/thanhhaimai
-    cd ~/workspace/thanhhaimai
-    git clone git@github.com:thanhhaimai/dotfiles.git
-    ln -s workspace/thanhhaimai/dotfiles/magi/.bashrc ~/.bashrc
-    ln -s workspace/thanhhaimai/dotfiles/magi/.bash_aliases ~/.bashrc_aliases
-    ln -s workspace/thanhhaimai/dotfiles/magi/.gitconfig ~/.gitconfig
-    ln -s workspace/thanhhaimai/dotfiles/magi/.gitignore_global ~/.gitignore_global
-    ln -s workspace/thanhhaimai/dotfiles/magi/.tigrc ~/.tigrc
-    ln -s workspace/thanhhaimai/dotfiles/magi/.tmux.conf ~/.tmux.conf
-    ln -s workspace/thanhhaimai/dotfiles/magi/.vimrc ~/.vimrc
-    ln -s workspace/thanhhaimai/dotfiles/magi/.vim ~/.vim
-    ln -s workspace/thanhhaimai/dotfiles/magi/bin ~/bin
-    
-Close your terminal, and open it again so it loads the new settings.
-    
-### Vundle: ###
-    
-By this time, you should have my git script `g`, and `vim` latest version
-
-    g clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-    vim +BundleInstall +qall
-    
-### Vim: YouCompleteMe ###
-    cd ~/.vim/bundle/YouCompleteMe
-    ./install.sh --clang-completer
-    
 # Extra #
 
 These are mostly for myself.
-    
-### Compiz: ###
-    sudo apt-get install compizconfig-settings-manager fusion-icon compiz-plugins-extra libdecoration0-dev
-    compiz --replace
-    Add `compiz --replace` to Startup Applications
-    
+
 #### Compiz configuration for L702x ####
 * set desktop size
 * change screenshot cmd to mate-screenshot
