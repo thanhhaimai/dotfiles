@@ -6,10 +6,10 @@ I also include an [installation guide](#installation-steps "Installation steps f
 
 ## Installation
 * Clone this
-* Back up your dotfiles (the scripts will replace them!)
 * Go inside `machines/` folder, and create a folder with your machine name inside it. Take a look at [`machines/blackchocolate/rc`](https://github.com/thanhhaimai/dotfiles/tree/master/machines/blackchocolate/rc) for example.
 * [Generate your ssh key](https://help.github.com/articles/generating-ssh-keys)
 * Run `./setup.sh`
+* Your old dotfiles are saved in `rcbackup` folder
 
 ## Quick Installation
 It is dangerous to execute scripts from the internet like this. Only use this if you are as lazy as I am. Tested on Ubuntu 13.10.
