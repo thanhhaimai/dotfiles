@@ -14,7 +14,7 @@ $baseDir/scripts/install_vundle.sh
 $baseDir/scripts/install_ycm.sh
 $baseDir/scripts/install_go.sh
 $baseDir/scripts/install_vim_golang.sh
-$baseDir/scripts/setup_autostart.sh
+# $baseDir/scripts/setup_autostart.sh
 # $baseDir/scripts/install_xmonad.sh
 # $baseDir/scripts/install_vim.sh
 # $baseDir/scripts/install_compiz.sh
