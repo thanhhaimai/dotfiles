@@ -21,8 +21,8 @@ echo "Moving Minimize, Maximize, and Close buttons to the right side..."
 gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'
 
 echo "Disabling white dots in passwords..."
-sudo xhost +SI:localuser:lightdm
-sudo -u lightdm gsettings set com.canonical.unity-greeter draw-grid false
+# sudo xhost +SI:localuser:lightdm
+gsettings set com.canonical.unity-greeter draw-grid false
 
 echo "Installing Cairo Dock..."
 sudo add-apt-repository ppa:cairo-dock-team/ppa --yes
