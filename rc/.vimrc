@@ -124,7 +124,7 @@ set smartcase " Do smart case matching
 "set gdefault " Subtitute all matches in a line by default
 
 " Set behaviors
-" set autowrite " Automatically save before commands like :next and :make
+set autowrite " Automatically save before commands like :next and :make
 " set hidden " Hide buffers when they are abandoned
 " set mouse=a " Enable mouse usage (all modes)
 set autoindent
@@ -314,11 +314,21 @@ nmap <F2> :NERDTreeToggle<CR>
 " TagBar toggle
 nmap <F4> :TagbarToggle<CR>
 
-" Run current line
-nmap <F5> :.!sh<CR>
+" Run the current file (remember to chmod +x it first)
+nmap <F5> :call ExecuteCurrentFile()<CR>
 
 " Gundo toggle
 nmap <F6> :GundoToggle<CR>
+
+" Run current file, output both to stdout and a temp file. Open that temp file
+" after execution in a split
+function! ExecuteCurrentFile()
+  write
+  let outfile = system('mktemp')
+  silent! execute '!stdbuf -o 0 %:p 2>&1 | tee ' . outfile
+  execute 'split ' . outfile
+  redraw!
+endfunction
 
 " Make 0 move back and forth between BOL and first word in line
 function! SmartHome()
