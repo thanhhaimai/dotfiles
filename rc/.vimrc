@@ -144,6 +144,7 @@ set wildignore+=*.swp,*~,._*
 augroup AutoReloadVimRC
   au!
   au BufWritePost .vimrc so ~/.vimrc
+  au BufWritePost .vimrc.local so ~/.vimrc
 augroup END
 
 autocmd BufReadPost *
