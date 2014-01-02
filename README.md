@@ -86,6 +86,11 @@ These are mostly for myself.
 * relativenumberruler
 * vrapper
 * Retta
+* AnyEdit
+* FindBugs
+* IDE++
+* JUnitLoop
+* Quick Search
 
 ### Others: ###
 
@@ -97,10 +102,3 @@ These are mostly for myself.
 * wireshark
 * QtOctave
 * gummi
-
-### Themes: ###
-    sudo add-apt-repository ppa:salience-team/salience-devel-ppa
-    sudo add-apt-repository ppa:noobslab/themes
-    sudo apt-get update
-    sudo apt-get install salience-theme
-    sudo apt-get install delorean-dark
