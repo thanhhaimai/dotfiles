@@ -2,7 +2,6 @@
 
 Dotfiles are meant to be shared, so here you are.
 These are my dotfiles and instructions to set up my computers. It is tested with a fresh installation of Ubuntu 13.10. Feel free to take a look at the dotfiles, especially `.vimrc` and `.bashrc`. If you copy some part of my vimrc/bashrc and see an error, check if you have the [required software](#required-software) below.
-I also include an [installation guide](#installation-steps "Installation steps for Mint 15 Mate Edition") for fresh install of Mint 15.
 
 ## Installation
 * Clone this
