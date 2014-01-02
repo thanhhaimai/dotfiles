@@ -205,6 +205,9 @@ cmap w!! %!sudo tee > /dev/null %
 " Make Y copy from cursor to EOL
 map Y y$
 
+" Make Q break line to textwidth
+map Q gq
+
 " Movement maps
 " nnoremap ; :
 " nnoremap : ;
