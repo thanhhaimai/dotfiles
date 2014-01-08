@@ -21,7 +21,10 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -f "$HOME/.Xmodmap" ]; then
-    /usr/bin/xmodmap "$HOME/.Xmodmap"
+if [ -d "$HOME/software/go" ] ; then
+    export GOROOT=$HOME/software/go
+    export GOPATH=$HOME/workspace/go
+    PATH=$PATH:$GOROOT/bin
+    PATH=$PATH:$GOPATH/bin
 fi
 

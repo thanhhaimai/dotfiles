@@ -21,8 +21,6 @@ HISTIGNORE='\&:fg:bg:pwd:cd ..:cd ~:cd -:cd::c:j:jobs:set -x:ls:l:la:ll:title'
 HISTSIZE=99999
 HISTFILESIZE=99999
 
-export GOROOT=$HOME/software/go
-PATH=$PATH:$GOROOT/bin
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # private include(file)
