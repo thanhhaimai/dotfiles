@@ -1,0 +1,5 @@
+# run ipython by default when I run `python` without arg.
+# fail back to python if there is anything wrong (like ipython not installed)
+python () {
+      test -z "$1" && ipython || command python "$@"
+}
