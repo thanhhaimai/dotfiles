@@ -3,3 +3,5 @@
 python () {
       test -z "$1" && ipython || command python "$@"
 }
+
+alias node="node --harmony"

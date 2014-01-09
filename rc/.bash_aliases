@@ -21,7 +21,8 @@ alias reload='source ~/.bashrc'
 alias o='gnome-open'
 alias ack='ack-grep'
 alias hist='history | ack'
-alias make='make -j$(nproc)'
+# alias make='make -j8'
+# alias sudo='sudo '
 
 oo() {
     gnome-open "$@"
