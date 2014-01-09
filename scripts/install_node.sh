@@ -5,11 +5,17 @@ echo "Installing Node from source..."
 # Stops when there is an error
 set -e
 
-sudo \rm -rf ~/software/nodejs
-mkdir -p ~/software/nodejs
-cd ~/software/nodejs
-curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+sudo \rm -rf ~/software/node ~/software/npm
+mkdir -p ~/software
+cd ~/software
+
+git clone git://github.com/joyent/node.git
+cd node
 ./configure
 sudo make -j$(nproc) install
-curl https://npmjs.org/install.sh | sudo sh
+cd ..
+
+git clone git://github.com/isaacs/npm.git
+cd npm
+sudo make -j$(nproc) install
 
