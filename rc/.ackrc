@@ -1,0 +1,5 @@
+# Always use color
+--color
+
+# Ignore node modules dir
+--ignore-dir=node_modules/

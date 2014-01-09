@@ -18,6 +18,7 @@ bin \
 .tmux.conf \
 .tigrc \
 .vrapperrc \
+.ackrc \
 .xmonad \
 .Xmodmap"
 
