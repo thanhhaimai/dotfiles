@@ -41,6 +41,7 @@ Bundle "tomtom/tlib_vim"
 Bundle "scrooloose/snipmate-snippets"
 Bundle 'garbas/vim-snipmate'
 Bundle 'kien/ctrlp.vim'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'sjl/gundo.vim'
@@ -51,6 +52,8 @@ Bundle 'xuhdev/vim-latex-live-preview'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'mileszs/ack.vim'
+" Bundle 'rstacruz/sparkup'
 " install pydoc
 "
 filetype plugin indent on     " required!
@@ -124,9 +127,14 @@ set smartcase " Do smart case matching
 "set gdefault " Subtitute all matches in a line by default
 
 " Set behaviors
-set autowrite " Automatically save before commands like :next and :make
-" set hidden " Hide buffers when they are abandoned
+" turn autowrite off again because it inteferes with git commit
+" set autowrite " Automatically save before commands like :next and :make
 " set mouse=a " Enable mouse usage (all modes)
+
+" Don't destroy the current buffer when you switch to another one
+" Hide it instead, which keep the undo buffer.
+set hidden
+
 set autoindent
 set smartindent
 set autoread " Update open files when changed externally
@@ -176,6 +184,11 @@ autocmd WinEnter * set cursorline
 
 autocmd BufWritePre *.{cpp,hpp,h,c,cc,hn,java,py} :call StripTrailingWhitespace()
 
+" Load all Rainbow Parentheses features
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 "======================================================================="
 " Key maps
 "======================================================================="
@@ -199,6 +212,10 @@ endw
 " Remap leader to comma
 let mapleader = ","
 
+" Use Perl regex by default
+nnoremap / /\v
+vnoremap / /\v
+
 "Write changes to protected read-only files.
 cmap w!! %!sudo tee > /dev/null %
 
@@ -207,6 +224,9 @@ map Y y$
 
 " Make Q break line to textwidth
 map Q gq
+
+" Make + (Shift=) format the whole file
+nmap + gg=G
 
 " Movement maps
 " nnoremap ; :
@@ -252,7 +272,9 @@ nnoremap <silent> g# g#zz
 nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
 nnoremap <silent> <C-e> :call ToggleList("Quickfix List", 'copen', 'cclose')<CR>
 " nnoremap <silent> <C-S-L> :call ToggleList("Location List", 'l')<CR>
-map <silent> <C-c> q:
+" cmap <silent> <C-c> q
+
+nnoremap <silent> <leader><Space> :RainbowParenthesesToggle<CR>
 
 " Manage buffers
 nnoremap <C-j> :bn<CR>
@@ -302,8 +324,10 @@ nmap <A-c> :TCommentBlock<CR>
 nnoremap <silent> <A-o> o<Esc><Esc>
 
 " Grep
-map <A-f> :call GlobalGrep(expand("<cword>"))<CR>
-map <A-F> :call GlobalGrepPrompt()<CR>
+map <A-f> :Ack<CR>
+map <A-F> :Ack 
+" map <A-f> :call GlobalGrep(expand("<cword>"))<CR>
+" map <A-F> :call GlobalGrepPrompt()<CR>
 
 " Find the current word in the same file
 map <A-n> *
@@ -455,6 +479,9 @@ let g:EasyMotion_keys = 'jkl;asdfiowerutyqpzxcvm,./bn238901'
 " YouCompleteMe settings
 let g:ycm_allow_changing_updatetime = 0
 let g:ycm_min_num_of_chars_for_completion = 1
+
+" Set ackvim to highlight results
+let g:ackhighlight = 1
 
 " Highlight Selection
 hi Visual cterm=bold
