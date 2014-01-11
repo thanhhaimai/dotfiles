@@ -53,6 +53,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'mileszs/ack.vim'
+Bundle 'bling/vim-airline'
 " Bundle 'rstacruz/sparkup'
 " install pydoc
 "
@@ -483,36 +484,40 @@ let g:ycm_min_num_of_chars_for_completion = 1
 " Set ackvim to highlight results
 let g:ackhighlight = 1
 
+" Airline settings
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+
 " Highlight Selection
 hi Visual cterm=bold
 
 " Define 4 custom highlight groups for statusline
 " flags
-hi User1 ctermbg=red ctermfg=white cterm=bold
+" hi User1 ctermbg=red ctermfg=white cterm=bold
 " path
-hi User2 ctermbg=blue ctermfg=white
+" hi User2 ctermbg=blue ctermfg=white
 " type
-hi User3 ctermbg=blue ctermfg=white
+" hi User3 ctermbg=blue ctermfg=white
 " line and column
-hi User4 ctermbg=darkblue ctermfg=white cterm=bold
+" hi User4 ctermbg=darkblue ctermfg=white cterm=bold
 
 " Set statusline
 set laststatus=2                             " always show the status line
-set statusline=                              " reset statusline
-set statusline+=%<\                          " cut at start
-set statusline+=[%n%1*%H%M%R%W%*]\           " flags and buf no
-set statusline+=%2*\ %-.50f\ %*              " path
-set statusline+=%1*%{SyntasticStatuslineFlag()}%*
-set statusline+=\ [%{strlen(&ft)?&ft:'none'},  " filetype
-set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
-set statusline+=%{&fileformat}]\             " file format
-set statusline+=%4*\ %((%l,%c)%)\            " line and column
-set statusline+=%P\ %*\                      " percentage of file
-set statusline+=%k\ %*\                      " keymap
-set statusline+=%=                           " right align
-set statusline+=%3*\ %{synIDattr(synID(line('.'),col('.'),1),'name')}\ %*\  " highlight
-set statusline+=%b,0x%B\                   " current char
-set statusline+=%{fugitive#statusline()}\    " git status line
+" set statusline=                              " reset statusline
+" set statusline+=%<\                          " cut at start
+" set statusline+=[%n%1*%H%M%R%W%*]\           " flags and buf no
+" set statusline+=%2*\ %-.50f\ %*              " path
+" set statusline+=%1*%{SyntasticStatuslineFlag()}%*
+" set statusline+=\ [%{strlen(&ft)?&ft:'none'},  " filetype
+" set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
+" set statusline+=%{&fileformat}]\             " file format
+" set statusline+=%4*\ %((%l,%c)%)\            " line and column
+" set statusline+=%P\ %*\                      " percentage of file
+" set statusline+=%k\ %*\                      " keymap
+" set statusline+=%=                           " right align
+" set statusline+=%3*\ %{synIDattr(synID(line('.'),col('.'),1),'name')}\ %*\  " highlight
+" set statusline+=%b,0x%B\                   " current char
+" set statusline+=%{fugitive#statusline()}\    " git status line
 
 if filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
