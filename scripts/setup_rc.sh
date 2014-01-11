@@ -19,6 +19,7 @@ bin \
 .tigrc \
 .vrapperrc \
 .ackrc \
+.shell_prompt.sh \
 .xmonad \
 .Xmodmap"
 
