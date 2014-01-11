@@ -39,9 +39,17 @@ pwdPath() {
     else
         local newPWD=${PWD}
     fi
-    local GITBRANCH=$(git branch 2>/dev/null | sed -n 's/^\*\ //p')
-    local GITREPO=$(git remote -v 2>/dev/null | grep '\(push\)' | sed 's/.*\/\(.*\).git.*/\1/')
+    local GITBRANCH=$(getGitBranch)
+    local GITREPO=$(getGitRepo)
     echo "[$GITREPO $GITBRANCH] $newPWD"
+}
+
+getGitBranch() {
+    echo $(git branch 2>/dev/null | sed -n 's/^\*\ //p')
+}
+
+getGitRepo() {
+    echo $(git remote -v 2>/dev/null | grep '\(push\)' | sed 's/.*\/\(.*\).git.*/\1/')
 }
 
 shopt -s cdspell          # autocorrects cd misspellings
@@ -59,7 +67,8 @@ shopt -s histappend       # append to (not overwrite) the history file
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-PS1='\n\[\033[01;34m\]\[\033[01;32m\](\t) ${debian_chroot:+($debian_chroot)}\[\033[0;35m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(pwdPath)\[\033[00m\]\$ '
+
+# PS1='\n\[\033[01;34m\]\[\033[01;32m\](\t) ${debian_chroot:+($debian_chroot)}\[\033[0;35m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(pwdPath)\[\033[00m\]\$ '
 
 # Set up fasd
 fasd_cache="$HOME/.fasd-init-bash"
@@ -83,6 +92,9 @@ fi
 # auto complete for g too
 source /usr/share/bash-completion/completions/git
 complete -o default -o nospace -F _git g
+
+# Load shell prompt
+__include ~/.shell_prompt.sh
 
 # Loads system specific settings and aliases
 __include ~/.bashrc.local
