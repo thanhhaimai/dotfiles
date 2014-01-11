@@ -12,6 +12,7 @@ $baseDir/scripts/install_python.sh
 $baseDir/scripts/install_fasd.sh
 $baseDir/scripts/install_vundle.sh
 $baseDir/scripts/install_ycm.sh
+$baseDir/scripts/install_powerline_fonts.sh
 $baseDir/scripts/install_go.sh
 $baseDir/scripts/install_vim_golang.sh
 # $baseDir/scripts/setup_autostart.sh
