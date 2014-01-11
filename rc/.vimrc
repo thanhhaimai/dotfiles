@@ -21,7 +21,7 @@ runtime! debian.vim
 filetype off
 filetype plugin indent off
 " Go runtime support for vim
-set rtp+=$GOROOT/misc/vim 
+set rtp+=$GOROOT/misc/vim
 set rtp+=$HOME/.vim/bundle/vundle/
 
 call vundle#rc()
@@ -54,6 +54,8 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
+Bundle 'bling/vim-bufferline'
+Bundle 'edkolev/promptline.vim'
 " Bundle 'rstacruz/sparkup'
 " install pydoc
 "
@@ -487,6 +489,16 @@ let g:ackhighlight = 1
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline_theme='badwolf'
+
+" Promptline settings
+let g:promptline_theme = 'powerlineclone'
+let g:promptline_preset = {
+        \'a'    : [ '\t'],
+        \'c'    : [ '\u@\h' ],
+        \'b'    : [ promptline#slices#vcs_branch() ],
+        \'x'    : [ promptline#slices#cwd({ 'dir_limit': 7}) ],
+        \'warn' : [ promptline#slices#jobs(), promptline#slices#last_exit_code() ]}
 
 " Highlight Selection
 hi Visual cterm=bold
