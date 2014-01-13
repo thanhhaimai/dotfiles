@@ -56,6 +56,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'edkolev/promptline.vim'
+" Bundle 'Townk/vim-autoclose'
 " Bundle 'rstacruz/sparkup'
 " install pydoc
 "
@@ -280,12 +281,14 @@ nnoremap <silent> <C-e> :call ToggleList("Quickfix List", 'copen', 'cclose')<CR>
 nnoremap <silent> <leader><Space> :RainbowParenthesesToggle<CR>
 
 " Manage buffers
-nnoremap <C-j> :bn<CR>
-nnoremap <C-k> :bp<CR>
+nnoremap <C-k> :bn<CR>
+nnoremap <C-j> :bp<CR>
+nnoremap <C-l> :bn<CR>
+nnoremap <C-h> :bp<CR>
 
 " Manage Tabs
-map <C-l> :tabnext<CR>
-map <C-h> :tabprev<CR>
+" map <C-l> :tabnext<CR>
+" map <C-h> :tabprev<CR>
 
 " Circle quick fix
 map <A-h> :cp<CR>
@@ -319,6 +322,9 @@ nmap <A-w> <leader><leader>w
 nmap <A-b> <leader><leader>b
 nmap <A-a> <leader><leader>f
 nmap <A-e> <leader><leader>e
+
+" Easy find/subtitute
+nnoremap <A-r> :%s/\<<C-r><C-w>\>/
 
 " TComment keys
 nmap <A-q> :TComment<CR>
