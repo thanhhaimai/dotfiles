@@ -1,8 +1,10 @@
 function! myspacevim#before() abort
+  set mouse=""
 endfunction
 
 function! myspacevim#after() abort
   set foldenable!
+
   let g:C_Ctrl_j = 'off'
   let g:BASH_Ctrl_j = 'off'
   map ; <Plug>(clever-f-repeat-forward)

@@ -6,10 +6,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+export PATH=/usr/local/go/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/thm/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -96,8 +96,8 @@ plugins=(
     # Provide background notifications for long running command
     bgnotify
 
-    # Provide autocomplete for `cargo`
-    cargo
+    # Provide autocomplete for rust lang
+    rust
 
     # Provide color for `man`
     colored-man-pages
@@ -143,6 +143,10 @@ plugins=(
     # Provide `pp_json` to pretty print json
     jsontools
 
+    # This plugin adds completion for the Kubernetes cluster manager, as well
+    # as some aliases for common kubectl commands.
+    kubectl
+
     # Automatically run a command on an empty Enter
     magic-enter
 
@@ -187,9 +191,11 @@ plugins=(
 # Make sure SSH agent doesn't output anything on startup. Zsh doesn't like
 # output during start up.
 zstyle ':omz:plugins:ssh-agent' quiet yes
+zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
 # Empty <CR> will show short git status
-MAGIC_ENTER_GIT_COMMAND='git status -bs -uno'
+#MAGIC_ENTER_GIT_COMMAND='git status -bs -uno'
+MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
 # Empty <CR> will ls
 MAGIC_ENTER_OTHER_COMMAND='ll'
 
@@ -247,6 +253,11 @@ bindkey '^ ' autosuggest-accept
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="ls -FAXhol --group-directories-first"
+
+alias g="git"; compdef g=git
+alias blaze="nocorrect bazel"; compdef blaze=bazel
+
+alias o="xdg-open"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

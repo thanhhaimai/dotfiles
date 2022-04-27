@@ -16,10 +16,11 @@ set $mod Mod4
 font pango:monospace 8
 
 # Rice
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 3
+default_floating_border pixel 3
 focus_follows_mouse no
-workspace_auto_back_and_forth yes
+
+client.focused #4c7899 #285577 #ffffff #00ff00 #0682df
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -27,6 +28,9 @@ workspace_auto_back_and_forth yes
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
+
+# Set the correct refresh rate
+exec --no-startup-id ~/.screenlayout/screenlayout.sh
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -37,15 +41,15 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # Once per start up
+exec --no-startup-id picom --backend glx
 exec --no-startup-id ~/.config/polybar/launch.sh --shapes
 exec --no-startup-id google-chrome
-exec --no-startup-id i3-sensible-terminal
 
 # Dunst
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 # Set keyboard repeat rate
-exec_always --no-startup-id xset r rate 200 45
+exec_always --no-startup-id xset r rate 250 45
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -95,10 +99,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+s split h
+bindsym $mod+s split v
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle

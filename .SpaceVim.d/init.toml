@@ -104,6 +104,7 @@ name = "lang#vim"
 # This layers adds extensive support for language-server-protocol.
 [[layers]]
 name = "lsp"
+enabled_clients = ['pyright']
 
 # Normal shell on the top
 [[layers]]
@@ -122,6 +123,7 @@ name = 'VersionControl'
 
 [[custom_plugins]]
 repo = 'ryanoasis/vim-devicons'
+
 # `merged` option is used for merging plugins directory.
 # When `merged` is `true`, all files in this custom plugin
 # will be merged into `~/.cache/vimfiles/.cache/init.vim/`

@@ -1,0 +1,21 @@
+[pull]
+	rebase = true
+[fetch]
+  prune = true
+[color]
+  status = auto
+  branch = auto
+  ui = auto
+  diff = auto
+[alias]
+  st = !git status
+  co = !git checkout
+  c = !git commit -v
+  ci = !git commit -v
+  cp = !git cherry-pick
+  ri = !git rebase -i
+  l = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  ll = !git log --graph --color --stat --abbrev-commit --decorate --oneline
+  lll = !git log --graph --color --stat --all --decorate
+  d = !git diff -p --stat --unified=8 --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
+  di = !git diff -p --stat --unified=8 --color
