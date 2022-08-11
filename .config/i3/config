@@ -36,6 +36,9 @@ exec --no-startup-id ~/.screenlayout/screenlayout.sh
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
+# Use Gnome dark theme settings
+exec --no-startup-id /usr/libexec/gsd-xsettings
+
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet

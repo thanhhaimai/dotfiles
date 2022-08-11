@@ -1,0 +1,4 @@
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'kana/vim-textobj-entire'
+set ideajoin

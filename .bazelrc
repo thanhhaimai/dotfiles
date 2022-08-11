@@ -1,0 +1,4 @@
+common --google_default_credentials
+startup --batch_cpu_scheduling --io_nice_level 7
+build --jobs 8
+test --jobs 8
