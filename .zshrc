@@ -5,20 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-pathadd() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="${PATH:+"$PATH:"}$1"
-    fi
-}
-
-# If you come from bash you might have to change your $PATH.
-pathadd $HOME/.local/bin
-pathadd $HOME/bin
-pathadd $HOME/go/bin
-pathadd $HOME/.cargo/bin
-pathadd /usr/local/bin
-pathadd /usr/local/go/bin
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -269,6 +255,7 @@ alias g="git"; compdef g=git
 alias blaze="nocorrect bazel"; compdef blaze=bazel
 
 alias o="xdg-open"
+alias fd="fdfind"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

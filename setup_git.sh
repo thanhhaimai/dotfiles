@@ -17,4 +17,7 @@ sudo apt -y install \
   git \
   tig
 
+# Install git-delta
+cargo install git-delta
+
 } # protect against editing while executing
