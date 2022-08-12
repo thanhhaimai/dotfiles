@@ -13,6 +13,9 @@ ln -s $(readlink -f .config/i3) ~/.config
 # Set up config for polybar
 rm -rf ~/.config/polybar
 ln -s $(readlink -f .config/polybar) ~/.config
+chmod +x ~/.config/polybar/launch.sh
+chmod +x ~/.config/polybar/shapes/scripts/launcher.sh
+chmod +x ~/.config/polybar/shapes/scripts/updates.sh
 
 # Set up config for dunst
 rm -rf ~/.config/dunst
