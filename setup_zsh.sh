@@ -11,6 +11,9 @@ ln -s $(readlink -f .p10k.zsh) ~
 rm -rf ~/.zshrc
 ln -s $(readlink -f .zshrc) ~
 
+rm -rf ~/.zshenv
+ln -s $(readlink -f .zshenv) ~
+
 # Install zsh
 sudo apt -y install zsh
 
