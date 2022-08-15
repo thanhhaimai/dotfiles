@@ -22,6 +22,7 @@ sudo apt -y install \
   git \
   jq \
   meld \
+  pavucontrol \
   python3-pip \
   ripgrep \
   ssh-askpass \
