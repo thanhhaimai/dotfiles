@@ -8,9 +8,6 @@ cd $(dirname "$0")
 rm -rf ~/.p10k.zsh
 ln -s $(readlink -f .p10k.zsh) ~
 
-rm -rf ~/.zshrc
-ln -s $(readlink -f .zshrc) ~
-
 rm -rf ~/.zshenv
 ln -s $(readlink -f .zshenv) ~
 
@@ -19,6 +16,9 @@ sudo apt -y install zsh
 
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+rm -rf ~/.zshrc
+ln -s $(readlink -f .zshrc) ~
 
 # More plugins
 cd ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
