@@ -11,6 +11,8 @@
   colorMoved = default
 [pull]
   rebase = true
+[push]
+  default = current
 [fetch]
   prune = true
 [color]
