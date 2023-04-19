@@ -192,7 +192,7 @@ zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
 # Empty <CR> will show short git status
 #MAGIC_ENTER_GIT_COMMAND='git status -bs -uno'
-MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
+MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
 # Empty <CR> will ls
 MAGIC_ENTER_OTHER_COMMAND='ll'
 
@@ -259,3 +259,26 @@ alias fd="fdfind"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# -- added by 02_pyenv_setup_bash.sh --
+which pyenv > /dev/null && eval "$(pyenv init -)"
+which pyenv > /dev/null && eval "$(pyenv virtualenv-init - | grep -v 'export PATH' )"
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
+# -- added by nvm_setup_bash.sh --
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+#[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+[ -s "$NVM_DIR/zsh_completion" ] && source "$NVM_DIR/zsh_completion"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
+# -- added by daml_setup_bash.sh --
+#[ -f "$HOME/.daml/bash_completions.sh" ] && source "$HOME/.daml/bash_completions.sh"
+[ -f "$HOME/.daml/zsh_completions.sh" ] && source "$HOME/.daml/zsh_completions.sh"
+# -- added by kubectl_setup_bash.sh --
+# source <(kubectl completion bash)
+source <(kubectl completion zsh)
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
