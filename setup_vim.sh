@@ -9,9 +9,6 @@ cd $(dirname "$0")
 rm -rf ~/.SpaceVim.d
 ln -s $(readlink -f .SpaceVim.d) ~
 
-rm -rf ~/.ideavimrc
-ln -s $(readlink -f .ideavimrc) ~
-
 # Install vim with :python
 sudo apt -y install vim-gtk3
 
@@ -21,6 +18,6 @@ python3 -m pip install --user pynvim
 # Install SpaceVim at v2
 curl -sLf https://spacevim.org/install.sh | bash
 cd ~/.SpaceVim
-git checkout tags/v2.0.0
+git checkout tags/v2.1.0
 
 } # protect against editing while executing

@@ -13,20 +13,19 @@ sudo apt -y update
 sudo apt -y dist-upgrade
 
 sudo apt -y install \
+  arandr \
   autojump \
   calc \
   curl \
   fd-find \
   fortune \
   fzf \
-  git \
+  htop
   jq \
   meld \
   pavucontrol \
-  python3-pip \
   ripgrep \
   ssh-askpass \
-  tig \
   tree
 
 sudo apt -y autoremove
