@@ -15,10 +15,10 @@ cd $(dirname "$0")
 ./setup_git.sh
 ./setup_vim.sh
 
-./setup_zsh.sh
+./setup_bazel.sh
+
 ./setup_kitty.sh
 #./setup_i3.sh
-
-./setup_bazel.sh
+./setup_zsh.sh
 
 } # protect against editing while executing
