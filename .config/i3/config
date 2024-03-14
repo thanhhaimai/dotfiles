@@ -47,7 +47,9 @@ exec --no-startup-id nm-applet
 # Once per start up
 exec --no-startup-id picom --backend glx
 exec --no-startup-id ~/.config/polybar/launch.sh --shapes
-exec --no-startup-id google-chrome
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
+exec --no-startup-id ~/.local/bin/chrome.sh
+exec --no-startup-id ~/.local/bin/code.sh
 
 # Dunst
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
