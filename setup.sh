@@ -7,12 +7,15 @@ cd $(dirname "$0")
 
 ./setup_system.sh
 ./setup_ssh.sh
-./setup_pip.sh
+./setup_fonts.sh
+
 ./setup_rust.sh
+./setup_pip.sh
+
 ./setup_git.sh
 ./setup_vim.sh
+
 ./setup_zsh.sh
-./setup_fonts.sh
 ./setup_i3.sh
 ./setup_kitty.sh
 

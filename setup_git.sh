@@ -13,9 +13,8 @@ rm -rf ~/.gitignore
 ln -s $(readlink -f .gitignore) ~
 
 # Install git
-sudo apt -y install \
-  git \
-  tig
+sudo apt -y install git
+sudo apt -y install tig
 
 # Install git-delta
 cargo install git-delta

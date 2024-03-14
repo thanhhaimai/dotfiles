@@ -5,28 +5,27 @@
 # Execute in the source dir of the script, regardless where invoked from.
 cd $(dirname "$0")
 
-# Set up config for bazel
-rm -rf ~/.bazelrc
-ln -s $(readlink -f .bazelrc) ~
-
 sudo apt -y update
 sudo apt -y dist-upgrade
 
-sudo apt -y install \
-  arandr \
-  autojump \
-  calc \
-  curl \
-  fd-find \
-  fortune \
-  fzf \
-  htop
-  jq \
-  meld \
-  pavucontrol \
-  ripgrep \
-  ssh-askpass \
-  tree
+# Controls
+sudo apt -y install pavucontrol
+sudo apt -y install arandr
+
+# Navigating & Searching
+sudo apt -y install autojump
+sudo apt -y install fd-find
+sudo apt -y install fzf
+sudo apt -y install ripgrep
+sudo apt -y install tree
+
+# Dev toolings
+sudo apt -y install build-essential
+sudo apt -y install jq
+sudo apt -y install meld
+sudo apt -y install curl
+sudo apt -y install calc
+sudo apt -y install htop
 
 sudo apt -y autoremove
 
