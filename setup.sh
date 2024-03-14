@@ -6,7 +6,7 @@
 cd $(dirname "$0")
 
 ./setup_system.sh
-./setup_ssh.sh
+#./setup_ssh.sh
 ./setup_fonts.sh
 
 ./setup_rust.sh
