@@ -12,7 +12,7 @@ touch ~/.ssh/known_hosts
 sudo chmod 644 ~/.ssh/known_hosts
 
 # Register all the keys
-for file in $(find ~/.ssh | rg ".*id_ed25519_[a-z0-9_]+$")
+for file in $(find ~/.ssh | grep -E ".*id_ed25519_[a-z0-9_]+$")
 do
   ssh-add "$file"
 done
