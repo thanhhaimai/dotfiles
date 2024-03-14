@@ -26,6 +26,7 @@ sudo apt -y install meld
 sudo apt -y install curl
 sudo apt -y install calc
 sudo apt -y install htop
+sudo apt -y install ssh-askpass
 
 sudo apt -y autoremove
 
