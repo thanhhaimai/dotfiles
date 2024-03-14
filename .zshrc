@@ -131,9 +131,6 @@ plugins=(
     # Provide autocomplete for `git`
     gitfast
 
-    # Provide `hitchhiker` and `hitchhiker_cow`
-    hitchhiker
-
     # Provide `isodate`
     isodate
 
@@ -191,8 +188,8 @@ zstyle ':omz:plugins:ssh-agent' quiet yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
 # Empty <CR> will show short git status
-MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
-#MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
+#MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
+MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
 # Empty <CR> will ls
 MAGIC_ENTER_OTHER_COMMAND='ll'
 
@@ -274,7 +271,7 @@ export PATH=$PATH:$HOME/.pulumi/bin
 [ -f "$HOME/.daml/zsh_completions.sh" ] && source "$HOME/.daml/zsh_completions.sh"
 # -- added by kubectl_setup_bash.sh --
 # source <(kubectl completion bash)
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # The next line updates PATH for the Google Cloud SDK.
