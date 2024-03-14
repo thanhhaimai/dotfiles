@@ -8,6 +8,7 @@ cd $(dirname "$0")
 # Make sure the permissions are correct
 sudo chmod 755 ~/.ssh
 find ~/.ssh -type f -exec chmod 600 {} \;
+touch ~/.ssh/known_hosts
 sudo chmod 644 ~/.ssh/known_hosts
 
 # Register all the keys
