@@ -269,12 +269,6 @@ export PATH=$PATH:$HOME/.pulumi/bin
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 #[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 [ -s "$NVM_DIR/zsh_completion" ] && source "$NVM_DIR/zsh_completion"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
 # -- added by daml_setup_bash.sh --
 #[ -f "$HOME/.daml/bash_completions.sh" ] && source "$HOME/.daml/bash_completions.sh"
 [ -f "$HOME/.daml/zsh_completions.sh" ] && source "$HOME/.daml/zsh_completions.sh"
@@ -282,3 +276,9 @@ if [ -f '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/ho
 # source <(kubectl completion bash)
 source <(kubectl completion zsh)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
