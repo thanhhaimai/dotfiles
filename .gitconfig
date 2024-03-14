@@ -1,5 +1,6 @@
 [core]
   pager = delta
+  editor = vim
 [interactive]
   diffFilter = delta --color-only
 [delta]
@@ -13,6 +14,7 @@
   rebase = true
 [push]
   default = current
+  autosetupremote = true
 [fetch]
   prune = true
 [color]
@@ -38,3 +40,5 @@
 [user]
   email = thanhhaipmai@gmail.com
   name = Hai Mai
+[advice]
+  detachedhead = false
