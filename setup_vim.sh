@@ -18,6 +18,6 @@ python3 -m pip install --user pynvim
 # Install SpaceVim at v2
 curl -sLf https://spacevim.org/install.sh | bash
 cd ~/.SpaceVim
-git checkout tags/v2.1.0
+git checkout tags/v2.2.0
 
 } # protect against editing while executing

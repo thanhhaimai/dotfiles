@@ -191,8 +191,8 @@ zstyle ':omz:plugins:ssh-agent' quiet yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
 # Empty <CR> will show short git status
-#MAGIC_ENTER_GIT_COMMAND='git status -bs -uno'
-MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
+MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
+#MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
 # Empty <CR> will ls
 MAGIC_ENTER_OTHER_COMMAND='ll'
 
