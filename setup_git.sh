@@ -20,6 +20,7 @@ sudo apt -y install git
 sudo apt -y install tig
 
 # Install git-delta
-cargo install git-delta
+cargo install --locked git-delta
+cargo install --locked bat
 
 } # protect against editing while executing
