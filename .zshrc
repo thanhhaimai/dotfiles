@@ -75,6 +75,9 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    # Terminal vi mode
+    vi-mode
+
     # Provide autocomplete for `adb`
     adb
 
@@ -163,9 +166,6 @@ plugins=(
     # Provide `urlencode` and `urldecode`
     urltools
 
-    # Terminal vi mode
-    vi-mode
-
     # Provide `google`
     web-search
 
@@ -253,6 +253,64 @@ alias blaze="nocorrect bazel"; compdef blaze=bazel
 
 alias o="xdg-open"
 alias fd="fdfind"
+
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
+
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)
+      fzf --preview 'tree -C {} | head -200' "$@" ;;
+    export|unset)
+      fzf --preview "eval 'echo \$'{}" "$@" ;;
+    ssh)
+      fzf --preview 'dig {}' "$@" ;;
+    bazel|blaze)
+      fzf "$@" ;;
+    *)
+      fzf --preview 'bat -n --color=always {}' "$@" ;;
+  esac
+}
+
+_fzf_complete_blaze() {
+  if [[ $@ == "blaze build"* ]]; then
+    _fzf_complete --prompt="build> " "$@" < <(
+      bazel query --noshow_progress --keep_going '//... -//experimental/...'
+    )
+  elif [[ $@ == "blaze test"* ]]; then
+    _fzf_complete --prompt="test> " "$@" < <(
+      bazel query --noshow_progress --keep_going 'kind(".*_test rule", //... -//experimental/...)'
+    )
+  elif [[ $@ == "blaze run"* ]]; then
+    _fzf_complete --prompt="run> " "$@" < <(
+      bazel query --noshow_progress --keep_going 'kind(py_binary, //... -//experimental/...)'
+    )
+  else
+    eval "zle ${fzf_default_completion:-expand-or-complete}"
+  fi
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
