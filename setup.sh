@@ -10,7 +10,7 @@ cd $(dirname "$0")
 ./setup_fonts.sh
 
 ./setup_rust.sh
-./setup_pip.sh
+./setup_python.sh
 
 ./setup_git.sh
 ./setup_vim.sh
