@@ -239,6 +239,7 @@ else
     alias ll='gls -FAXhol --group-directories-first --color=always'
 fi
 
+alias vim=nvim
 alias g="git"; compdef g=git
 alias blaze="nocorrect bazel"
 
