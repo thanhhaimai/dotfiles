@@ -11,6 +11,10 @@ pathadd $HOME/bin
 pathadd $HOME/go/bin
 pathadd /usr/local/bin
 pathadd /usr/local/go/bin
+
+# https://www.npmjs.com/package/increase-memory-limit
+export NODE_OPTIONS="--max-old-space-size=8192"
+
 # -- added by 02_pyenv_setup_bash.sh --
 which pyenv > /dev/null || export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
@@ -33,3 +37,4 @@ export PATH="$FLUTTER_DIR/flutter/bin:$FLUTTER_DIR/bin:$FLUTTER_DIR/bin/cache/da
 export PROTOC_HOME="$HOME/.protoc"
 export PATH="$PROTOC_HOME/bin:$PATH"
 . "$HOME/.cargo/env"
+# -- added by flutter_setup_mac.sh --
