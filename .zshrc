@@ -1,5 +1,5 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -78,12 +78,6 @@ plugins=(
     # Terminal vi mode
     vi-mode
 
-    # Provide autocomplete for `adb`
-    adb
-
-    # Provide autocomplete for `ag`
-    ag
-
     # Provide `alias-finder`
     alias-finder
 
@@ -118,9 +112,6 @@ plugins=(
     # Provide `extract`
     # Extract all compressed files
     extract
-
-    # Provide autocomplete for `fd`
-    fd
 
     # Provide autocomplete for `fzf`
     fzf
@@ -158,10 +149,6 @@ plugins=(
 
     # Starts automatically ssh-agent to set up and load credentials
     ssh-agent
-
-    # Adds a series of aliases and functions which make a System
-    # Administrator's life easier.
-    systemadmin
     
     # Provide `urlencode` and `urldecode`
     urltools
@@ -246,13 +233,16 @@ bindkey '^ ' autosuggest-accept
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ll="ls -FAXhol --group-directories-first"
+if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
+    alias ll='ls -FAXhol --group-directories-first'
+else
+    alias ll='gls -FAXhol --group-directories-first --color=always'
+fi
 
 alias g="git"; compdef g=git
-alias blaze="nocorrect bazel"; compdef blaze=bazel
+alias blaze="nocorrect bazel"
 
 alias o="xdg-open"
-alias fd="fdfind"
 
 export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
@@ -333,7 +323,15 @@ export PATH=$PATH:$HOME/.pulumi/bin
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
+if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
+  if [ -f '/home/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
+else
+  if [ -f '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
+fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
+if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
+  if [ -f '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
+else
+  if [ -f '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
+fi
