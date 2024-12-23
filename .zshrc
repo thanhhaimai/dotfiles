@@ -156,16 +156,23 @@ plugins=(
     # Provide `google`
     web-search
 
-    # Auto-closes, deletes and skips over matching delimiters in zsh intelligently.
-    zsh-autopair
-
-    # Provides grey autosuggestions
-    zsh-autosuggestions
-
     # Better Ctrl+R
     zsh-navigation-tools
 
+    # Auto-closes, deletes and skips over matching delimiters in zsh intelligently.
+    # git clone --depth=1 https://github.com/hlissner/zsh-autopair ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autopair
+    zsh-autopair
+
+    # Provides grey autosuggestions
+    # git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    zsh-autosuggestions
+
+    # https://github.com/TamCore/autoupdate-oh-my-zsh-plugins
+    # git clone --depth=1 https://github.com/TamCore/autoupdate-oh-my-zsh-plugins ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/autoupdate
+    autoupdate
+
     # Provide syntax highlighting at the terminal
+    # git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     zsh-syntax-highlighting
 )
 
@@ -173,6 +180,12 @@ plugins=(
 # output during start up.
 zstyle ':omz:plugins:ssh-agent' quiet yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
+
+# Make it quiet update
+ZSH_CUSTOM_AUTOUPDATE_QUIET=true
+# Values accepted (min: 1, max: 16)
+# Parallel downloads will not be enabled if value is out-of-range
+ZSH_CUSTOM_AUTOUPDATE_NUM_WORKERS=16
 
 # Empty <CR> will show short git status
 #MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
