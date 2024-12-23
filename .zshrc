@@ -78,9 +78,6 @@ plugins=(
     # Terminal vi mode
     vi-mode
 
-    # Provide `alias-finder`
-    alias-finder
-
     # Provide `j`
     autojump
 
@@ -98,7 +95,7 @@ plugins=(
 
     # Provide suggested packages to be installed if a command cannot be found.
     command-not-found
-    
+
     # Provide `copyfile`
     # Copy content to clipboard
     copyfile
@@ -118,9 +115,6 @@ plugins=(
 
     # Provide autocomplete for GitHub `hub`
     gh
-
-    # Provide `$(git_super_status)`
-    git-prompt
 
     # Provide autocomplete for `git`
     gitfast
@@ -144,17 +138,11 @@ plugins=(
     # Prevent command execution on paste
     safe-paste
 
-    # Provide `$(shrink-path)`
-    shrink-path
-
     # Starts automatically ssh-agent to set up and load credentials
     ssh-agent
     
     # Provide `urlencode` and `urldecode`
     urltools
-
-    # Provide `google`
-    web-search
 
     # Better Ctrl+R
     zsh-navigation-tools
