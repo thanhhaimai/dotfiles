@@ -75,9 +75,6 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    # Terminal vi mode
-    vi-mode
-
     # Provide `j`
     autojump
 
@@ -140,12 +137,19 @@ plugins=(
 
     # Starts automatically ssh-agent to set up and load credentials
     ssh-agent
-    
+
+    # plugin for Terraform, a tool from Hashicorp for managing infrastructure safely and efficiently. It adds completion for terraform, as well as aliases and a prompt function.
+    terraform
+
     # Provide `urlencode` and `urldecode`
     urltools
 
     # Better Ctrl+R
     zsh-navigation-tools
+
+    # Better zsh vi mode
+    # git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-vi-mode
+    zsh-vi-mode
 
     # Auto-closes, deletes and skips over matching delimiters in zsh intelligently.
     # git clone --depth=1 https://github.com/hlissner/zsh-autopair ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autopair
