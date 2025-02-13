@@ -21,7 +21,7 @@
   # Set up config for karabiner
   mkdir -p ~/.config
   rm -rf ~/.config/karabiner
-  ln -s "$(readlink -f .config/karabiner)" ~/.config
+  ln -s "$(readlink -f .config/karabiner/karabiner.json)" ~/.config/karabiner
 
   # Install direnv
   brew update
