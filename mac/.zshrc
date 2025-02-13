@@ -5,6 +5,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Get rid of the space on the right side for p10k
+ZLE_RPROMPT_INDENT=0
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -34,6 +40,12 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 
 # Uncomment the following line to change how often to auto-update (in days).
 zstyle ':omz:update' frequency 1
+
+# Make it quiet update
+ZSH_CUSTOM_AUTOUPDATE_QUIET=true
+# Values accepted (min: 1, max: 16)
+# Parallel downloads will not be enabled if value is out-of-range
+ZSH_CUSTOM_AUTOUPDATE_NUM_WORKERS=16
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -172,18 +184,6 @@ plugins=(
 zstyle ':omz:plugins:ssh-agent' quiet yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
-# Make it quiet update
-ZSH_CUSTOM_AUTOUPDATE_QUIET=true
-# Values accepted (min: 1, max: 16)
-# Parallel downloads will not be enabled if value is out-of-range
-ZSH_CUSTOM_AUTOUPDATE_NUM_WORKERS=16
-
-# Empty <CR> will show short git status
-MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
-# MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
-# Empty <CR> will ls
-MAGIC_ENTER_OTHER_COMMAND='ll'
-
 # Some functions, like _apt and _dpkg, are very slow. You can use a cache in
 # order to proxy the list of results (like the list of available debian
 # packages) Use a cache:
@@ -206,6 +206,13 @@ zstyle ':completion:*' squeeze-slashes true
 # `cd` will never select the parent directory (e.g.: cd ../<TAB>):
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
+# Empty <CR> will show short git status
+MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
+# MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
+
+# Empty <CR> will ls
+MAGIC_ENTER_OTHER_COMMAND='ll'
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -219,9 +226,6 @@ export LANG=en_US.UTF-8
 export EDITOR='vim'
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
-
-# Get rid of the space on the right side for p10k
-ZLE_RPROMPT_INDENT=0
 
 # Bind Ctrl+Space to accept current suggestion
 bindkey '^ ' autosuggest-accept
@@ -237,21 +241,25 @@ bindkey '^ ' autosuggest-accept
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Aliases for `ll`
 if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
     alias ll='ls -FAXhol --group-directories-first'
 else
     alias ll='gls -FAXhol --group-directories-first --time-style=long-iso --color=always'
 fi
 
+# Use nvim instead of vim
 alias vim=nvim
-alias g="git"; compdef g=git
 
-export FZF_COMPLETION_TRIGGER=''
-bindkey '^T' fzf-completion
-bindkey '^I' $fzf_default_completion
+# Use shortcut `g` for `git`
+alias g="git"; compdef g=git
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
 
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -304,5 +312,14 @@ _fzf_complete_blaze() {
   fi
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/hai/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
