@@ -180,8 +180,8 @@ plugins=(
 # output during start up.
 zstyle ':omz:plugins:ssh-agent' quiet yes
 
-# Only ask for password on first use
-zstyle ':omz:plugins:ssh-agent' lazy yes
+# This is no longer needed because we have apple-load-keychain
+# zstyle ':omz:plugins:ssh-agent' lazy yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
 # Use macOS keychain
