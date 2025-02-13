@@ -17,7 +17,7 @@
 
   # Register all the keys
   for file in $(find ~/.ssh | grep -E ".*id_ed25519_[a-z0-9_]+$"); do
-    ssh-add "$file"
+    ssh-add --apple-use-keychain "$file"
   done
 
 } # protect against editing while executing

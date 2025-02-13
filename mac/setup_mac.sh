@@ -79,4 +79,14 @@
   brew install ripgrep
   brew install tree
 
+  # Enable notification for long running command
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/bgnotify
+  # https://github.com/julienXX/terminal-notifier
+  brew install terminal-notifier
+
+  # Enable prompt for command not found
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/command-not-found
+  # https://github.com/Homebrew/homebrew-command-not-found
+  brew tap homebrew/command-not-found
+
 } # protect against editing while executing

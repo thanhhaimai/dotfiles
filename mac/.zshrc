@@ -93,14 +93,11 @@ plugins=(
     # Provide `j`
     autojump
 
-    # Provide AWS autocomplete
-    aws
-
     # Provide background notifications for long running command
     bgnotify
 
     # Provide autocomplete for rust lang
-    rust
+    # rust
 
     # Provide color for `man`
     colored-man-pages
@@ -126,7 +123,7 @@ plugins=(
     fzf
 
     # Provide autocomplete for GitHub `hub`
-    gh
+    # gh
 
     # Provide autocomplete for `git`
     gitfast
@@ -135,17 +132,17 @@ plugins=(
     isodate
 
     # Provide `pp_json` to pretty print json
-    jsontools
+    # jsontools
 
     # This plugin adds completion for the Kubernetes cluster manager, as well
     # as some aliases for common kubectl commands.
-    kubectl
+    # kubectl
 
     # Automatically run a command on an empty Enter
     magic-enter
 
     # Provide autocomplete for `pip`
-    pip
+    # pip
 
     # Prevent command execution on paste
     safe-paste
@@ -154,7 +151,7 @@ plugins=(
     ssh-agent
 
     # plugin for Terraform, a tool from Hashicorp for managing infrastructure safely and efficiently. It adds completion for terraform, as well as aliases and a prompt function.
-    terraform
+    # terraform
 
     # Provide `urlencode` and `urldecode`
     urltools
@@ -182,7 +179,13 @@ plugins=(
 # Make sure SSH agent doesn't output anything on startup. Zsh doesn't like
 # output during start up.
 zstyle ':omz:plugins:ssh-agent' quiet yes
+
+# Only ask for password on first use
+zstyle ':omz:plugins:ssh-agent' lazy yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
+
+# Use macOS keychain
+zstyle ':omz:plugins:ssh-agent' ssh-add-args --apple-load-keychain
 
 # Some functions, like _apt and _dpkg, are very slow. You can use a cache in
 # order to proxy the list of results (like the list of available debian
