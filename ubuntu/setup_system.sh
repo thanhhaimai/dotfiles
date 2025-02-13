@@ -3,7 +3,7 @@
 { # protect against editing while executing
 
   # Execute in the source dir of the script, regardless where invoked from.
-  cd $(dirname "$0")
+  cd "$(dirname "$0")" || exit
 
   sudo apt -y update
   sudo apt -y dist-upgrade
