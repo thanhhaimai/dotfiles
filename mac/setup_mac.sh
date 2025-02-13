@@ -18,8 +18,34 @@
   set -e
   set -x
 
-  # Allow key repeat
+  # Keyboard | allow key repeat
   defaults write -g ApplePressAndHoldEnabled -bool false
+  # Keyboard | Press Fn twice to start dictation
+  defaults write com.apple.HIToolbox AppleFnUsageType -int "3"
+  # Keyboard | Default to F<number> keys instead of having to hold Fn
+  defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
+  # Battery | show percentage
+  defaults write com.apple.controlcenter BatteryShowPercentage -bool true
+  # Dock | position on screen: left
+  defaults write com.apple.dock orientation -string "left"
+  # Dock | Icon size: 24
+  defaults write com.apple.dock tilesize -int 24
+  # Expose | group windows by application
+  defaults write com.apple.dock expose-group-apps -bool true
+  # Finder | advanced | show all filename extensions
+  defaults write .GlobalPreferences AppleShowAllExtensions -bool true
+  # Finder | advanced | show warning before changing an extension: false
+  defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+  # Finder | View | as list
+  defaults write com.apple.finder FXPreferredViewStyle -string nlsv
+  # Finder | View | show path bar
+  defaults write com.apple.finder ShowPathbar -bool true
+  # Finder | View | show status bar
+  defaults write com.apple.finder ShowStatusBar -bool true
+  # Finder | Show all hidden files (cmd+shift+.)
+  defaults write com.apple.finder AppleShowAllFiles true
+  # Finder | Sort folders first
+  defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
   # shellcheck disable=SC2016
   LINE='eval "$(/opt/homebrew/bin/brew shellenv)"'
