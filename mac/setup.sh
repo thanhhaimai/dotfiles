@@ -5,7 +5,7 @@
   # Execute in the source dir of the script, regardless where invoked from.
   cd "$(dirname "$0")" || exit
 
-  set -x
+  set -e
 
   ./setup_mac.sh
   ./setup_ssh.sh

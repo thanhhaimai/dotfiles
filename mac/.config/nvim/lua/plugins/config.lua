@@ -13,12 +13,12 @@ return {
       { "S", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
     },
   },
-  {
-    "saghen/blink.cmp",
-    opts = {
-      keymap = {
-        preset = "super-tab",
-      },
-    },
-  },
+  -- {
+  --   "saghen/blink.cmp",
+  --   opts = {
+  --     keymap = {
+  --       preset = "super-tab",
+  --     },
+  --   },
+  -- },
 }

@@ -15,6 +15,7 @@
     fi
   done
 
+  set -e
   set -x
 
   # Allow key repeat

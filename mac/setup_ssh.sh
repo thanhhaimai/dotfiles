@@ -5,6 +5,7 @@
   # Execute in the source dir of the script, regardless where invoked from.
   cd "$(dirname "$0")" || exit
 
+  set -e
   set -x
 
   # Make sure the permissions are correct

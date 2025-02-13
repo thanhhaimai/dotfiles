@@ -5,8 +5,6 @@
   # Execute in the source dir of the script, regardless where invoked from.
   cd "$(dirname "$0")" || exit
 
-  set -x
-
   # Make sure we have all the required utilities installed
   REQUIRED_COMMANDS=("git")
   for cmd in "${REQUIRED_COMMANDS[@]}"; do
@@ -16,6 +14,9 @@
       exit 1
     fi
   done
+
+  set -e
+  set -x
 
   rm -rf ~/.p10k.zsh
   ln -s "$(readlink -f .p10k.zsh)" ~
@@ -29,8 +30,10 @@
   rm -rf ~/.zshrc
   ln -s "$(readlink -f .zshrc)" ~
 
-  # Install oh-my-zsh
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+  # Install oh-my-zsh if not already installed
+  if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  fi
 
   # More plugins
   rm -rf "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
