@@ -12,7 +12,6 @@
   ./setup_git.sh
   ./setup_kitty.sh
   ./setup_direnv.sh
-  ./setup_karabiner.sh
   ./setup_nvim.sh
   ./setup_zsh.sh
 
