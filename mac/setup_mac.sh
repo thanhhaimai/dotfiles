@@ -53,12 +53,15 @@
   # Ensure the file exists before appending
   touch "$FILE"
   # Insert to ~/.zprofile if it doesn't exist yet
-  grep -qxF -- "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+  grep -qxF -- "$LINE" "$FILE" || echo "$LINE" >>"$FILE"
   # Enable brew cmd
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
   # Make sure we have the latest brew update
   brew update
+
+  # Fonts
+  brew install --cask font-jetbrains-mono-nerd-font
 
   # Amethyst is a tiling window manager for macOS written in Swift
   brew install --cask amethyst
@@ -66,8 +69,6 @@
   brew install --cask visual-studio-code
   # Stats is a macOS system monitor in your menu bar
   brew install --cask stats
-  # Install patched Powerline fonts
-  brew install --cask font-powerline-symbols
   # Meld is a visual diff and merge tool
   brew install --cask dehesselle-meld
 
