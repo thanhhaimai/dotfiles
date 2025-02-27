@@ -8,3 +8,5 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
+# Added by cargo
+source "$HOME/.cargo/env"

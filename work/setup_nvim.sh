@@ -31,6 +31,6 @@
 
   # Install neovim
   brew update
-  brew install neovim
+  brew install neovim luarocks imagemagick lazygit tectonic
 
 } # protect against editing while executing
