@@ -320,14 +320,3 @@ pathadd() {
         PATH="${PATH:+"$PATH:"}$1"
     fi
 }
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/hai/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
-
-# Added by nvm setup
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
