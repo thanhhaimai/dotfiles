@@ -16,4 +16,6 @@
   sudo apt update
   sudo apt install -y kitty
 
+  sudo update-alternatives --config kitty
+
 } # protect against editing while executing
