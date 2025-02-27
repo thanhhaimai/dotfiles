@@ -16,7 +16,6 @@
   done
 
   set -e
-  set -x
 
   # Set up config for direnv
   mkdir -p ~/.config

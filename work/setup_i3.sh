@@ -17,8 +17,7 @@
   ln -s $(readlink -f .config/dunst) ~/.config
 
   # Install i3 related packages
-  sudo apt -y install \
-    i3 \
-    rofi
+  sudo apt update
+  sudo apt -y install i3 rofi
 
 } # protect against editing while executing

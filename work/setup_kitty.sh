@@ -6,7 +6,6 @@
   cd "$(dirname "$0")" || exit
 
   set -e
-  set -x
 
   # Set up config for kitty
   mkdir -p ~/.config

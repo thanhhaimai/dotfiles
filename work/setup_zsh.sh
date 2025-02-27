@@ -16,7 +16,6 @@
   done
 
   set -e
-  set -x
 
   rm -rf ~/.p10k.zsh
   ln -s "$(readlink -f .p10k.zsh)" ~
@@ -28,6 +27,7 @@
   ln -s "$(readlink -f .zprofile)" ~
 
   # Set zsh as default
+  sudo apt update
   sudo apt install -y zsh
   chsh -s $(which zsh)
 

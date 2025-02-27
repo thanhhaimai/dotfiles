@@ -8,7 +8,8 @@
   set -e
 
   # Install patched Powerline fonts
-  sudo apt install fonts-powerline
+  sudo apt update
+  sudo apt install -y fonts-powerline
 
   cd $(mktemp -d)
   pwd
