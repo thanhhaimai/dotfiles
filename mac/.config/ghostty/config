@@ -41,6 +41,6 @@ theme = "Github Dark"
 # demand from a keybinding, often sliding in from a screen edge such as the
 # top. This is useful for quick access to a terminal without having to open a
 # new window or tab.
-keybind = global:cmd+grave_accent=toggle_quick_terminal
+keybind = global:ctrl+alt+cmd+grave_accent=toggle_quick_terminal
 
 keybind = ctrl+shift+g=write_screen_file:paste

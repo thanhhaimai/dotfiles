@@ -29,7 +29,7 @@
   # Dock | position on screen: left
   defaults write com.apple.dock orientation -string "left"
   # Dock | Icon size: 24
-  defaults write com.apple.dock tilesize -int 24
+  defaults write com.apple.dock tilesize -int 32
   # Expose | group windows by application
   defaults write com.apple.dock expose-group-apps -bool true
   # Finder | advanced | show all filename extensions
