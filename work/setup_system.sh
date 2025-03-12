@@ -10,8 +10,10 @@
   sudo apt -y update
   sudo apt -y dist-upgrade
 
-  sudo apt -y install pavucontrol arandr build-essential
+  sudo apt -y install pavucontrol arandr build-essential ssh-askpass
 
   sudo apt -y autoremove
+
+  gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 } # protect against editing while executing
