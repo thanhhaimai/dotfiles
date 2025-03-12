@@ -20,5 +20,10 @@ return {
         preset = "super-tab",
       },
     },
+    version = "0.13.0",
+    fuzzy = { implementation = "rust" },
+  },
+  {
+    "lambdalisue/vim-suda",
   },
 }
