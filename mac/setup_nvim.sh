@@ -33,4 +33,6 @@
   brew update
   brew install neovim
 
+  nvim --headless +Lazy +q
+
 } # protect against editing while executing
