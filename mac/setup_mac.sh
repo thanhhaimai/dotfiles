@@ -69,6 +69,10 @@
   # Utilities
   brew install coreutils autojump fd fzf ripgrep tree bat hyperfine xcv
 
+  # Utilities
+  brew install hyperfine
+  brew install xsv
+
   # Enable notification for long running command
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/bgnotify
   # https://github.com/julienXX/terminal-notifier
