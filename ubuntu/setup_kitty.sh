@@ -3,16 +3,18 @@
 { # protect against editing while executing
 
   # Execute in the source dir of the script, regardless where invoked from.
-  cd $(dirname "$0")
+  cd "$(dirname "$0")" || exit
+
+  set -e
 
   # Set up config for kitty
+  mkdir -p ~/.config
   rm -rf ~/.config/kitty
-  ln -s $(readlink -f .config/kitty) ~/.config
+  ln -s "$(readlink -f .config/kitty)" ~/.config
 
-  # Install kitty
-  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+  sudo apt update
+  sudo apt install -y kitty
 
-  # Set it as a terminal alternative
-  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ~/.local/kitty.app/bin/kitty 50
+  sudo update-alternatives --config kitty
 
 } # protect against editing while executing

@@ -5,6 +5,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Get rid of the space on the right side for p10k
+ZLE_RPROMPT_INDENT=0
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -34,6 +40,12 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 
 # Uncomment the following line to change how often to auto-update (in days).
 zstyle ':omz:update' frequency 1
+
+# Make it quiet update
+ZSH_CUSTOM_AUTOUPDATE_QUIET=true
+# Values accepted (min: 1, max: 16)
+# Parallel downloads will not be enabled if value is out-of-range
+ZSH_CUSTOM_AUTOUPDATE_NUM_WORKERS=16
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -81,14 +93,11 @@ plugins=(
     # Provide `j`
     autojump
 
-    # Provide AWS autocomplete
-    aws
-
     # Provide background notifications for long running command
     bgnotify
 
     # Provide autocomplete for rust lang
-    rust
+    # rust
 
     # Provide color for `man`
     colored-man-pages
@@ -114,7 +123,7 @@ plugins=(
     fzf
 
     # Provide autocomplete for GitHub `hub`
-    gh
+    # gh
 
     # Provide autocomplete for `git`
     gitfast
@@ -123,17 +132,17 @@ plugins=(
     isodate
 
     # Provide `pp_json` to pretty print json
-    jsontools
+    # jsontools
 
     # This plugin adds completion for the Kubernetes cluster manager, as well
     # as some aliases for common kubectl commands.
-    kubectl
+    # kubectl
 
     # Automatically run a command on an empty Enter
     magic-enter
 
     # Provide autocomplete for `pip`
-    pip
+    # pip
 
     # Prevent command execution on paste
     safe-paste
@@ -142,7 +151,7 @@ plugins=(
     ssh-agent
 
     # plugin for Terraform, a tool from Hashicorp for managing infrastructure safely and efficiently. It adds completion for terraform, as well as aliases and a prompt function.
-    terraform
+    # terraform
 
     # Provide `urlencode` and `urldecode`
     urltools
@@ -170,19 +179,10 @@ plugins=(
 # Make sure SSH agent doesn't output anything on startup. Zsh doesn't like
 # output during start up.
 zstyle ':omz:plugins:ssh-agent' quiet yes
+
+# This is no longer needed because we have apple-load-keychain
+# zstyle ':omz:plugins:ssh-agent' lazy yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
-
-# Make it quiet update
-ZSH_CUSTOM_AUTOUPDATE_QUIET=true
-# Values accepted (min: 1, max: 16)
-# Parallel downloads will not be enabled if value is out-of-range
-ZSH_CUSTOM_AUTOUPDATE_NUM_WORKERS=16
-
-# Empty <CR> will show short git status
-#MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
-MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
-# Empty <CR> will ls
-MAGIC_ENTER_OTHER_COMMAND='ll'
 
 # Some functions, like _apt and _dpkg, are very slow. You can use a cache in
 # order to proxy the list of results (like the list of available debian
@@ -206,6 +206,13 @@ zstyle ':completion:*' squeeze-slashes true
 # `cd` will never select the parent directory (e.g.: cd ../<TAB>):
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
+# Empty <CR> will show short git status
+MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
+# MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
+
+# Empty <CR> will ls
+MAGIC_ENTER_OTHER_COMMAND='ll'
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -220,11 +227,11 @@ export EDITOR='vim'
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
-# Get rid of the space on the right side for p10k
-ZLE_RPROMPT_INDENT=0
-
 # Bind Ctrl+Space to accept current suggestion
 bindkey '^ ' autosuggest-accept
+
+# Make caps escape
+setxkbmap -option caps:escape
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -237,24 +244,25 @@ bindkey '^ ' autosuggest-accept
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Aliases for `ll`
 if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
     alias ll='ls -FAXhol --group-directories-first'
 else
-    alias ll='gls -FAXhol --group-directories-first --color=always'
+    alias ll='gls -FAXhol --group-directories-first --time-style=long-iso --color=always'
 fi
 
+# Use nvim instead of vim
 alias vim=nvim
+
+# Use shortcut `g` for `git`
 alias g="git"; compdef g=git
-alias blaze="nocorrect bazel"
-
-alias o="xdg-open"
-
-export FZF_COMPLETION_TRIGGER=''
-bindkey '^T' fzf-completion
-bindkey '^I' $fzf_default_completion
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
 
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -307,36 +315,8 @@ _fzf_complete_blaze() {
   fi
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# -- added by 02_pyenv_setup_bash.sh --
-which pyenv > /dev/null && eval "$(pyenv init -)"
-which pyenv > /dev/null && eval "$(pyenv virtualenv-init - | grep -v 'export PATH' )"
-
-# add Pulumi to the PATH
-export PATH=$PATH:$HOME/.pulumi/bin
-# -- added by nvm_setup_bash.sh --
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-#[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
-[ -s "$NVM_DIR/zsh_completion" ] && source "$NVM_DIR/zsh_completion"
-# -- added by daml_setup_bash.sh --
-#[ -f "$HOME/.daml/bash_completions.sh" ] && source "$HOME/.daml/bash_completions.sh"
-[ -f "$HOME/.daml/zsh_completions.sh" ] && source "$HOME/.daml/zsh_completions.sh"
-# -- added by kubectl_setup_bash.sh --
-# source <(kubectl completion bash)
-# source <(kubectl completion zsh)
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
-# The next line updates PATH for the Google Cloud SDK.
-if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
-  if [ -f '/home/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
-else
-  if [ -f '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
-fi
-
-# The next line enables shell command completion for gcloud.
-if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
-  if [ -f '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
-else
-  if [ -f '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
-fi
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}

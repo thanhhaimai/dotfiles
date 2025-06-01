@@ -6,7 +6,7 @@
   cd "$(dirname "$0")" || exit
 
   # Make sure we have all the required utilities installed
-  REQUIRED_COMMANDS=("brew")
+  REQUIRED_COMMANDS=("git")
   for cmd in "${REQUIRED_COMMANDS[@]}"; do
     if ! command -v "$cmd" >/dev/null 2>&1; then
       echo "$cmd command not found"
@@ -17,13 +17,11 @@
 
   set -e
 
-  # Set up config for direnv
-  mkdir -p ~/.config
-  rm -rf ~/.config/direnv
-  ln -s "$(readlink -f .config/direnv)" ~/.config
+  # NOTE: on Ubuntu this requires `git`
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  # Install direnv
+  # Install common utilities
   brew update
-  brew install direnv
+  brew install autojump fd fzf ripgrep git-delta tig
 
 } # protect against editing while executing

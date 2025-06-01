@@ -1,4 +1,0 @@
-common --google_default_credentials
-startup --batch_cpu_scheduling --io_nice_level 7
-build --config=cache-us
-build --remote_upload_local_results=false
