@@ -14,6 +14,7 @@
 
   sudo apt -y autoremove
 
-  gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+  # Set capslock another escape key
+  dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 
 } # protect against editing while executing
