@@ -8,7 +8,7 @@
   set -e
 
   sudo apt -y update
-  sudo apt -y dist-upgrade
+  sudo apt -y full-upgrade
 
   sudo apt -y install pavucontrol arandr build-essential ssh-askpass
 

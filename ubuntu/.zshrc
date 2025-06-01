@@ -230,9 +230,6 @@ VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 # Bind Ctrl+Space to accept current suggestion
 bindkey '^ ' autosuggest-accept
 
-# Make caps escape
-setxkbmap -option caps:escape
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
