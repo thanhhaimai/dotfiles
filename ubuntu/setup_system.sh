@@ -11,7 +11,7 @@
   sudo apt -y update
   sudo apt -y full-upgrade
 
-  sudo apt -y install pavucontrol arandr build-essential ssh-askpass meld
+  sudo apt -y install pavucontrol arandr build-essential ssh-askpass meld fail2ban
 
   sudo apt -y autoremove
 
