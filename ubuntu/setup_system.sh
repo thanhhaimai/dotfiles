@@ -6,11 +6,12 @@
   cd "$(dirname "$0")" || exit
 
   set -e
+  set -x
 
   sudo apt -y update
   sudo apt -y full-upgrade
 
-  sudo apt -y install pavucontrol arandr build-essential ssh-askpass
+  sudo apt -y install pavucontrol arandr build-essential ssh-askpass meld
 
   sudo apt -y autoremove
 

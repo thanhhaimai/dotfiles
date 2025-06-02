@@ -6,6 +6,7 @@
   cd "$(dirname "$0")" || exit
 
   set -e
+  set -x
 
   # Install patched Powerline fonts
   sudo apt update

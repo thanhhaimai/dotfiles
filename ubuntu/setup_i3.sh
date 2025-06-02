@@ -6,6 +6,7 @@
   cd "$(dirname "$0")" || exit
 
   set -e
+  set -x
 
   # Set up config for i3
   mkdir -p ~/.config
