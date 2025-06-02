@@ -60,25 +60,14 @@
   # Make sure we have the latest brew update
   brew update
 
-  # Fonts
-  brew install --cask font-jetbrains-mono-nerd-font
+  # Core setup
+  brew install --cask font-jetbrains-mono-nerd-font amethyst stats
 
-  # Amethyst is a tiling window manager for macOS written in Swift
-  brew install --cask amethyst
-  # Visual Studio Code
-  brew install --cask visual-studio-code
-  # Stats is a macOS system monitor in your menu bar
-  brew install --cask stats
-  # Meld is a visual diff and merge tool
-  brew install --cask dehesselle-meld
+  # Dev tools
+  brew install --cask visual-studio-code cursor meld
 
-  # Navigating & Searching
-  brew install coreutils
-  brew install autojump
-  brew install fd
-  brew install fzf
-  brew install ripgrep
-  brew install tree
+  # Utilities
+  brew install coreutils autojump fd fzf ripgrep tree bat hyperfine xcv
 
   # Enable notification for long running command
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/bgnotify
