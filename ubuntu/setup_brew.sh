@@ -20,6 +20,8 @@
   # NOTE: on Ubuntu this requires `git`
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
   # Install common utilities
   brew update
   brew install autojump fd fzf ripgrep git-delta tig
