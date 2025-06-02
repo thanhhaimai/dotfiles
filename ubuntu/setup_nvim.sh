@@ -32,4 +32,6 @@
   brew update
   brew install neovim luarocks imagemagick lazygit tectonic
 
+  nvim --headless +Lazy +q
+
 } # protect against editing while executing
