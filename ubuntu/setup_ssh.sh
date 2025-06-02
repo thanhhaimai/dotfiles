@@ -6,6 +6,7 @@
   cd "$(dirname "$0")" || exit
 
   set -e
+  set -x
 
   # Make sure the permissions are correct
   mkdir -p ~/.ssh
