@@ -57,7 +57,7 @@ ZSH_CUSTOM_AUTOUPDATE_NUM_WORKERS=16
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -167,8 +167,17 @@ plugins=(
     # git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     zsh-autosuggestions
 
+    # This plugin for Zsh adds real-time type-ahead autocompletion to your
+    # command line, similar to what you find desktop apps. While you type on
+    # the command line, available completions are listed automatically; no need
+    # to press any keyboard shortcuts. Press Tab to insert the top completion
+    # or ↓ to select a different one.
+    # git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+    zsh-autocomplete
+ 
     # Provide syntax highlighting at the terminal
     # git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    # NOTE: This must be sourced after all other widgets
     zsh-syntax-highlighting
 
     # https://github.com/TamCore/autoupdate-oh-my-zsh-plugins
