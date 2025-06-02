@@ -16,6 +16,7 @@
   done
 
   set -e
+  set -x
 
   # Clean up old nvim config
   mkdir -p ~/.config
