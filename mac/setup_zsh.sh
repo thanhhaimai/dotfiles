@@ -27,13 +27,13 @@
   rm -rf ~/.zprofile
   ln -s "$(readlink -f .zprofile)" ~
 
-  rm -rf ~/.zshrc
-  ln -s "$(readlink -f .zshrc)" ~
-
   # Install oh-my-zsh if not already installed
   if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   fi
+
+  rm -rf ~/.zshrc
+  ln -s "$(readlink -f .zshrc)" ~
 
   # More plugins
   rm -rf "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
