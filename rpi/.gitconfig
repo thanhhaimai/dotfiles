@@ -1,0 +1,48 @@
+[core]
+  pager = delta
+  editor = nvim
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  features = line-numbers decorations
+  syntax-theme = Dracula
+  hyperlinks = true
+  hyperlinks-file-link-format = "vscode://file/{path}:{line}"
+[merge]
+  conflictstyle = zdiff3
+[diff]
+  colorMoved = default
+[pull]
+  rebase = true
+[push]
+  default = current
+  autosetupremote = true
+[fetch]
+  prune = true
+[color]
+  status = auto
+  branch = auto
+  ui = auto
+  diff = auto
+[alias]
+  st = status
+  co = checkout
+  c = commit -v
+  ci = commit -v
+  cp = cherry-pick
+  ri = rebase -i
+  res = restore
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  ll = log --graph --color --stat --abbrev-commit --decorate --oneline
+  lll = log --graph --color --stat --all --decorate
+  d = diff
+  di = diff -p --stat --unified=8 --color
+  hide = update-index --assume-unchanged
+  unhide = update-index --no-assume-unchanged
+[user]
+  email = thanhhaipmai@gmail.com
+  name = Hai Mai
+[advice]
+  detachedhead = false
