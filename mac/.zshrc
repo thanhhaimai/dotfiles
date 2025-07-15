@@ -264,6 +264,9 @@ fi
 # Use nvim instead of vim
 alias vim=nvim
 
+# Use shortcut `b` for `bazel`
+alias b=setup/bin/bazel.sh; compdef b=bazel
+
 # Use shortcut `g` for `git`
 alias g="git"; compdef g=git
 
@@ -306,16 +309,16 @@ _fzf_comprun() {
   esac
 }
 
-_fzf_complete_blaze() {
-  if [[ $@ == "blaze build"* ]]; then
+_fzf_complete_bazel() {
+  if [[ $@ == "bazel build"* ]]; then
     _fzf_complete --prompt="build> " "$@" < <(
       bazel query --noshow_progress --keep_going '//... -//experimental/...'
     )
-  elif [[ $@ == "blaze test"* ]]; then
+  elif [[ $@ == "bazel test"* ]]; then
     _fzf_complete --prompt="test> " "$@" < <(
       bazel query --noshow_progress --keep_going 'kind(".*_test rule", //... -//experimental/...)'
     )
-  elif [[ $@ == "blaze run"* ]]; then
+  elif [[ $@ == "bazel run"* ]]; then
     _fzf_complete --prompt="run> " "$@" < <(
       bazel query --noshow_progress --keep_going 'kind(py_binary, //... -//experimental/...)'
     )
