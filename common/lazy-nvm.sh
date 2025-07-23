@@ -1,5 +1,4 @@
-#!/bin/bash
-
+# shellcheck shell=bash
 # Lazy loading for NVM to improve shell startup time
 
 function lazy_nvm {

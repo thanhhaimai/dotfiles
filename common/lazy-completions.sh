@@ -1,5 +1,4 @@
-#!/bin/bash
-
+# shellcheck shell=bash
 # Lazy loading for various CLI completions to improve shell startup time
 
 # Advanced compinit optimization - only rebuild cache once per day
