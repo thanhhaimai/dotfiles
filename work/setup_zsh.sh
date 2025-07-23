@@ -26,7 +26,7 @@
   # Set zsh as default
   sudo apt update
   sudo apt install -y zsh
-  chsh -s $(which zsh)
+  chsh -s "$(which zsh)"
 
   # Install oh-my-zsh if not already installed
   if [ ! -d "$HOME/.oh-my-zsh" ]; then

@@ -149,7 +149,7 @@ plugins=(
     # or ↓ to select a different one.
     # git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
     zsh-autocomplete
- 
+
     # Provide syntax highlighting at the terminal
     # git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     # NOTE: This must be sourced after all other widgets
@@ -263,10 +263,10 @@ bindkey '^I' $fzf_default_completion
 encode64() { echo -n "$1" | base64; }
 decode64() { echo "$1" | base64 -d; }
 
-urlencode() { 
+urlencode() {
     python3 -c "import urllib.parse; print(urllib.parse.quote('$1'))"
 }
-urldecode() { 
+urldecode() {
     python3 -c "import urllib.parse; print(urllib.parse.unquote('$1'))"
 }
 

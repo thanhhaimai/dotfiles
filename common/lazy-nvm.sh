@@ -23,4 +23,4 @@ function nvm { lazy_nvm; nvm "$@"; }
 function npm { lazy_nvm; npm "$@"; }
 function node { lazy_nvm; node "$@"; }
 function npx { lazy_nvm; npx "$@"; }
-function yarn { lazy_nvm; yarn "$@"; } 
+function yarn { lazy_nvm; yarn "$@"; }

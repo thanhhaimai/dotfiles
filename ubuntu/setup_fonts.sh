@@ -12,15 +12,15 @@
   sudo apt update
   sudo apt install -y fonts-powerline
 
-  cd $(mktemp -d)
+  cd "$(mktemp -d)"
   pwd
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
   unzip JetBrainsMono.zip
   mkdir -p ~/.local/share/fonts/JetBrainsMono
-  cp * ~/.local/share/fonts/JetBrainsMono
+  cp ./* ~/.local/share/fonts/JetBrainsMono
 
   # Install WeatherIcons fonts
-  cd $(mktemp -d)
+  cd "$(mktemp -d)"
   pwd
   wget https://github.com/erikflowers/weather-icons/archive/master.zip
   unzip master.zip
