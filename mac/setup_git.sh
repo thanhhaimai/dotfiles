@@ -23,7 +23,7 @@
   ln -s "$(readlink -f ../common/.gitconfig)" ~
 
   rm -rf ~/.gitignore
-  ln -s "$(readlink -f .gitignore)" ~
+  ln -s "$(readlink -f ../common/.gitignore)" ~
 
   # Install git-delta and tig
   brew update
