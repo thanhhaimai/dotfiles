@@ -27,7 +27,7 @@
 
   # Set up config for nvim based on LazyVim
   git clone https://github.com/LazyVim/starter ~/.config/nvim
-  ln -s "$(readlink -f .config/nvim/lua/plugins/config.lua)" ~/.config/nvim/lua/plugins
+  ln -s "$(readlink -f ../common/.config/nvim/lua/plugins/config.lua)" ~/.config/nvim/lua/plugins
 
   # Install neovim
   brew update

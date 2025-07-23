@@ -10,6 +10,6 @@
 
   # Set up config for git
   rm -rf ~/.gitconfig
-  ln -s "$(readlink -f .gitconfig)" ~
+  ln -s "$(readlink -f ../common/.gitconfig)" ~
 
 } # protect against editing while executing

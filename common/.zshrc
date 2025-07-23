@@ -219,8 +219,8 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
 # Empty <CR> will show short git status
-MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
-# MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
+# MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
+MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
 
 # Empty <CR> will ls
 MAGIC_ENTER_OTHER_COMMAND='ll'
@@ -333,6 +333,8 @@ pathadd() {
     fi
 }
 
+export NODE_OPTIONS="--max-old-space-size=8192"
+
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/hai/.docker/completions $fpath)
 autoload -Uz compinit
@@ -343,3 +345,16 @@ compinit
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#
+# -- added by kubectl_setup_bash.sh --
+source <(kubectl completion zsh)
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# add Pulumi to the PATH
+export PATH=$PATH:/Users/hai/.pulumi/bin
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi

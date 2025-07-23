@@ -10,7 +10,7 @@
   # Set up config for kitty
   mkdir -p ~/.config
   rm -rf ~/.config/kitty
-  ln -s "$(readlink -f .config/kitty)" ~/.config
+  ln -s "$(readlink -f ../common/.config/kitty)" ~/.config
 
   sudo apt update
   sudo apt install -y kitty

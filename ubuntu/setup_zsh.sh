@@ -19,7 +19,7 @@
   set -x
 
   rm -rf ~/.p10k.zsh
-  ln -s "$(readlink -f .p10k.zsh)" ~
+  ln -s "$(readlink -f ../common/.p10k.zsh)" ~
 
   rm -rf ~/.zshenv
   ln -s "$(readlink -f .zshenv)" ~

@@ -1,5 +1,0 @@
-[global]
-# Set to true to hide the diff of the environment variables when loading the .envrc. Defaults to false.
-hide_env_diff = true
-# If set to true, the .envrc will be loaded with set -euo pipefail. This option will be the default in the future.
-strict_env = true

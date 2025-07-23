@@ -19,7 +19,7 @@
   set -x
 
   rm -rf ~/.p10k.zsh
-  ln -s "$(readlink -f .p10k.zsh)" ~
+  ln -s "$(readlink -f ../common/.p10k.zsh)" ~
 
   rm -rf ~/.zshenv
   ln -s "$(readlink -f .zshenv)" ~
@@ -33,7 +33,7 @@
   fi
 
   rm -rf ~/.zshrc
-  ln -s "$(readlink -f .zshrc)" ~
+  ln -s "$(readlink -f ../common/.zshrc)" ~
 
   # More plugins
   rm -rf "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"

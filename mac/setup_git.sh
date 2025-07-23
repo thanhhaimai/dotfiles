@@ -20,7 +20,7 @@
 
   # Set up config for git
   rm -rf ~/.gitconfig
-  ln -s "$(readlink -f .gitconfig)" ~
+  ln -s "$(readlink -f ../common/.gitconfig)" ~
 
   rm -rf ~/.gitignore
   ln -s "$(readlink -f .gitignore)" ~

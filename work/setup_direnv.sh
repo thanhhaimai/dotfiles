@@ -20,7 +20,7 @@
   # Set up config for direnv
   mkdir -p ~/.config
   rm -rf ~/.config/direnv
-  ln -s "$(readlink -f .config/direnv)" ~/.config
+  ln -s "$(readlink -f ../common/.config/direnv)" ~/.config
 
   # Install direnv
   brew update
