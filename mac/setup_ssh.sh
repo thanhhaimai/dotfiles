@@ -17,7 +17,7 @@
   chmod 644 ~/.ssh/known_hosts
 
   rm -rf ~/.ssh/config
-  ln -s "$(readlink -f ../common/.ssh/config)" ~/.ssh
+  ln -s "$(readlink -f .ssh/config)" ~/.ssh
 
   # Register all the keys
   for file in $(find ~/.ssh | grep -E ".*id_ed25519_[a-z0-9_]+$"); do
