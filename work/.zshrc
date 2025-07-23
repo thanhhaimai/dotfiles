@@ -1,11 +1,15 @@
-source ../common/.zshrc
+# Source a file relative to the current script's directory
+source_relative_path() {
+    # ${(%):-%x} - Gets the absolute path of the current script file (even when accessed via symlink)
+    # readlink -f - Resolves symlinks to get the actual file path
+    # dirname - Extracts the directory containing that file
+    local relative_path="$1"
+    local actual_script_path="$(readlink -f "${(%):-%x}")"
+    local script_dir="$(dirname "$actual_script_path")"
+    source "$script_dir/$relative_path"
+}
 
-# Aliases for `ll`
-if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
-    alias ll='ls -FAXhol --group-directories-first'
-else
-    alias ll='gls -FAXhol --group-directories-first --time-style=long-iso --color=always'
-fi
+source_relative_path "../common/.zshrc"
 
 # Make caps escape
 setxkbmap -option caps:escape
