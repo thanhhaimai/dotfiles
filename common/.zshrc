@@ -112,9 +112,6 @@ plugins=(
     # Provide hook for `direnv`
     direnv
 
-    # Provide `encode64` and `decode64`
-    encode64
-
     # Provide `extract`
     # Extract all compressed files
     extract
@@ -122,39 +119,17 @@ plugins=(
     # Provide autocomplete for `fzf`
     fzf
 
-    # Provide autocomplete for GitHub `hub`
-    # gh
-
     # Provide autocomplete for `git`
     gitfast
 
-    # Provide `isodate`
-    isodate
-
-    # Provide `pp_json` to pretty print json
-    # jsontools
-
-    # This plugin adds completion for the Kubernetes cluster manager, as well
-    # as some aliases for common kubectl commands.
-    # kubectl
-
     # Automatically run a command on an empty Enter
     magic-enter
-
-    # Provide autocomplete for `pip`
-    # pip
 
     # Prevent command execution on paste
     safe-paste
 
     # Starts automatically ssh-agent to set up and load credentials
     ssh-agent
-
-    # plugin for Terraform, a tool from Hashicorp for managing infrastructure safely and efficiently. It adds completion for terraform, as well as aliases and a prompt function.
-    # terraform
-
-    # Provide `urlencode` and `urldecode`
-    urltools
 
     # Better Ctrl+R
     zsh-navigation-tools
@@ -275,11 +250,25 @@ alias b=setup/bin/bazel.sh; compdef b=bazel
 # Use shortcut `g` for `git`
 alias g="git"; compdef g=git
 
+# Replace isodate plugin functionality
+alias isodate='date +"%Y-%m-%dT%H:%M:%S%z"'
+alias isodate_utc='date -u +"%Y-%m-%dT%H:%M:%SZ"'
+
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
 export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
+
+encode64() { echo -n "$1" | base64; }
+decode64() { echo "$1" | base64 -d; }
+
+urlencode() { 
+    python3 -c "import urllib.parse; print(urllib.parse.quote('$1'))"
+}
+urldecode() { 
+    python3 -c "import urllib.parse; print(urllib.parse.unquote('$1'))"
+}
 
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
@@ -350,10 +339,12 @@ export NODE_OPTIONS="--max-old-space-size=8192"
 source_relative_path "../common/lazy-nvm.sh"
 source_relative_path "../common/lazy-completions.sh"
 
+# Use smart compinit (only rebuild cache once per day)
+setup_smart_compinit
+
 # Export environment variables (these are fast)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH=$PATH:$HOME/.pulumi/bin
 
 # The next line updates PATH for the Google Cloud SDK (this is fast, just PATH updates)
 if [ -f "$HOME/workspace/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/workspace/google-cloud-sdk/path.zsh.inc"; fi
-
