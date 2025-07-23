@@ -21,6 +21,7 @@ function setup_smart_compinit() {
 # Lazy kubectl completion
 function lazy_kubectl_completion {
   unset -f kubectl
+  # shellcheck source=/dev/null
   source <(kubectl completion zsh)
 }
 function kubectl { lazy_kubectl_completion; kubectl "$@"; }
@@ -30,6 +31,7 @@ function lazy_gcloud_completion {
   unset -f gcloud
   # The next line enables shell command completion for gcloud.
   if [ -f "$HOME/workspace/google-cloud-sdk/completion.zsh.inc" ]; then 
+    # shellcheck source=/dev/null
     source "$HOME/workspace/google-cloud-sdk/completion.zsh.inc"
   fi
 }
