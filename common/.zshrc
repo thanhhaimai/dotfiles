@@ -258,7 +258,12 @@ bindkey '^ ' autosuggest-accept
 if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
     alias ll='ls -FAXhol --group-directories-first'
 else
-    alias ll='gls -FAXhol --group-directories-first --time-style=long-iso --color=always'
+    # On Mac, prefer gls (GNU ls) if available, otherwise fall back to regular ls
+    if command -v gls >/dev/null 2>&1; then
+        alias ll='gls -FAXhol --group-directories-first --time-style=long-iso --color=always'
+    else
+        alias ll='ls -FAXhol --color=always'
+    fi
 fi
 
 # Use nvim instead of vim
