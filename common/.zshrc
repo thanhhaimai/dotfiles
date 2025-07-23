@@ -340,26 +340,20 @@ pathadd() {
 
 export NODE_OPTIONS="--max-old-space-size=8192"
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/hai/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+# ===================================================================
+# PERFORMANCE OPTIMIZATIONS - Lazy loading for faster shell startup
+# Based on: https://tommckenzie.dev/posts/reduce-shell-startup-time-by-lazy-loading-nvm.html
+# ===================================================================
 
-# Added by nvm setup
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#
-# -- added by kubectl_setup_bash.sh --
-source <(kubectl completion zsh)
+# NOTE: Completions for nvm, kubectl, and gcloud are now lazy loaded!
+# They will only load when you first use those commands.
+source_relative_path "../common/lazy-nvm.sh"
+source_relative_path "../common/lazy-completions.sh"
+
+# Export environment variables (these are fast)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+export PATH=$PATH:$HOME/.pulumi/bin
 
-# add Pulumi to the PATH
-export PATH=$PATH:/Users/hai/.pulumi/bin
+# The next line updates PATH for the Google Cloud SDK (this is fast, just PATH updates)
+if [ -f "$HOME/workspace/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/workspace/google-cloud-sdk/path.zsh.inc"; fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/hai/workspace/google-cloud-sdk/completion.zsh.inc'; fi
