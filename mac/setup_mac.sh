@@ -47,13 +47,6 @@
   # Finder | Sort folders first
   defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
-  # shellcheck disable=SC2016
-  LINE='eval "$(/opt/homebrew/bin/brew shellenv)"'
-  FILE=~/.zprofile
-  # Ensure the file exists before appending
-  touch "$FILE"
-  # Insert to ~/.zprofile if it doesn't exist yet
-  grep -qxF -- "$LINE" "$FILE" || echo "$LINE" >>"$FILE"
   # Enable brew cmd
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
