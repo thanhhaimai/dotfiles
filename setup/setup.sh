@@ -22,7 +22,7 @@
   # Update brew and install required tools
   setup_brew_env
   brew update
-  brew install pre-commit
+  brew install pre-commit shfmt
 
   # Set up pre-commit hooks
   pre-commit install
