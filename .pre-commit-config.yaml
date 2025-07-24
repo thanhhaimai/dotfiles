@@ -12,3 +12,13 @@ repos:
     hooks:
       - id: shellcheck
         exclude: '.*\.(zshrc|zprofile|p10k\.zsh)$'  # Exclude ZSH config files that use ZSH-specific syntax
+
+  - repo: local
+    hooks:
+      - id: shfmt
+        name: Format shell scripts with shfmt
+        entry: shfmt
+        language: system
+        args: ['-w', '-s', '-i', '2']  # Write changes, simplify code, 2-space indentation
+        files: \.(sh|bash)$
+        types: [shell]

@@ -1,9 +1,9 @@
 # shellcheck shell=bash
 # Common utilities for setup scripts
 
-set -e # Exit on command failure.
-set -E # Error traps are inherited.
-set -u # Exit on use of unset variables.
+set -e          # Exit on command failure.
+set -E          # Error traps are inherited.
+set -u          # Exit on use of unset variables.
 set -o pipefail # Exit if any command in a pipeline fails.
 
 # Function to check required commands
@@ -24,7 +24,7 @@ create_symlink() {
   local source_path="$1"
   local target_path="$2"
 
-  if [[ ! -e "$source_path" ]]; then
+  if [[ ! -e $source_path ]]; then
     echo "ERROR: Source path does not exist: $source_path"
     exit 1
   fi
@@ -39,7 +39,7 @@ create_symlink() {
 
 # Function to get brew path based on OS
 get_brew_path() {
-  if [[ "$OSTYPE" == "darwin"* ]]; then
+  if [[ $OSTYPE == "darwin"* ]]; then
     if [[ -x "/opt/homebrew/bin/brew" ]]; then
       echo "/opt/homebrew/bin/brew"
     elif [[ -x "/usr/local/bin/brew" ]]; then
@@ -55,7 +55,7 @@ setup_brew_env() {
   local brew_path
   brew_path=$(get_brew_path)
 
-  if [[ -x "$brew_path" ]]; then
+  if [[ -x $brew_path ]]; then
     eval "$($brew_path shellenv)"
     echo "Brew environment configured"
   else

@@ -11,15 +11,30 @@ function lazy_nvm {
   if [ -d "${HOME}/.nvm" ]; then
     export NVM_DIR="$HOME/.nvm"
     # shellcheck source=/dev/null
-    [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh" # This loads nvm
     # shellcheck source=/dev/null
-    [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion" # This loads nvm bash_completion
   fi
 }
 
 # Create wrapper functions that will load nvm on first use
-function nvm { lazy_nvm; nvm "$@"; }
-function npm { lazy_nvm; npm "$@"; }
-function node { lazy_nvm; node "$@"; }
-function npx { lazy_nvm; npx "$@"; }
-function yarn { lazy_nvm; yarn "$@"; }
+function nvm {
+  lazy_nvm
+  nvm "$@"
+}
+function npm {
+  lazy_nvm
+  npm "$@"
+}
+function node {
+  lazy_nvm
+  node "$@"
+}
+function npx {
+  lazy_nvm
+  npx "$@"
+}
+function yarn {
+  lazy_nvm
+  yarn "$@"
+}

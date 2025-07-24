@@ -10,10 +10,10 @@ function setup_smart_compinit() {
   local zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
 
   # Use find to check if file is older than 1 day
-  if [[ ! -f "$zcompdump" ]] || [[ -n $(find "$zcompdump" -mtime +1 2>/dev/null) ]]; then
-    compinit  # Full security check, rebuild cache
+  if [[ ! -f $zcompdump ]] || [[ -n $(find "$zcompdump" -mtime +1 2>/dev/null) ]]; then
+    compinit # Full security check, rebuild cache
   else
-    compinit -C  # Skip security check, use existing cache
+    compinit -C # Skip security check, use existing cache
   fi
 }
 
@@ -23,7 +23,10 @@ function lazy_kubectl_completion {
   # shellcheck source=/dev/null
   source <(kubectl completion zsh)
 }
-function kubectl { lazy_kubectl_completion; kubectl "$@"; }
+function kubectl {
+  lazy_kubectl_completion
+  kubectl "$@"
+}
 
 # Lazy gcloud completion
 function lazy_gcloud_completion {
@@ -34,7 +37,10 @@ function lazy_gcloud_completion {
     source "$HOME/workspace/google-cloud-sdk/completion.zsh.inc"
   fi
 }
-function gcloud { lazy_gcloud_completion; gcloud "$@"; }
+function gcloud {
+  lazy_gcloud_completion
+  gcloud "$@"
+}
 
 # Lazy docker completion
 function lazy_docker_completion {
@@ -45,9 +51,15 @@ function lazy_docker_completion {
   # fpath=(/Users/hai/.docker/completions $fpath)
   # Just need to ensure compinit processes them
   autoload -Uz compinit
-  compinit -C  # -C flag skips security check for faster loading
+  compinit -C # -C flag skips security check for faster loading
 }
 
 # Lazy load docker and docker-compose
-function docker { lazy_docker_completion; docker "$@"; }
-function docker-compose { lazy_docker_completion; docker-compose "$@"; }
+function docker {
+  lazy_docker_completion
+  docker "$@"
+}
+function docker-compose {
+  lazy_docker_completion
+  docker-compose "$@"
+}
