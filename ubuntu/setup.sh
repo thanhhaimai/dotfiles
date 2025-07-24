@@ -15,6 +15,8 @@
   source "../common/setup-utils.sh"
 
   print_section "Starting Ubuntu Setup"
+  echo "This will configure your Ubuntu system with all necessary tools and settings."
+  echo ""
 
   ./setup_system.sh
   ./setup_ssh.sh
@@ -28,5 +30,9 @@
 
   ./setup_direnv.sh
   ./setup_nvim.sh
+
+  print_section "Ubuntu Setup Complete!"
+  echo "All setup scripts have completed successfully."
+  echo "You may need to restart your terminal or shell to see all changes."
 
 } # protect against editing while executing

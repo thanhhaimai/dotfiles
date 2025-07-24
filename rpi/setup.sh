@@ -15,10 +15,16 @@
   source "../common/setup-utils.sh"
 
   print_section "Starting Raspberry Pi Setup"
+  echo "This will configure your Raspberry Pi with all necessary tools and settings."
+  echo ""
 
   ./setup_system.sh
   ./setup_git.sh
   ./setup_brew.sh
   ./setup_nvim.sh
+
+  print_section "Raspberry Pi Setup Complete!"
+  echo "All setup scripts have completed successfully."
+  echo "You may need to restart your terminal or shell to see all changes."
 
 } # protect against editing while executing
