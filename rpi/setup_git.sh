@@ -10,8 +10,13 @@
   set -u # Exit on use of unset variables.
   set -o pipefail # Exit if any command in a pipeline fails.
 
+  # Source common utilities
+  # shellcheck source=/dev/null
+  source "../common/setup-utils.sh"
+
+  print_section "Setting up Git"
+
   # Set up config for git
-  rm -rf ~/.gitconfig
-  ln -s "$(readlink -f ../common/.gitconfig)" ~
+  create_symlink "../common/.gitconfig" ~/.gitconfig
 
 } # protect against editing while executing

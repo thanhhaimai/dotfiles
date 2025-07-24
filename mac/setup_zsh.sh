@@ -5,17 +5,17 @@
   # Execute in the source dir of the script, regardless where invoked from.
   cd "$(dirname "$0")" || exit
 
+  set -e # Exit on command failure.
+  set -E # Error traps are inherited.
+  set -u # Exit on use of unset variables.
+  set -o pipefail # Exit if any command in a pipeline fails.
+
   # Source common utilities
   # shellcheck source=/dev/null
   source "../common/setup-utils.sh"
 
   # Check required commands
   check_required_commands "git"
-
-  set -e # Exit on command failure.
-  set -E # Error traps are inherited.
-  set -u # Exit on use of unset variables.
-  set -o pipefail # Exit if any command in a pipeline fails.
 
   print_section "Setting up Zsh and Oh My Zsh"
 

@@ -10,6 +10,12 @@
   set -u # Exit on use of unset variables.
   set -o pipefail # Exit if any command in a pipeline fails.
 
+  # Source common utilities
+  # shellcheck source=/dev/null
+  source "../common/setup-utils.sh"
+
+  print_section "Setting up System"
+
   sudo apt -y update
   sudo apt -y dist-upgrade
 

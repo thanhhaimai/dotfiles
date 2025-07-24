@@ -10,6 +10,12 @@
   set -u # Exit on use of unset variables.
   set -o pipefail # Exit if any command in a pipeline fails.
 
+  # Source common utilities
+  # shellcheck source=/dev/null
+  source "../common/setup-utils.sh"
+
+  print_section "Starting Raspberry Pi Setup"
+
   ./setup_system.sh
   ./setup_git.sh
   ./setup_brew.sh

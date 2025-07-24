@@ -10,10 +10,16 @@
   set -u # Exit on use of unset variables.
   set -o pipefail # Exit if any command in a pipeline fails.
 
+  # Source common utilities
+  # shellcheck source=/dev/null
+  source "../common/setup-utils.sh"
+
+  print_section "Setting up Kitty"
+
   # Set up config for kitty
   mkdir -p ~/.config
   rm -rf ~/.config/kitty
-  ln -s "$(readlink -f ../common/.config/kitty)" ~/.config
+  create_symlink "../common/.config/kitty" ~/.config/kitty
 
   sudo apt update
   sudo apt install -y kitty

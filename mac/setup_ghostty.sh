@@ -5,27 +5,27 @@
   # Execute in the source dir of the script, regardless where invoked from.
   cd "$(dirname "$0")" || exit
 
-  # Make sure we have all the required utilities installed
-  REQUIRED_COMMANDS=("brew")
-  for cmd in "${REQUIRED_COMMANDS[@]}"; do
-    if ! command -v "$cmd" >/dev/null 2>&1; then
-      echo "$cmd command not found"
-      echo "Please install it manually according to README.md"
-      exit 1
-    fi
-  done
-
   set -e # Exit on command failure.
   set -E # Error traps are inherited.
   set -u # Exit on use of unset variables.
   set -o pipefail # Exit if any command in a pipeline fails.
 
+  # Source common utilities
+  # shellcheck source=/dev/null
+  source "../common/setup-utils.sh"
+
+  # Check required commands
+  check_required_commands "brew"
+
+  print_section "Setting up Ghostty"
+
   # Set up config for ghostty
   mkdir -p ~/.config
   rm -rf ~/.config/ghostty
-  ln -s "$(readlink -f .config/ghostty)" ~/.config
+  create_symlink ".config/ghostty" ~/.config/ghostty
 
   # Install ghostty terminal
+  setup_brew_env
   brew update
   brew install --cask ghostty
 

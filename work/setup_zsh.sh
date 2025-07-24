@@ -5,26 +5,22 @@
   # Execute in the source dir of the script, regardless where invoked from.
   cd "$(dirname "$0")" || exit
 
-  # Make sure we have all the required utilities installed
-  REQUIRED_COMMANDS=("git")
-  for cmd in "${REQUIRED_COMMANDS[@]}"; do
-    if ! command -v "$cmd" >/dev/null 2>&1; then
-      echo "$cmd command not found"
-      echo "Please install it manually according to README.md"
-      exit 1
-    fi
-  done
-
   set -e # Exit on command failure.
   set -E # Error traps are inherited.
   set -u # Exit on use of unset variables.
   set -o pipefail # Exit if any command in a pipeline fails.
 
-  rm -rf ~/.p10k.zsh
-  ln -s "$(readlink -f ../common/.p10k.zsh)" ~
+  # Source common utilities
+  # shellcheck source=/dev/null
+  source "../common/setup-utils.sh"
 
-  rm -rf ~/.zprofile
-  ln -s "$(readlink -f .zprofile)" ~
+  # Check required commands
+  check_required_commands "git"
+
+  print_section "Setting up Zsh and Oh My Zsh"
+
+  create_symlink "../common/.p10k.zsh" ~/.p10k.zsh
+  create_symlink ".zprofile" ~/.zprofile
 
   # Set zsh as default
   sudo apt update
