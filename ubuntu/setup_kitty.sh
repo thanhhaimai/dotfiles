@@ -24,6 +24,8 @@
   sudo apt update
   sudo apt install -y kitty
 
-  sudo update-alternatives --config kitty
+  # Set kitty as the default terminal emulator
+  # Register kitty as an alternative for x-terminal-emulator with priority 50
+  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 50
 
 } # protect against editing while executing
