@@ -1,0 +1,53 @@
+---
+# Markdownlint configuration for dotfiles project
+# See https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml for all options
+
+default: true
+
+# MD003 - Heading style - use consistent heading style (atx)
+MD003:
+  style: "atx"
+
+# MD007 - Unordered list indentation - use 2 spaces for consistency with shell scripts
+MD007:
+  indent: 2
+
+# MD013 - Line length - set to 120 characters (reasonable for modern displays)
+MD013:
+  line_length: 120
+  heading_line_length: 120
+  code_block_line_length: 120
+  code_blocks: true
+  tables: false  # Allow tables to exceed line length
+  headings: true
+  headers: true
+  strict: false
+  stern: false
+
+# MD024 - Multiple headings with same content - allow duplicate headings if under different parents
+MD024:
+  siblings_only: true
+
+# MD025 - Multiple top level headings - allow multiple H1 headings
+MD025: false
+
+# MD033 - Inline HTML - allow inline HTML for GitHub-flavored markdown features
+MD033: false
+
+# MD034 - Bare URLs - allow bare URLs for simplicity in documentation
+MD034: false
+
+# MD041 - First line in file should be top level heading - not required for all markdown files
+MD041: false
+
+# MD046 - Code block style - prefer fenced code blocks
+MD046:
+  style: "fenced"
+
+# MD049 - Emphasis style - use asterisks for emphasis
+MD049:
+  style: "asterisk"
+
+# MD050 - Strong style - use asterisks for strong emphasis
+MD050:
+  style: "asterisk"
