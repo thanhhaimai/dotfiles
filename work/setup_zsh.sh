@@ -15,7 +15,10 @@
     fi
   done
 
-  set -e
+  set -e # Exit on command failure.
+  set -E # Error traps are inherited.
+  set -u # Exit on use of unset variables.
+  set -o pipefail # Exit if any command in a pipeline fails.
 
   rm -rf ~/.p10k.zsh
   ln -s "$(readlink -f ../common/.p10k.zsh)" ~

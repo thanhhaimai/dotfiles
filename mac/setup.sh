@@ -9,7 +9,10 @@
   # shellcheck source=/dev/null
   source "../common/setup-utils.sh"
 
-  set -e
+  set -e # Exit on command failure.
+  set -E # Error traps are inherited.
+  set -u # Exit on use of unset variables.
+  set -o pipefail # Exit if any command in a pipeline fails.
 
   print_section "Starting Mac Setup"
   echo "This will configure your Mac with all necessary tools and settings."
