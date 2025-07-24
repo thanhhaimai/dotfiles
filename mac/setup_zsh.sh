@@ -5,32 +5,33 @@
   # Execute in the source dir of the script, regardless where invoked from.
   cd "$(dirname "$0")" || exit
 
-  # Make sure we have all the required utilities installed
-  REQUIRED_COMMANDS=("git")
-  for cmd in "${REQUIRED_COMMANDS[@]}"; do
-    if ! command -v "$cmd" >/dev/null 2>&1; then
-      echo "$cmd command not found"
-      echo "Please install it manually according to README.md"
-      exit 1
-    fi
-  done
+  # Source common utilities
+  # shellcheck source=/dev/null
+  source "../common/setup-utils.sh"
+
+  # Check required commands
+  check_required_commands "git"
 
   set -e
   set -x
 
-  rm -rf ~/.p10k.zsh
-  ln -s "$(readlink -f ../common/.p10k.zsh)" ~
+  print_section "Setting up Zsh and Oh My Zsh"
 
-  rm -rf ~/.zprofile
-  ln -s "$(readlink -f .zprofile)" ~
+  # Create symlinks for configuration files
+  create_symlink "../common/.p10k.zsh" ~/.p10k.zsh
+  create_symlink ".zprofile" ~/.zprofile
 
   # Install oh-my-zsh if not already installed
   if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    print_section "Installing Oh My Zsh"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  else
+    echo "Oh My Zsh already installed"
   fi
 
-  rm -rf ~/.zshrc
-  ln -s "$(readlink -f .zshrc)" ~
+  create_symlink ".zshrc" ~/.zshrc
+
+  print_section "Installing Zsh plugins"
 
   # More plugins
   rm -rf "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
@@ -39,6 +40,8 @@
   git clone --depth=1 https://github.com/marlonrichert/zsh-autocomplete.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete"
   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
   git clone --depth=1 https://github.com/TamCore/autoupdate-oh-my-zsh-plugins "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/autoupdate"
+
+  print_section "Installing Powerlevel10k theme"
 
   # Install p10k theme
   git clone --depth=1 https://github.com/romkatv/powerlevel10k "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
