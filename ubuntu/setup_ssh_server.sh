@@ -16,17 +16,21 @@
 
   print_section "Setting up SSH Server Security"
 
+  # Ensure OpenSSH server is installed and up to date
+  print_section "Installing/Updating OpenSSH Server"
+  sudo apt update -y
+  sudo apt install -y openssh-server
+
   # Backup existing SSH configuration
   print_section "Backing up SSH configuration"
   sudo cp /etc/ssh/sshd_config "/etc/ssh/sshd_config.backup.$(date +%Y%m%d_%H%M%S)"
   echo "SSH config backed up successfully"
 
-  # Generate new host keys with secure algorithms
+  # Generate new host key (ed25519 only)
   print_section "Regenerating SSH host keys"
   sudo rm -f /etc/ssh/ssh_host_*
   sudo ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
-  sudo ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
-  echo "New SSH host keys generated"
+  echo "New SSH host key generated (ed25519)"
 
   # Remove weak Diffie-Hellman moduli (security best practice)
   print_section "Removing weak Diffie-Hellman moduli"
@@ -41,6 +45,11 @@
   print_section "Applying SSH security hardening"
   sudo mkdir -p /etc/ssh/sshd_config.d
   create_symlink "sshd_security_hardening.conf" /etc/ssh/sshd_config.d/99-security-hardening.conf
+  # Validate sshd configuration before reload/restart
+  if ! sudo sshd -t; then
+    echo "ERROR: sshd configuration test failed. Aborting."
+    exit 1
+  fi
   echo "SSH hardening configuration applied"
 
   # Install and configure fail2ban for SSH protection
@@ -80,47 +89,65 @@
     exit 1
   fi
 
-  # Configure iptables rate limiting (more conservative settings)
-  print_section "Implementing SSH rate limiting"
+  # Restrict SSH to local networks and add basic rate limiting
+  print_section "Restricting SSH to local networks and adding rate limiting"
 
-  # Check if ufw is active and warn user
+  # Determine primary egress interface and its LAN CIDR (network/prefix)
+  DEFAULT_IF=$(ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}') || true
+  LAN_CIDR=""
+  if [[ -n "${DEFAULT_IF:-}" ]]; then
+    # Prefer kernel route for the interface to get network/prefix
+    LAN_CIDR=$(ip -4 route show dev "$DEFAULT_IF" | awk '/ proto kernel / {print $1; exit}') || true
+  fi
+
+  # Allow override via env var: space-separated list of CIDRs
+  # Example: ALLOWED_SSH_CIDRS="192.168.86.0/24 10.6.0.0/24"
+  ALLOWED_LIST="${ALLOWED_SSH_CIDRS:-}"
+  if [[ -z "$ALLOWED_LIST" && -n "$LAN_CIDR" ]]; then
+    ALLOWED_LIST="$LAN_CIDR"
+  fi
+
   if sudo ufw status | grep -q "Status: active"; then
-    echo "WARNING: ufw firewall is active. iptables rules may conflict."
-    echo "Consider using 'sudo ufw limit ssh' instead for rate limiting."
+    # Configure UFW to only allow specific LAN CIDR(s) to port 22, deny others
+    # Delete any broad allow rules for 22 if present (ignore errors)
+    sudo ufw delete allow OpenSSH >/dev/null 2>&1 || true
+    sudo ufw delete allow 22/tcp >/dev/null 2>&1 || true
+    if [[ -n "$ALLOWED_LIST" ]]; then
+      for CIDR in $ALLOWED_LIST; do
+        sudo ufw allow from "$CIDR" to any port 22 proto tcp
+      done
+      echo "UFW allowing SSH from: $ALLOWED_LIST"
+    else
+      echo "WARNING: Could not auto-detect LAN CIDR. UFW SSH allow list is empty."
+    fi
+    sudo ufw deny 22/tcp
+    echo "UFW configured to allow SSH only from specified CIDR(s) and deny others"
+  else
+    # Fallback to iptables rules
+    # Allow SSH only from detected/declared CIDR(s)
+    if [[ -n "$ALLOWED_LIST" ]]; then
+      for CIDR in $ALLOWED_LIST; do
+        sudo iptables -I INPUT 1 -p tcp --dport 22 -s "$CIDR" -j ACCEPT
+      done
+    else
+      echo "WARNING: Could not auto-detect LAN CIDR. No iptables ACCEPT rule added for SSH."
+    fi
+    # Basic rate limiting (6 new connections per 60s per source)
+    sudo iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH
+    sudo iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 6 -j DROP
+    # Drop all other SSH
+    sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+
+    # Make iptables rules persistent
+    print_section "Making firewall rules persistent"
+    if ! dpkg -l | grep -q netfilter-persistent; then
+      DEBIAN_FRONTEND=noninteractive sudo apt install -y netfilter-persistent iptables-persistent
+    fi
+    sudo netfilter-persistent save
+    echo "iptables configured to allow SSH only from specified CIDR(s)"
   fi
-
-  # IPv4 rate limiting rules (allow 6 connections per minute)
-  sudo iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH
-  sudo iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 6 -j DROP
-
-  # IPv6 rate limiting rules (only if IPv6 is enabled)
-  if [[ -f /proc/net/if_inet6 ]]; then
-    sudo ip6tables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH
-    sudo ip6tables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 6 -j DROP
-    echo "IPv6 rate limiting configured"
-  fi
-
-  # Make iptables rules persistent
-  print_section "Making firewall rules persistent"
-  if ! dpkg -l | grep -q netfilter-persistent; then
-    # Use noninteractive frontend to avoid prompts during installation
-    DEBIAN_FRONTEND=noninteractive sudo apt install -y netfilter-persistent iptables-persistent
-  fi
-  sudo netfilter-persistent save
-
-  echo "SSH rate limiting configured (max 5 connections per minute)"
 
   print_section "SSH Server Security Setup Complete!"
-  echo "SSH server has been hardened with the following security measures:"
-  echo "  - Strong host keys (Ed25519 + RSA 4096)"
-  echo "  - Disabled root login and password authentication"
-  echo "  - Modern encryption algorithms only"
-  echo "  - Connection rate limiting via iptables"
-  echo "  - fail2ban integration (if available)"
-  echo "  - Removed weak Diffie-Hellman moduli"
-  echo ""
-  echo "IMPORTANT: Ensure you have SSH key authentication set up before disconnecting!"
-  echo "Test your SSH connection in a new terminal before closing this session."
 
 } # protect against editing while executing
 
