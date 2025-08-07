@@ -17,7 +17,7 @@
   print_section "Setting up Git"
 
   # Set up config for git
-  create_symlink ".gitconfig" ~/.gitconfig
+  create_symlink "../common/.gitconfig" ~/.gitconfig
 
   # On Ubuntu, `brew` requires `git`, so we need to install `git` first
   sudo apt-add-repository -y ppa:git-core/ppa

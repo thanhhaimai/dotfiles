@@ -19,16 +19,17 @@
   echo ""
 
   ./setup_system.sh
-  ./setup_git.sh
-  ./setup_brew.sh
-  ./setup_direnv.sh
-  ./setup_fonts.sh
-  ./setup_zsh.sh
-  ./setup_nvim.sh
-  ./setup_kitty.sh
-  ./setup_ghostty.sh
-  ./setup_i3.sh
   ./setup_ssh.sh
+  ./setup_fonts.sh
+  ./setup_kitty.sh
+  ./setup_i3.sh
+
+  ./setup_git.sh
+  ./setup_zsh.sh
+  ./setup_brew.sh
+
+  ./setup_direnv.sh
+  ./setup_nvim.sh
 
   print_section "Work Environment Setup Complete!"
   echo "All setup scripts have completed successfully."
