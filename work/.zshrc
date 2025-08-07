@@ -13,5 +13,7 @@ source_relative_path "../common/.zshrc"
 
 # Make caps escape (only if X11 display is available)
 if [[ -n "${DISPLAY:-}" ]]; then
+    # The || true ensures that even if setxkbmap fails unexpectedly,
+    # the shell session will continue loading normally
     setxkbmap -option caps:escape 2>/dev/null || true
 fi
