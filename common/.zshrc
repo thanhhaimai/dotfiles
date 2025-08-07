@@ -194,8 +194,8 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
 # Empty <CR> will show short git status
-# MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
-MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
+MAGIC_ENTER_GIT_COMMAND='ll && git status -bs && git l master..'
+# MAGIC_ENTER_GIT_COMMAND='ll && gt ls && git status -bs'
 
 # Empty <CR> will ls
 MAGIC_ENTER_OTHER_COMMAND='ll'
