@@ -47,7 +47,8 @@
   # Apply SSH hardening configuration
   print_section "Applying SSH security hardening"
   sudo mkdir -p /etc/ssh/sshd_config.d
-  create_symlink "sshd_security_hardening.conf" /etc/ssh/sshd_config.d/99-security-hardening.conf
+  sudo rm -f /etc/ssh/sshd_config.d/99-security-hardening.conf
+  sudo ln -s "$(readlink -f "sshd_security_hardening.conf")" /etc/ssh/sshd_config.d/99-security-hardening.conf
   # Validate sshd configuration before reload/restart
   if ! sudo sshd -t; then
     echo "ERROR: sshd configuration test failed. Aborting."
@@ -59,7 +60,8 @@
   print_section "Installing and configuring fail2ban"
   sudo apt install -y fail2ban
   sudo mkdir -p /etc/fail2ban/jail.d
-  create_symlink "fail2ban_sshd.conf" /etc/fail2ban/jail.d/sshd.conf
+  sudo rm -f /etc/fail2ban/jail.d/sshd.conf
+  sudo ln -s "$(readlink -f "fail2ban_sshd.conf")" /etc/fail2ban/jail.d/sshd.conf
   echo "fail2ban installed and configured"
 
   # Start and enable fail2ban service
