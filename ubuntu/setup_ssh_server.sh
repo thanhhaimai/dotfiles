@@ -26,11 +26,14 @@
   sudo cp /etc/ssh/sshd_config "/etc/ssh/sshd_config.backup.$(date +%Y%m%d_%H%M%S)"
   echo "SSH config backed up successfully"
 
-  # Generate new host key (ed25519 only)
-  print_section "Regenerating SSH host keys"
-  sudo rm -f /etc/ssh/ssh_host_*
-  sudo ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
-  echo "New SSH host key generated (ed25519)"
+  # Optionally generate a fresh host key (ed25519). Off by default to avoid
+  # breaking known_hosts. Set ROTATE_HOST_KEY=1 to enable.
+  if [[ "${ROTATE_HOST_KEY:-0}" == "1" ]]; then
+    print_section "Regenerating SSH host hostkey (ed25519)"
+    sudo rm -f /etc/ssh/ssh_host_*
+    sudo ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
+    echo "New SSH host key generated (ed25519)"
+  fi
 
   # Remove weak Diffie-Hellman moduli (security best practice)
   print_section "Removing weak Diffie-Hellman moduli"
@@ -72,7 +75,6 @@
   # Restart SSH service
   print_section "Restarting SSH service"
   sudo systemctl restart ssh
-  sudo systemctl enable ssh
 
   # Verify SSH is running and listening
   if sudo systemctl is-active --quiet ssh; then
@@ -93,45 +95,49 @@
   print_section "Restricting SSH to local networks and adding rate limiting"
 
   # Determine primary egress interface and its LAN CIDR (network/prefix)
-  DEFAULT_IF=$(ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}') || true
+  DEFAULT_IF=$(ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="dev") {print $(i+1); exit}}')
   LAN_CIDR=""
   if [[ -n "${DEFAULT_IF:-}" ]]; then
     # Prefer kernel route for the interface to get network/prefix
-    LAN_CIDR=$(ip -4 route show dev "$DEFAULT_IF" | awk '/ proto kernel / {print $1; exit}') || true
+    LAN_CIDR=$(ip -4 route show dev "$DEFAULT_IF" | awk '/ proto kernel / {print $1; exit}')
   fi
 
   # Allow override via env var: space-separated list of CIDRs
   # Example: ALLOWED_SSH_CIDRS="192.168.86.0/24 10.6.0.0/24"
   ALLOWED_LIST="${ALLOWED_SSH_CIDRS:-}"
+  # If no override provided and LAN_CIDR was detected, use it
   if [[ -z "$ALLOWED_LIST" && -n "$LAN_CIDR" ]]; then
     ALLOWED_LIST="$LAN_CIDR"
+  fi
+  # Enforce fail-closed if we cannot determine any allowed CIDR(s)
+  if [[ -z "$ALLOWED_LIST" ]]; then
+    echo "ERROR: Could not determine allowed LAN CIDR(s) and ALLOWED_SSH_CIDRS is not set. Aborting."
+    exit 1
   fi
 
   if sudo ufw status | grep -q "Status: active"; then
     # Configure UFW to only allow specific LAN CIDR(s) to port 22, deny others
-    # Delete any broad allow rules for 22 if present (ignore errors)
-    sudo ufw delete allow OpenSSH >/dev/null 2>&1 || true
-    sudo ufw delete allow 22/tcp >/dev/null 2>&1 || true
+    # Delete any broad allow rules for 22 if present
+    if sudo ufw status | grep -q "OpenSSH"; then
+      sudo ufw delete allow OpenSSH
+    fi
+    if sudo ufw status | grep -q "22/tcp"; then
+      sudo ufw delete allow 22/tcp
+    fi
     if [[ -n "$ALLOWED_LIST" ]]; then
       for CIDR in $ALLOWED_LIST; do
         sudo ufw allow from "$CIDR" to any port 22 proto tcp
       done
       echo "UFW allowing SSH from: $ALLOWED_LIST"
-    else
-      echo "WARNING: Could not auto-detect LAN CIDR. UFW SSH allow list is empty."
     fi
     sudo ufw deny 22/tcp
     echo "UFW configured to allow SSH only from specified CIDR(s) and deny others"
   else
     # Fallback to iptables rules
     # Allow SSH only from detected/declared CIDR(s)
-    if [[ -n "$ALLOWED_LIST" ]]; then
-      for CIDR in $ALLOWED_LIST; do
-        sudo iptables -I INPUT 1 -p tcp --dport 22 -s "$CIDR" -j ACCEPT
-      done
-    else
-      echo "WARNING: Could not auto-detect LAN CIDR. No iptables ACCEPT rule added for SSH."
-    fi
+    for CIDR in $ALLOWED_LIST; do
+      sudo iptables -I INPUT 1 -p tcp --dport 22 -s "$CIDR" -j ACCEPT
+    done
     # Basic rate limiting (6 new connections per 60s per source)
     sudo iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH
     sudo iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 6 -j DROP
