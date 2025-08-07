@@ -11,5 +11,7 @@ source_relative_path() {
 
 source_relative_path "../common/.zshrc"
 
-# Make caps escape
-setxkbmap -option caps:escape
+# Make caps escape (only if X11 display is available)
+if [[ -n "${DISPLAY:-}" ]]; then
+    setxkbmap -option caps:escape 2>/dev/null || true
+fi
