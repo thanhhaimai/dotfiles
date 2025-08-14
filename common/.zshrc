@@ -168,9 +168,6 @@ zstyle ':omz:plugins:ssh-agent' quiet yes
 # zstyle ':omz:plugins:ssh-agent' lazy yes
 zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
-# Use macOS keychain
-zstyle ':omz:plugins:ssh-agent' ssh-add-args --apple-load-keychain
-
 # Some functions, like _apt and _dpkg, are very slow. You can use a cache in
 # order to proxy the list of results (like the list of available debian
 # packages) Use a cache:

@@ -10,3 +10,6 @@ source_relative_path() {
 }
 
 source_relative_path "../common/.zshrc"
+
+# Use macOS keychain
+zstyle ':omz:plugins:ssh-agent' ssh-add-args --apple-load-keychain
