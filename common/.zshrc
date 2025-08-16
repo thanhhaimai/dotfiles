@@ -241,9 +241,6 @@ fi
 # Use nvim instead of vim
 alias vim=nvim
 
-# Use shortcut `b` for `bazel`
-alias b=setup/bin/bazel.sh; compdef b=bazel
-
 # Use shortcut `g` for `git`
 alias g="git"; compdef g=git
 
