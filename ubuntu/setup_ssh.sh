@@ -18,7 +18,7 @@
 
   # Make sure the permissions are correct
   mkdir -p ~/.ssh
-  chmod 755 ~/.ssh
+  chmod 700 ~/.ssh
 
   find ~/.ssh -type f -exec chmod 600 {} \;
   touch ~/.ssh/known_hosts
