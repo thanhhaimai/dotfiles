@@ -164,9 +164,10 @@ plugins=(
 # output during start up.
 zstyle ':omz:plugins:ssh-agent' quiet yes
 
-# This is no longer needed because we have apple-load-keychain
-# zstyle ':omz:plugins:ssh-agent' lazy yes
-zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
+# Use macOS Keychain integration. Keys added once with --apple-use-keychain will
+# be auto-loaded on new shells via --apple-load-keychain (configured in mac/.zshrc).
+# Avoid pinning to a single identity so all relevant keys can be used.
+zstyle ':omz:plugins:ssh-agent' identities
 
 # Some functions, like _apt and _dpkg, are very slow. You can use a cache in
 # order to proxy the list of results (like the list of available debian

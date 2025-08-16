@@ -9,7 +9,7 @@ source_relative_path() {
     source "$script_dir/$relative_path"
 }
 
-source_relative_path "../common/.zshrc"
-
-# Use macOS keychain
+# Use macOS keychain (must be set before Oh My Zsh is sourced in common/.zshrc)
 zstyle ':omz:plugins:ssh-agent' ssh-add-args --apple-load-keychain
+
+source_relative_path "../common/.zshrc"
