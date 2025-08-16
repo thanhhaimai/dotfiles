@@ -16,22 +16,20 @@ source_relative_path() {
 # Load basic configuration first (essential for all use cases)
 source_relative_path "../common/.basic.zshrc"
 
-# ===================================================================
-# UBUNTU-SPECIFIC SETTINGS
-# ===================================================================
-
-# Ubuntu-specific aliases
-alias ll='ls -FAXhol --group-directories-first'
-
 # Enable Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # ===================================================================
-# Only load full config for interactive sessions (not for Agent/VS Code)
+# Ubuntu specific Zsh settings
 # ===================================================================
 
-# Check if this is an interactive session and not an Agent terminal
+# Only load full config for interactive sessions (not for Agent/VS Code)
 if [[ -o interactive ]] && [[ "$TERM_PROGRAM" != "cursor" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-    # Load full configuration for interactive sessions
     source_relative_path "../common/.full.zshrc"
 fi
+
+# ===================================================================
+# Ubuntu-specific aliases
+# ===================================================================
+
+alias ll='ls -FAXhol --group-directories-first'

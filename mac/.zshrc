@@ -16,16 +16,24 @@ source_relative_path() {
 # Load basic configuration first (essential for all use cases)
 source_relative_path "../common/.basic.zshrc"
 
+# Enable Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # ===================================================================
-# MAC-SPECIFIC SETTINGS
+# Mac specific Zsh settings
 # ===================================================================
 
 # Use macOS keychain (must be set before Oh My Zsh is sourced in .full.zshrc)
 zstyle ':omz:plugins:ssh-agent' ssh-add-args --apple-load-keychain
 
-# Added by OrbStack: command-line tools and integration
-# This won't be added again if you remove it.
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+# Only load full config for interactive sessions (not for Agent/VS Code)
+if [[ -o interactive ]] && [[ "$TERM_PROGRAM" != "cursor" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
+    source_relative_path "../common/.full.zshrc"
+fi
+
+# ===================================================================
+# Mac specific settings
+# ===================================================================
 
 # On Mac, prefer gls (GNU ls) if available, otherwise fall back to regular ls
 if command -v gls >/dev/null 2>&1; then
@@ -34,14 +42,6 @@ else
     alias ll='ls -FAXhol --color=always'
 fi
 
-# Enable Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# ===================================================================
-# Only load full config for interactive sessions (not for Agent/VS Code)
-# ===================================================================
-
-# Check if this is an interactive session and not an Agent terminal
-if [[ -o interactive ]] && [[ "$TERM_PROGRAM" != "cursor" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-    source_relative_path "../common/.full.zshrc"
-fi
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
