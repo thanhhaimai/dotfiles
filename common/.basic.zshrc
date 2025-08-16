@@ -4,7 +4,6 @@
 # ===================================================================
 
 export LANG=en_US.UTF-8
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export NODE_OPTIONS="--max-old-space-size=8192"
 
 # ===================================================================

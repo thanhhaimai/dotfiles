@@ -224,6 +224,8 @@ _fzf_comprun() {
       fzf --preview "eval 'echo \$'{}" "$@" ;;
     ssh)
       fzf --preview 'dig {}' "$@" ;;
+    bazel|blaze)
+      fzf "$@" ;;
     *)
       fzf --preview 'bat -n --color=always {}' "$@" ;;
   esac

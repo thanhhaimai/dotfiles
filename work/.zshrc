@@ -17,11 +17,30 @@ source_relative_path() {
 source_relative_path "../common/.basic.zshrc"
 
 # ===================================================================
-# UBUNTU-SPECIFIC SETTINGS
+# WORK-SPECIFIC SETTINGS
 # ===================================================================
 
-# Ubuntu-specific aliases
 alias ll='ls -FAXhol --group-directories-first'
+alias b='bazel'
+compdef b=bazel
+
+_fzf_complete_bazel() {
+  if [[ $@ == "bazel build"* ]]; then
+    _fzf_complete --prompt="build> " "$@" < <(
+      bazel query --noshow_progress --keep_going '//... -//experimental/...'
+    )
+  elif [[ $@ == "bazel test"* ]]; then
+    _fzf_complete --prompt="test> " "$@" < <(
+      bazel query --noshow_progress --keep_going 'kind(".*_test rule", //... -//experimental/...)'
+    )
+  elif [[ $@ == "bazel run"* ]]; then
+    _fzf_complete --prompt="run> " "$@" < <(
+      bazel query --noshow_progress --keep_going 'kind(py_binary, //... -//experimental/...)'
+    )
+  else
+    eval "zle ${fzf_default_completion:-expand-or-complete}"
+  fi
+}
 
 # Make caps escape (only if X11 display is available)
 if [[ -n "${DISPLAY:-}" ]]; then
@@ -42,3 +61,7 @@ if [[ -o interactive ]] && [[ "$TERM_PROGRAM" != "cursor" ]] && [[ "$TERM_PROGRA
     # Load full configuration for interactive sessions
     source_relative_path "../common/.full.zshrc"
 fi
+
+# Set up the Google Cloud SDK
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+if [ -f "$HOME/workspace/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/workspace/google-cloud-sdk/path.zsh.inc"; fi
