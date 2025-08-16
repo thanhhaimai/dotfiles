@@ -46,33 +46,13 @@ When running LLM Agent with Terminal access, we also need to consider:
 **Recommendation for cross-platform compatibility:**
 
 - **Primary**: Use `.zshrc` (step 3 above), which will be loaded by all above use cases on both Mac and Ubuntu
-- **File organization**: The file can optionally be split into `.basic.zshrc` and `.full.zshrc`
-- **`.basic.zshrc`**: Should set up a fully functional shell meant for Agent and other non-interactive use cases.
+- **File organization**: The common config can be split into `.basic.zshrc` and `.full.zshrc`
+- **`.basic.zshrc`**: Should contain the minimum setup for a functional shell meant for Agent and other non-interactive usecases.
   It should setup `brew`, `PATH`, and other common settings to ensure the system works well.
-- **`.full.zshrc`**: Is loaded if it's not a shell initiated by `cursor` or other development environments.
+- **`.full.zshrc`**: Should contain the additional setup (like Oh My Zsh, p10k, and other UX settings).
   It includes all the settings meant to make interactive sessions more pleasant to use.
-  For example, p10k shell prompt, aliases, and UX settings.
-
-**Example gate in `.full.zshrc`:**
-
-```bash
-if [[ "$TERM_PROGRAM" == "vscode" || "$TERM_PROGRAM" == "cursor" ]]; then
-  return
-fi
-```
-
-## Implementation notes
-
-### PATH management
-
-- Set critical PATH entries in `.basic.zshrc`
-- Avoid setting PATH in `.zshenv` on Mac systems
-
-### Environment detection
-
-- Check `$TERM_PROGRAM` for development environments
-
-### Performance considerations
-
-- Keep `.basic.zshrc` lightweight for non-interactive use
-- Lazy-load heavy features in `.full.zshrc`
+  Heavy features should be lazy-loaded to reduce start up latency.
+- The main config (to be symlinked to `~/.zshrc`) is the platform specific config. For example `mac/.zshrc` and `ubuntu/.zshrc`
+- It will use `source_releative_path` to load `.basic.zshrc`,
+  then load platform specific config,
+  then load `.full.zshrc` if `$TERM_PROGRAM` is not `cursor` or `vscode.
