@@ -177,12 +177,6 @@ VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 # Bind Ctrl+Space to accept current suggestion
 bindkey '^ ' autosuggest-accept
 
-# Aliases for `ll`
-if [[ "$OSTYPE" == linux-gnu ]]; then  # Is this the Ubuntu system?
-    alias ll='ls -FAXhol --group-directories-first'
-else
-fi
-
 # Utilitties
 alias isodate='date +"%Y-%m-%dT%H:%M:%S%z"'
 alias isodate_utc='date -u +"%Y-%m-%dT%H:%M:%SZ"'
