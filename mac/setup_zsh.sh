@@ -21,7 +21,6 @@
 
   # Create symlinks for configuration files
   create_symlink "../common/.p10k.zsh" ~/.p10k.zsh
-  create_symlink ".zprofile" ~/.zprofile
 
   # Install oh-my-zsh if not already installed
   if [ ! -d "$HOME/.oh-my-zsh" ]; then

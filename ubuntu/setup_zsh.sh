@@ -20,7 +20,6 @@
   print_section "Setting up Zsh and Oh My Zsh"
 
   create_symlink "../common/.p10k.zsh" ~/.p10k.zsh
-  create_symlink ".zprofile" ~/.zprofile
 
   # Set zsh as default
   sudo apt update
