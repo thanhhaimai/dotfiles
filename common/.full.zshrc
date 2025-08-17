@@ -174,6 +174,11 @@ export EDITOR='vim'
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
+# Use nvim as the `man` viewer
+# See :h man
+export MANPAGER='nvim +Man!'
+
+
 # Bind Ctrl+Space to accept current suggestion
 bindkey '^ ' autosuggest-accept
 
