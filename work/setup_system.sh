@@ -19,11 +19,14 @@
   sudo apt -y update
   sudo apt -y full-upgrade
 
-  sudo apt -y install pavucontrol arandr build-essential ssh-askpass meld fail2ban
+  sudo apt -y install pavucontrol arandr build-essential meld fail2ban
 
   sudo apt -y autoremove
 
   # Set capslock another escape key
   dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
+
+  # https://help.ubuntu.com/community/UbuntuTime#Multiple_Boot_Systems_Time_Conflicts
+  timedatectl set-local-rtc 1
 
 } # protect against editing while executing
