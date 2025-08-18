@@ -3,7 +3,7 @@
 # ===================================================================
 
 # Load basic configuration first (essential for all use cases)
-source "~/dotfiles/common/.basic.zshrc"
+source "$HOME/dotfiles/common/.basic.zshrc"
 
 # Enable Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -14,7 +14,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Only load full config for interactive sessions (not for Agent/VS Code)
 if [[ -o interactive ]] && [[ "$TERM_PROGRAM" != "cursor" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-    source "~/dotfiles/common/.full.zshrc"
+    source "$HOME/dotfiles/common/.full.zshrc"
 fi
 
 # ===================================================================

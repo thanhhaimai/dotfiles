@@ -3,7 +3,7 @@
 # ===================================================================
 
 # Load basic configuration first (essential for all use cases)
-source "~/dotfiles/common/.basic.zshrc"
+source "$HOME/dotfiles/common/.basic.zshrc"
 
 # Enable Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -17,7 +17,7 @@ zstyle ':omz:plugins:ssh-agent' ssh-add-args --apple-load-keychain
 
 # Only load full config for interactive sessions (not for Agent/VS Code)
 if [[ -o interactive ]] && [[ "$TERM_PROGRAM" != "cursor" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-    source "~/dotfiles/common/.full.zshrc"
+    source "$HOME/dotfiles/common/.full.zshrc"
 fi
 
 # ===================================================================
@@ -33,4 +33,4 @@ fi
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+source $HOME/.orbstack/shell/init.zsh 2>/dev/null || :

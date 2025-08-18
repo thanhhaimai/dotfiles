@@ -11,5 +11,5 @@ export NODE_OPTIONS="--max-old-space-size=8192"
 # ===================================================================
 
 # Lazy load completions for nvm, kubectl, and gcloud
-source "~/dotfiles/common/lazy-nvm.sh"
-source "~/dotfiles/common/lazy-completions.sh"
+source "$HOME/dotfiles/common/lazy-nvm.sh"
+source "$HOME/dotfiles/common/lazy-completions.sh"
