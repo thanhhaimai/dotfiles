@@ -185,6 +185,25 @@ urldecode() {
     python3 -c "import urllib.parse; print(urllib.parse.unquote('$1'))"
 }
 
+# Decodes a 16-byte string with escape sequences into a standard UUID format.
+#
+# Example:
+#   decode_uuid $'\363d2\026\237xF\035\237\304\276\326\023\225\216P'
+#
+decode_uuid() {
+  if [ -z "$1" ]; then
+    echo "Usage: decode_uuid <encoded_string>"
+    return 1
+  fi
+
+  # Use ANSI-C quoting ($'...') to interpret the escape sequences
+  local hex_string
+  hex_string=$(printf "%s" "$1" | xxd -p -c 16)
+
+  # Insert hyphens to format as a UUID
+  sed 's/\(........\)\(....\)\(....\)\(....\)\(............\)/\1-\2-\3-\4-\5/' <<< "$hex_string"
+}
+
 # FZF settings
 FZF_COMPLETION_OPTS='--border --info=inline'
 FZF_COMPLETION_TRIGGER=''
