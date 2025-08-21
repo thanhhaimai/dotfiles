@@ -11,7 +11,7 @@ repos:
     rev: v0.11.0.1
     hooks:
       - id: shellcheck
-        exclude: '.*\.(zshrc|zprofile|p10k\.zsh)$'  # Exclude ZSH config files that use ZSH-specific syntax
+        exclude: '.*\.(zshrc|zshenv|zprofile|p10k\.zsh)$'  # Exclude ZSH config files that use ZSH-specific syntax
 
   - repo: local
     hooks:

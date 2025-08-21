@@ -54,11 +54,8 @@ _fzf_complete_bazel() {
 }
 
 # Set up the Google Cloud SDK
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-if [ -f "$HOME/workspace/google-cloud-sdk/path.zsh.inc" ]; then 
-    . "$HOME/workspace/google-cloud-sdk/path.zsh.inc"
-fi
+USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
-source $HOME/.orbstack/shell/init.zsh 2>/dev/null || :
+source $HOME/.orbstack/shell/init.zsh 2>/dev/null
