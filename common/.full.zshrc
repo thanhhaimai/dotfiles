@@ -15,7 +15,7 @@ ZLE_RPROMPT_INDENT=0
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -106,9 +106,6 @@ plugins=(
     # Prevent command execution on paste
     safe-paste
 
-    # Starts automatically ssh-agent to set up and load credentials
-    ssh-agent
-
     # Better Ctrl+R
     zsh-navigation-tools
 
@@ -128,12 +125,6 @@ plugins=(
     # Auto-update Oh My Zsh plugins
     autoupdate
 )
-
-# Make sure SSH agent doesn't output anything on startup
-zstyle ':omz:plugins:ssh-agent' quiet yes
-
-# Load SSH identities
-zstyle ':omz:plugins:ssh-agent' identities id_ed25519_gmail
 
 # Some functions, like _apt and _dpkg, are very slow. You can use a cache in
 # order to proxy the list of results (like the list of available debian
@@ -169,14 +160,14 @@ alias vim=nvim
 alias g="git"
 compdef g=git
 
-# VI mode settings
-export EDITOR='vim'
+# VI default settings
+EDITOR='vim'
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
 # Use nvim as the `man` viewer
 # See :h man
-export MANPAGER='nvim +Man!'
+MANPAGER='nvim +Man!'
 
 
 # Bind Ctrl+Space to accept current suggestion
@@ -195,8 +186,8 @@ urldecode() {
 }
 
 # FZF settings
-export FZF_COMPLETION_OPTS='--border --info=inline'
-export FZF_COMPLETION_TRIGGER=''
+FZF_COMPLETION_OPTS='--border --info=inline'
+FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
 
