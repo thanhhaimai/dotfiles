@@ -35,6 +35,13 @@ When running LLM Agent with Terminal access, we also need to consider:
 - Minimal PATH and environment setup
 - Avoiding heavy interactive features
 
+### Don't export unnecessary config in `.full.zshrc`
+
+`export SOME_CONFIG` will keep pollute the environments for the next shell running `.basic.zshrc`
+
+Don't `export` unless it's okay for a basic shell to pick up.
+And at that point, consider adding the config to `.basic.zshrc` directly.
+
 ### Recommendation
 
 **Use cases to support:**
