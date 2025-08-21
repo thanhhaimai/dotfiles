@@ -53,7 +53,30 @@ if [[ -n "${DISPLAY:-}" ]]; then
 fi
 
 # Set up the Google Cloud SDK
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-if [ -f "$HOME/workspace/google-cloud-sdk/path.zsh.inc" ]; then 
-    . "$HOME/workspace/google-cloud-sdk/path.zsh.inc"
-fi
+USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# -- added by nvm_setup_bash.sh --
+NVM_DIR="$HOME/.nvm"
+
+# -- added by 02_pyenv_setup_bash.sh --
+# which pyenv > /dev/null && eval "$(pyenv init -)"
+# which pyenv > /dev/null && eval "$(pyenv virtualenv-init - | grep -v 'export PATH' )"
+# -- added by kubectl_setup_bash.sh --
+# source <(kubectl completion zsh)
+
+# add Pulumi to the PATH
+path+=("$HOME/.pulumi/bin")
+# -- added by android_setup_ubuntu.sh --
+ANDROID_HOME="$HOME/.android"
+path=("$ANDROID_HOME/cmdline-tools/latest/bin" "$ANDROID_HOME/platform-tools" $path)
+# -- added by chrome_setup_ubuntu.sh --
+CHROME_HOME="$HOME/.chrome"
+path=("$CHROME_HOME/bin" $path)
+# -- added by flutter_setup_ubuntu.sh --
+FLUTTER_DIR="$HOME/.flutter"
+path=("$FLUTTER_DIR/flutter/bin" "$FLUTTER_DIR/bin" "$FLUTTER_DIR/bin/cache/dart-sdk/bin" "$HOME/.pub-cache/bin" $path)
+# -- added by dart_proto_setup.sh --
+PROTOC_HOME="$HOME/.protoc"
+path=("$PROTOC_HOME/bin" $path)
+# -- added by install_temporal_cli_linux.sh --
+path=("$HOME/.temporalio/bin" $path)

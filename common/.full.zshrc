@@ -14,6 +14,9 @@ ZLE_RPROMPT_INDENT=0
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Keep path, fpath, cdpath unique
+typeset -U PATH path fpath cdpath
+
 # Path to your oh-my-zsh installation.
 ZSH="$HOME/.oh-my-zsh"
 
@@ -152,6 +155,9 @@ zstyle ':completion:*:cd:*' ignore-parents parent pwd
 MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
 MAGIC_ENTER_OTHER_COMMAND='ll'
 
+# Lazy load -- should be right before source Oh My Zsh
+source "$HOME/dotfiles/common/lazy-load.sh"
+
 # Source Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -239,6 +245,3 @@ _fzf_comprun() {
       fzf --preview 'bat -n --color=always {}' "$@" ;;
   esac
 }
-
-# Use smart compinit (only rebuild cache once per day)
-setup_smart_compinit
