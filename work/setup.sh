@@ -16,7 +16,6 @@
 
   print_section "Starting Work Environment Setup"
   echo "This will configure your work environment with all necessary tools and settings."
-  echo ""
 
   ./setup_system.sh
   ./setup_ssh.sh

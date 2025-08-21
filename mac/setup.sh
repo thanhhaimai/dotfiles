@@ -16,7 +16,6 @@
 
   print_section "Starting Mac Setup"
   echo "This will configure your Mac with all necessary tools and settings."
-  echo ""
 
   ./setup_mac.sh
   ./setup_ssh.sh

@@ -16,7 +16,6 @@
 
   print_section "Starting Raspberry Pi Setup"
   echo "This will configure your Raspberry Pi with all necessary tools and settings."
-  echo ""
 
   ./setup_system.sh
   ./setup_git.sh

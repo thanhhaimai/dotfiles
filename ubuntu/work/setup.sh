@@ -12,11 +12,10 @@
 
   # Source common utilities
   # shellcheck source=/dev/null
-  source "../common/setup-utils.sh"
+  source "../../common/setup-utils.sh"
 
   print_section "Starting Ubuntu Setup"
   echo "This will configure your Ubuntu system with all necessary tools and settings."
-  echo ""
 
   ../setup_system.sh
   ../setup_ssh.sh
