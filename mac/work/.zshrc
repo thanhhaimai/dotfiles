@@ -12,13 +12,13 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Mac specific Zsh settings
 # ===================================================================
 
-# Use macOS keychain (must be set before Oh My Zsh is sourced in .full.zshrc)
-zstyle ':omz:plugins:ssh-agent' ssh-add-args --apple-load-keychain
-
 # Only load full config for interactive sessions (not for Agent/VS Code)
 if [[ -o interactive ]] && [[ "$TERM_PROGRAM" != "cursor" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
     source "$HOME/dotfiles/common/.full.zshrc"
 fi
+
+# Load SSH keys from keychain on login
+ssh-add --apple-load-keychain -q
 
 # ===================================================================
 # Mac specific settings
