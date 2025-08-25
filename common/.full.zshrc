@@ -152,7 +152,7 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
 # Empty <CR> will show short git status
-MAGIC_ENTER_GIT_COMMAND='ll && git status -bs'
+MAGIC_ENTER_GIT_COMMAND='ll && git status -bs && git branch -vv'
 MAGIC_ENTER_OTHER_COMMAND='ll'
 
 # Lazy load -- should be right before source Oh My Zsh
